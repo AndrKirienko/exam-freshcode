@@ -1,3 +1,8 @@
+const {
+  ROLE: { CUSTOMER, CREATOR },
+} = require('../constants');
+console.log('qqqqq = ', CUSTOMER, CREATOR);
+
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define(
     'Users',
@@ -35,7 +40,7 @@ module.exports = (sequelize, DataTypes) => {
         defaultValue: 'anon.png',
       },
       role: {
-        type: DataTypes.ENUM('customer', 'creator'),
+        type: DataTypes.ENUM(CUSTOMER, CREATOR),
         allowNull: false,
       },
       balance: {
@@ -62,25 +67,9 @@ module.exports = (sequelize, DataTypes) => {
   );
 
   User.associate = function (models) {
-    User.hasMany(models.Order, { foreignKey: 'user_id', targetKey: 'id' });
-  };
-
-  User.associate = function (models) {
-    User.hasMany(models.Participant, {
-      foreignKey: 'user_id',
-      targetKey: 'id',
-    });
-  };
-
-  User.associate = function (models) {
-    User.hasMany(models.Offer, { foreignKey: 'user_id', targetKey: 'id' });
-  };
-
-  User.associate = function (models) {
-    User.hasMany(models.RefreshToken, {
-      foreignKey: 'user_id',
-      targetKey: 'id',
-    });
+    User.hasMany(models.Offers, { foreignKey: 'userId' });
+    User.hasMany(models.Contests, { foreignKey: 'userId' });
+    User.hasMany(models.Ratings, { foreignKey: 'userId' });
   };
 
   return User;
