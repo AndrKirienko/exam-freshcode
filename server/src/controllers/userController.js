@@ -1,13 +1,21 @@
 const jwt = require('jsonwebtoken');
-const CONSTANTS = require('../constants');
-const bd = require('../models');
-const NotUniqueEmail = require('../errors/NotUniqueEmail');
 const moment = require('moment');
 const { v4: uuid } = require('uuid');
+const bd = require('../models');
+const NotUniqueEmail = require('../errors/NotUniqueEmail');
 const controller = require('../socketInit');
 const userQueries = require('./queries/userQueries');
 const bankQueries = require('./queries/bankQueries');
 const ratingQueries = require('./queries/ratingQueries');
+const CONSTANTS = require('../constants');
+
+const {
+  JWT_SECRET,
+  ACCESS_TOKEN_TIME,
+  SQUADHELP_BANK_NUMBER,
+  SQUADHELP_BANK_CVC,
+  SQUADHELP_BANK_EXPIRY,
+} = CONSTANTS;
 
 module.exports.login = async (req, res, next) => {
   try {
@@ -25,8 +33,8 @@ module.exports.login = async (req, res, next) => {
         email: foundUser.email,
         rating: foundUser.rating,
       },
-      CONSTANTS.JWT_SECRET,
-      { expiresIn: CONSTANTS.ACCESS_TOKEN_TIME }
+      JWT_SECRET,
+      { expiresIn: ACCESS_TOKEN_TIME }
     );
     await userQueries.updateUser({ accessToken }, foundUser.id);
     res.send({ token: accessToken });
@@ -51,8 +59,8 @@ module.exports.registration = async (req, res, next) => {
         email: newUser.email,
         rating: newUser.rating,
       },
-      CONSTANTS.JWT_SECRET,
-      { expiresIn: CONSTANTS.ACCESS_TOKEN_TIME }
+      JWT_SECRET,
+      { expiresIn: ACCESS_TOKEN_TIME }
     );
     await userQueries.updateUser({ accessToken }, newUser.id);
     res.send({ token: accessToken });
@@ -123,9 +131,6 @@ module.exports.payment = async (req, res, next) => {
     body: { cvc, expiry, price, number, contests },
     tokenData: { userId },
   } = req;
-
-  const { SQUADHELP_BANK_NUMBER, SQUADHELP_BANK_CVC, SQUADHELP_BANK_EXPIRY } =
-    CONSTANTS;
 
   let transaction;
   try {
@@ -222,11 +227,7 @@ module.exports.cashout = async (req, res, next) => {
           req.body.cvc
         }'
                     THEN "balance"+${req.body.sum}
-                WHEN "cardNumber"='${
-                  CONSTANTS.SQUADHELP_BANK_NUMBER
-                }' AND "expiry"='${
-          CONSTANTS.SQUADHELP_BANK_EXPIRY
-        }' AND "cvc"='${CONSTANTS.SQUADHELP_BANK_CVC}'
+                WHEN "cardNumber"='${SQUADHELP_BANK_NUMBER}' AND "expiry"='${SQUADHELP_BANK_EXPIRY}' AND "cvc"='${SQUADHELP_BANK_CVC}'
                     THEN "balance"-${req.body.sum}
                  END
                 `),
@@ -234,7 +235,7 @@ module.exports.cashout = async (req, res, next) => {
       {
         cardNumber: {
           [bd.Sequelize.Op.in]: [
-            CONSTANTS.SQUADHELP_BANK_NUMBER,
+            SQUADHELP_BANK_NUMBER,
             req.body.number.replace(/ /g, ''),
           ],
         },
