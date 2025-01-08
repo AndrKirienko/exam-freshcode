@@ -119,50 +119,58 @@ module.exports.changeMark = async (req, res, next) => {
 };
 
 module.exports.payment = async (req, res, next) => {
+  const {
+    body: { cvc, expiry, price, number, contests },
+    tokenData: { userId },
+  } = req;
+
+  const { SQUADHELP_BANK_NUMBER, SQUADHELP_BANK_CVC, SQUADHELP_BANK_EXPIRY } =
+    CONSTANTS;
+
   let transaction;
   try {
     transaction = await bd.sequelize.transaction();
     await bankQueries.updateBankBalance(
       {
         balance: bd.sequelize.literal(`
-                CASE
-            WHEN "cardNumber"='${req.body.number.replace(
-              / /g,
-              ''
-            )}' AND "cvc"='${req.body.cvc}' AND "expiry"='${req.body.expiry}'
-                THEN "balance"-${req.body.price}
-            WHEN "cardNumber"='${CONSTANTS.SQUADHELP_BANK_NUMBER}' AND "cvc"='${
-          CONSTANTS.SQUADHELP_BANK_CVC
-        }' AND "expiry"='${CONSTANTS.SQUADHELP_BANK_EXPIRY}'
-                THEN "balance"+${req.body.price} END
+            CASE
+            	WHEN "cardNumber"='${number.replace(/ /g, '')}'
+								AND "cvc"='${cvc}'
+								AND "expiry"='${expiry}'
+                	THEN "balance"-${price}
+            	WHEN "cardNumber"='${SQUADHELP_BANK_NUMBER}'
+								AND "cvc"='${SQUADHELP_BANK_CVC}'
+								AND "expiry"='${SQUADHELP_BANK_EXPIRY}'
+                	THEN "balance"+${price}
+							END
         `),
       },
       {
         cardNumber: {
           [bd.Sequelize.Op.in]: [
-            CONSTANTS.SQUADHELP_BANK_NUMBER,
-            req.body.number.replace(/ /g, ''),
+            SQUADHELP_BANK_NUMBER,
+            number.replace(/ /g, ''),
           ],
         },
       },
       transaction
     );
     const orderId = uuid();
-    req.body.contests.forEach((contest, index) => {
+    contests.forEach((contest, index) => {
       const prize =
-        index === req.body.contests.length - 1
-          ? Math.ceil(req.body.price / req.body.contests.length)
-          : Math.floor(req.body.price / req.body.contests.length);
+        index === contests.length - 1
+          ? Math.ceil(price / contests.length)
+          : Math.floor(price / contests.length);
       contest = Object.assign(contest, {
         status: index === 0 ? 'active' : 'pending',
-        userId: req.tokenData.userId,
+        userId,
         priority: index + 1,
         orderId,
         createdAt: moment().format('YYYY-MM-DD HH:mm'),
         prize,
       });
     });
-    await bd.Contests.bulkCreate(req.body.contests, transaction);
+    await bd.Contests.bulkCreate(contests, transaction);
     transaction.commit();
     res.send();
   } catch (err) {
