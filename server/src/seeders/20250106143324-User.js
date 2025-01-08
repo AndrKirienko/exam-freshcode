@@ -12,19 +12,19 @@ module.exports = {
       'Users',
       [
         {
-          firstName: 'buyer',
-          lastName: 'buyerov',
-          displayName: 'BUYER',
+          firstName: 'customer',
+          lastName: 'customerov',
+          displayName: 'CUSTOMER',
           password: bcrypt.hashSync('Q!werty123456', SALT_ROUNDS),
-          email: 'buyer@gmail.com',
+          email: 'customer@gmail.com',
           role: CUSTOMER,
         },
         {
-          firstName: 'creative',
-          lastName: 'creativov',
-          displayName: 'CREATIVE',
+          firstName: 'creator',
+          lastName: 'creatorov',
+          displayName: 'CREATOR',
           password: bcrypt.hashSync('Q!werty123456', SALT_ROUNDS),
-          email: 'creative@gmail.com',
+          email: 'creator@gmail.com',
           role: CREATOR,
         },
       ],
@@ -35,7 +35,11 @@ module.exports = {
   async down (queryInterface, Sequelize) {
     await queryInterface.bulkDelete(
       'Users',
-      { email: { [Sequelize.Op.or]: ['buyer@gmail.com', 'creative@gmail.com'] } },
+      {
+        email: {
+          [Sequelize.Op.or]: ['customer@gmail.com', 'creator@gmail.com'],
+        },
+      },
       {}
     );
   },
