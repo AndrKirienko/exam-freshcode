@@ -4,6 +4,10 @@ const RightsError = require('../errors/RightsError');
 const ServerError = require('../errors/ServerError');
 const CONSTANTS = require('../constants');
 
+const {
+  ROLE: { CUSTOMER, CREATOR },
+} = CONSTANTS;
+
 module.exports.parseBody = (req, res, next) => {
   req.body.contests = JSON.parse(req.body.contests);
   for (let i = 0; i < req.body.contests.length; i++) {
@@ -19,11 +23,11 @@ module.exports.parseBody = (req, res, next) => {
 module.exports.canGetContest = async (req, res, next) => {
   let result = null;
   try {
-    if (req.tokenData.role === CONSTANTS.CUSTOMER) {
+    if (req.tokenData.role === CUSTOMER) {
       result = await bd.Contests.findOne({
         where: { id: req.headers.contestid, userId: req.tokenData.userId },
       });
-    } else if (req.tokenData.role === CONSTANTS.CREATOR) {
+    } else if (req.tokenData.role === CREATOR) {
       result = await bd.Contests.findOne({
         where: {
           id: req.headers.contestid,
@@ -43,7 +47,7 @@ module.exports.canGetContest = async (req, res, next) => {
 };
 
 module.exports.onlyForCreative = (req, res, next) => {
-  if (req.tokenData.role === CONSTANTS.CUSTOMER) {
+  if (req.tokenData.role === CUSTOMER) {
     next(new RightsError());
   } else {
     next();
@@ -51,7 +55,7 @@ module.exports.onlyForCreative = (req, res, next) => {
 };
 
 module.exports.onlyForCustomer = (req, res, next) => {
-  if (req.tokenData.role === CONSTANTS.CREATOR) {
+  if (req.tokenData.role === CREATOR) {
     return next(new RightsError('this page only for customers'));
   } else {
     next();
@@ -59,7 +63,7 @@ module.exports.onlyForCustomer = (req, res, next) => {
 };
 
 module.exports.canSendOffer = async (req, res, next) => {
-  if (req.tokenData.role === CONSTANTS.CUSTOMER) {
+  if (req.tokenData.role === CUSTOMER) {
     return next(new RightsError());
   }
   try {
