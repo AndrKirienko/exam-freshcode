@@ -19,6 +19,13 @@ contestsRouter.post(
 );
 
 contestsRouter.get(
+  '/',
+  checkToken.checkToken,
+  basicMiddlewares.onlyForCreative,
+  contestController.getContests
+);
+
+contestsRouter.get(
   '/byCustomer',
   checkToken.checkToken,
   contestController.getCustomersContests
