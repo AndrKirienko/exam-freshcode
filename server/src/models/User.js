@@ -1,7 +1,6 @@
 const {
   ROLE: { CUSTOMER, CREATOR },
 } = require('../constants');
-console.log('qqqqq = ', CUSTOMER, CREATOR);
 
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define(

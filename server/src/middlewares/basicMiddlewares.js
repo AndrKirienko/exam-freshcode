@@ -6,6 +6,8 @@ const CONSTANTS = require('../constants');
 
 const {
   ROLE: { CUSTOMER, CREATOR },
+  CONTEST_STATUS_ACTIVE,
+  CONTEST_STATUS_FINISHED,
 } = CONSTANTS;
 
 module.exports.parseBody = (req, res, next) => {
@@ -21,20 +23,26 @@ module.exports.parseBody = (req, res, next) => {
 };
 
 module.exports.canGetContest = async (req, res, next) => {
+  const {
+    params: { id },
+    tokenData: { userId, role },
+  } = req;
+
   let result = null;
+
   try {
-    if (req.tokenData.role === CUSTOMER) {
+    if (role === CUSTOMER) {
       result = await bd.Contests.findOne({
-        where: { id: req.headers.contestid, userId: req.tokenData.userId },
+        where: { id, userId },
       });
-    } else if (req.tokenData.role === CREATOR) {
+    } else if (role === CREATOR) {
       result = await bd.Contests.findOne({
         where: {
-          id: req.headers.contestid,
+          id,
           status: {
             [bd.Sequelize.Op.or]: [
-              CONSTANTS.CONTEST_STATUS_ACTIVE,
-              CONSTANTS.CONTEST_STATUS_FINISHED,
+              CONTEST_STATUS_ACTIVE,
+              CONTEST_STATUS_FINISHED,
             ],
           },
         },
