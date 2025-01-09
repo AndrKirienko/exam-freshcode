@@ -36,13 +36,6 @@ router.get(
 );
 
 router.post(
-  '/updateContest',
-  checkToken.checkToken,
-  upload.updateContestFile,
-  contestController.updateContest
-);
-
-router.post(
   '/setNewOffer',
   checkToken.checkToken,
   upload.uploadLogoFiles,

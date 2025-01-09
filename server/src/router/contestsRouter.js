@@ -25,6 +25,13 @@ contestsRouter.get(
   contestController.getContests
 );
 
+contestsRouter.patch(
+  '/:id',
+  checkToken.checkToken,
+  upload.updateContestFile,
+  contestController.updateContest
+);
+
 contestsRouter.get(
   '/byCustomer',
   checkToken.checkToken,
