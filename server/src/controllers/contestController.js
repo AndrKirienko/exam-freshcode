@@ -4,6 +4,7 @@ const contestQueries = require('./queries/contestQueries');
 const userQueries = require('./queries/userQueries');
 const controller = require('../socketInit');
 const UtilFunctions = require('../utils/functions');
+const parseQuery = require('../utils/parseQuery');
 const CONSTANTS = require('../constants');
 
 const {
@@ -297,16 +298,19 @@ module.exports.getCustomersContests = (req, res, next) => {
 };
 
 module.exports.getContests = (req, res, next) => {
+  const parsedQuery = parseQuery(req.query);
+
   const {
-    query: {
-      typeIndex,
-      contestId,
-      industry,
-      awardSort,
-      ownEntries,
-      limit,
-      offset = 0,
-    },
+    typeIndex,
+    contestId,
+    industry,
+    awardSort,
+    ownEntries,
+    limit,
+    offset = 0,
+  } = parsedQuery;
+
+  const {
     tokenData: { userId },
   } = req;
 
