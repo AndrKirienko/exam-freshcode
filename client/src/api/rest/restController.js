@@ -23,8 +23,8 @@ export const addChatToCatalog = data => http.post('addNewChatToCatalog', data);
 export const createCatalog = data => http.post('catalogs', data);
 export const deleteCatalog = ({ catalogId }) =>
   http.delete(`catalogs/${catalogId}`);
-export const removeChatFromCatalog = data =>
-  http.post('removeChatFromCatalog', data);
+export const removeChatFromCatalog = ({ catalogId, chatId }) =>
+  http.delete(`catalogs/${catalogId}/${chatId}`);
 export const changeCatalogName = ({ catalogId, catalogName }) =>
   http.patch(`catalogs/${catalogId}`, { catalogName });
 

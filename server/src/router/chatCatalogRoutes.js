@@ -7,8 +7,13 @@ chatCatalogRoutes.get('/', chatController.getCatalogs);
 
 chatCatalogRoutes.post('/', chatController.createCatalog);
 
+chatCatalogRoutes.patch('/:catalogId', chatController.updateNameCatalog);
+
 chatCatalogRoutes.delete('/:catalogId', chatController.deleteCatalog);
 
-chatCatalogRoutes.patch('/:catalogId', chatController.updateNameCatalog);
+chatCatalogRoutes.delete(
+  '/:catalogId/:chatId',
+  chatController.removeChatFromCatalog
+);
 
 module.exports = chatCatalogRoutes;
