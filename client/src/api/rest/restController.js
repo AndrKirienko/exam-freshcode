@@ -20,7 +20,7 @@ export const dataForContest = data => http.post('dataForContest', data);
 
 export const getCatalogList = data => http.get('catalogs', data);
 export const addChatToCatalog = data => http.post('addNewChatToCatalog', data);
-export const createCatalog = data => http.post('createCatalog', data);
+export const createCatalog = data => http.post('catalogs', data);
 export const deleteCatalog = data => http.post('deleteCatalog', data);
 export const removeChatFromCatalog = data =>
   http.post('removeChatFromCatalog', data);
