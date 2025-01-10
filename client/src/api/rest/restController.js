@@ -21,19 +21,19 @@ export const dataForContest = data => http.post('dataForContest', data);
 export const getCatalogList = data => http.get('catalogs', data);
 export const addChatToCatalog = data => http.post('addNewChatToCatalog', data);
 export const createCatalog = data => http.post('catalogs', data);
-export const deleteCatalog = data => http.post('deleteCatalog', data);
+export const deleteCatalog = ({ catalogId }) =>
+  http.delete(`catalogs/${catalogId}`);
+
 export const removeChatFromCatalog = data =>
   http.post('removeChatFromCatalog', data);
 export const changeCatalogName = data => http.post('updateNameCatalog', data);
-
-
 
 export const setNewOffer = data => http.post('setNewOffer', data);
 export const setOfferStatus = data => http.post('setOfferStatus', data);
 
 export const downloadContestFile = data =>
-	http.get(`downloadFile/${data.fileName}`);
-	
+  http.get(`downloadFile/${data.fileName}`);
+
 export const changeMark = data => http.post('changeMark', data);
 
 export const getPreviewChat = () => http.post('getPreview');

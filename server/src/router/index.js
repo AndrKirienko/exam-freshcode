@@ -74,6 +74,4 @@ router.post('/addNewChatToCatalog', chatController.addNewChatToCatalog);
 
 router.post('/removeChatFromCatalog', chatController.removeChatFromCatalog);
 
-router.post('/deleteCatalog', chatController.deleteCatalog);
-
 module.exports = router;
