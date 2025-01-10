@@ -9,6 +9,7 @@ const validators = require('../middlewares/validators');
 const chatController = require('../controllers/chatController');
 const upload = require('../utils/fileUpload');
 const contestsRouter = require('./contestsRouter');
+const chatCatalogRoutes = require('./chatCatalogRoutes');
 
 router.post(
   '/registration',
@@ -24,6 +25,7 @@ router.post('/getUser', checkToken.checkAuth);
 router.use(checkToken.checkToken);
 
 router.use('/contests', contestsRouter);
+router.use('/catalogs', chatCatalogRoutes);
 
 router.post('/dataForContest', contestController.dataForContest);
 
@@ -76,6 +78,6 @@ router.post('/removeChatFromCatalog', chatController.removeChatFromCatalog);
 
 router.post('/deleteCatalog', chatController.deleteCatalog);
 
-router.post('/getCatalogs', chatController.getCatalogs);
+//router.post('/getCatalogs', chatController.getCatalogs);
 
 module.exports = router;
