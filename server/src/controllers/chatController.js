@@ -241,13 +241,16 @@ module.exports.createCatalog = async (req, res, next) => {
 };
 
 module.exports.updateNameCatalog = async (req, res, next) => {
+  const {
+    params: { catalogId: _id },
+    body: { catalogName },
+    tokenData: { userId },
+  } = req;
+
   try {
     const catalog = await Catalog.findOneAndUpdate(
-      {
-        _id: req.body.catalogId,
-        userId: req.tokenData.userId,
-      },
-      { catalogName: req.body.catalogName },
+      { _id, userId },
+      { catalogName },
       { new: true }
     );
     res.send(catalog);
