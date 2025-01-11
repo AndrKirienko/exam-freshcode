@@ -14,7 +14,7 @@ chatCatalogRoutes.patch('/:catalogId', chatController.updateNameCatalog);
 chatCatalogRoutes.delete('/:catalogId', chatController.deleteCatalog);
 
 chatCatalogRoutes.delete(
-  '/:catalogId/:chatId',
+  '/chats/:catalogId/:chatId',
   chatController.removeChatFromCatalog
 );
 
