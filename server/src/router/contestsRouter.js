@@ -1,25 +1,20 @@
 const { Router } = require('express');
-const basicMiddlewares = require('../middlewares/basicMiddlewares');
+const { basic, validators } = require('../middlewares');
 const upload = require('../utils/fileUpload');
-const validators = require('../middlewares/validators');
 const { contestController, userController } = require('../controllers');
 
 const contestsRouter = Router();
 
 contestsRouter.post(
   '/',
-  basicMiddlewares.onlyForCustomer,
+  basic.onlyForCustomer,
   upload.uploadContestFiles,
-  basicMiddlewares.parseBody,
+  basic.parseBody,
   validators.validateContestCreation,
   userController.payment
 );
 
-contestsRouter.get(
-  '/',
-  basicMiddlewares.onlyForCreative,
-  contestController.getContests
-);
+contestsRouter.get('/', basic.onlyForCreative, contestController.getContests);
 
 contestsRouter.get('/byCustomer', contestController.getCustomersContests);
 
@@ -31,7 +26,7 @@ contestsRouter.patch(
 
 contestsRouter.get(
   '/:id',
-  basicMiddlewares.canGetContest,
+  basic.canGetContest,
   contestController.getContestById
 );
 

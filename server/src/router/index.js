@@ -1,9 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const basicMiddlewares = require('../middlewares/basicMiddlewares');
-const hashPass = require('../middlewares/hashPassMiddle');
-const checkToken = require('../middlewares/checkToken');
-const validators = require('../middlewares/validators');
+const { basic, checkToken, hashPass, validators } = require('../middlewares');
 const {
   chatController,
   contestController,
@@ -36,29 +33,21 @@ router.get('/downloadFile/:fileName', contestController.downloadFile);
 router.post(
   '/setNewOffer',
   upload.uploadLogoFiles,
-  basicMiddlewares.canSendOffer,
+  basic.canSendOffer,
   contestController.setNewOffer
 );
 
 router.post(
   '/setOfferStatus',
-  basicMiddlewares.onlyForCustomerWhoCreateContest,
+  basic.onlyForCustomerWhoCreateContest,
   contestController.setOfferStatus
 );
 
-router.post(
-  '/changeMark',
-  basicMiddlewares.onlyForCustomer,
-  userController.changeMark
-);
+router.post('/changeMark', basic.onlyForCustomer, userController.changeMark);
 
 router.post('/updateUser', upload.uploadAvatar, userController.updateUser);
 
-router.post(
-  '/cashout',
-  basicMiddlewares.onlyForCreative,
-  userController.cashout
-);
+router.post('/cashout', basic.onlyForCreative, userController.cashout);
 
 router.post('/newMessage', chatController.addMessage);
 
