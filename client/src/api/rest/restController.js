@@ -19,7 +19,7 @@ export const payMent = data => http.post('contests', data.formData);
 export const dataForContest = data => http.post('dataForContest', data);
 
 export const getCatalogList = data => http.get('catalogs', data);
-export const addChatToCatalog = data => http.post('addNewChatToCatalog', data);
+export const addChatToCatalog = data => http.post('catalogs/chats', data);
 export const createCatalog = data => http.post('catalogs', data);
 export const deleteCatalog = ({ catalogId }) =>
   http.delete(`catalogs/${catalogId}`);
