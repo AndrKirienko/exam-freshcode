@@ -1,14 +1,14 @@
 const express = require('express');
 const router = express.Router();
-const basicMiddlewares = require('../middlewares/basicMiddlewares');
-const hashPass = require('../middlewares/hashPassMiddle');
-const userController = require('../controllers/userController');
-const contestController = require('../controllers/contestController');
-const checkToken = require('../middlewares/checkToken');
-const validators = require('../middlewares/validators');
-const chatController = require('../controllers/chatController');
+const { basic, checkToken, hashPass, validators } = require('../middlewares');
+const {
+  chatController,
+  contestController,
+  userController,
+} = require('../controllers');
 const upload = require('../utils/fileUpload');
 const contestsRouter = require('./contestsRouter');
+const chatCatalogRoutes = require('./chatCatalogRoutes');
 
 router.post(
   '/registration',
@@ -24,6 +24,7 @@ router.post('/getUser', checkToken.checkAuth);
 router.use(checkToken.checkToken);
 
 router.use('/contests', contestsRouter);
+router.use('/catalogs', chatCatalogRoutes);
 
 router.post('/dataForContest', contestController.dataForContest);
 
@@ -32,29 +33,21 @@ router.get('/downloadFile/:fileName', contestController.downloadFile);
 router.post(
   '/setNewOffer',
   upload.uploadLogoFiles,
-  basicMiddlewares.canSendOffer,
+  basic.canSendOffer,
   contestController.setNewOffer
 );
 
 router.post(
   '/setOfferStatus',
-  basicMiddlewares.onlyForCustomerWhoCreateContest,
+  basic.onlyForCustomerWhoCreateContest,
   contestController.setOfferStatus
 );
 
-router.post(
-  '/changeMark',
-  basicMiddlewares.onlyForCustomer,
-  userController.changeMark
-);
+router.post('/changeMark', basic.onlyForCustomer, userController.changeMark);
 
 router.post('/updateUser', upload.uploadAvatar, userController.updateUser);
 
-router.post(
-  '/cashout',
-  basicMiddlewares.onlyForCreative,
-  userController.cashout
-);
+router.post('/cashout', basic.onlyForCreative, userController.cashout);
 
 router.post('/newMessage', chatController.addMessage);
 
@@ -65,17 +58,5 @@ router.post('/getPreview', chatController.getPreview);
 router.post('/blackList', chatController.blackList);
 
 router.post('/favorite', chatController.favoriteChat);
-
-router.post('/createCatalog', chatController.createCatalog);
-
-router.post('/updateNameCatalog', chatController.updateNameCatalog);
-
-router.post('/addNewChatToCatalog', chatController.addNewChatToCatalog);
-
-router.post('/removeChatFromCatalog', chatController.removeChatFromCatalog);
-
-router.post('/deleteCatalog', chatController.deleteCatalog);
-
-router.post('/getCatalogs', chatController.getCatalogs);
 
 module.exports = router;

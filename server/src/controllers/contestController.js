@@ -1,3 +1,4 @@
+const { parse } = require('query-string');
 const db = require('../models');
 const ServerError = require('../errors/ServerError');
 const contestQueries = require('./queries/contestQueries');
@@ -297,16 +298,19 @@ module.exports.getCustomersContests = (req, res, next) => {
 };
 
 module.exports.getContests = (req, res, next) => {
+  const parsedQuery = parse(req.url.slice(2), { parseBooleans: true });
+
   const {
-    query: {
-      typeIndex,
-      contestId,
-      industry,
-      awardSort,
-      ownEntries,
-      limit,
-      offset = 0,
-    },
+    typeIndex,
+    contestId,
+    industry,
+    awardSort,
+    ownEntries,
+    limit,
+    offset = 0,
+  } = parsedQuery;
+
+  const {
     tokenData: { userId },
   } = req;
 
