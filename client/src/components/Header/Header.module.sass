@@ -63,6 +63,7 @@
 							width: 200px
 
 					li
+						cursor: pointer
 						display: flex
 						align-items: center
 						justify-content: flex-start
@@ -71,8 +72,9 @@
 							width: 100%
 							padding: 0 15px
 						&:hover
-							cursor: pointer
-							color: #f27e51
+							span
+								display: block
+								color: #f27e51
 
 							ul
 								display: block
@@ -94,17 +96,20 @@
 							li
 								box-sizing: border-box
 								width: 100%
-								padding: 10px 15px
 								display: flex
 								justify-content: flex-start
+								display: block
 
 								&:hover
+									color: #f27e51
 									background: #f9fafb
 
 								a
+									padding: 10px 15px
 									font-size: inherit
 									text-decoration: none
 									color: #333
+									display: block
 									cursor: pointer
 
 									&:hover
@@ -251,4 +256,3 @@
 
 .menuList
 	&:hover
-		
