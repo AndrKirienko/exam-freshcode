@@ -70,10 +70,9 @@
 						@media(max-width: 700px)
 							width: 100%
 							padding: 0 15px
-
 						&:hover
-							span
-								color: #f27e51
+							cursor: pointer
+							color: #f27e51
 
 							ul
 								display: block
@@ -92,12 +91,6 @@
 							width: 160px
 							display: none
 
-							.last
-								width: 100%
-								padding-top: 8px
-								box-sizing: border-box
-								border-top: 1px solid aquamarine
-
 							li
 								box-sizing: border-box
 								width: 100%
@@ -109,9 +102,10 @@
 									background: #f9fafb
 
 								a
-									font-size: 12px
+									font-size: inherit
 									text-decoration: none
 									color: #333
+									cursor: pointer
 
 									&:hover
 										color: #f27e51
@@ -254,3 +248,7 @@
 			letter-spacing: 0.3px
 			color: lightyellow
 			text-decoration: none
+
+.menuList
+	&:hover
+		
