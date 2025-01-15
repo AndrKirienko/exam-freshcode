@@ -8,10 +8,6 @@ import { getUser } from '../../store/slices/userSlice';
 import withRouter from '../../hocs/withRouter';
 import Logo from '../Logo';
 
-const {
-  CONTACTS: { TEL },
-} = CONSTANTS;
-
 class Header extends React.Component {
   componentDidMount () {
     if (!this.props.data) {
@@ -114,6 +110,7 @@ class Header extends React.Component {
         </div>
         <div className={styles.loginSignnUpHeaders}>
 <<<<<<< HEAD
+<<<<<<< HEAD
           <a href={`tel: ${TEL}`}>
             <div className={styles.numberContainer}>
               <img
@@ -124,11 +121,16 @@ class Header extends React.Component {
             </div>
           </a>
 =======
+=======
+>>>>>>> parent of 4b00fe5 (Fix tell)
           <div className={styles.numberContainer}>
             <img src={`${CONSTANTS.STATIC_IMAGES_PATH}phone.png`} alt='phone' />
             <span>(877)&nbsp;355-3585</span>
           </div>
+<<<<<<< HEAD
 >>>>>>> parent of 9323a9d (Refactor fix tel)
+=======
+>>>>>>> parent of 4b00fe5 (Fix tell)
           <div className={styles.userButtonsContainer}>
             {this.renderLoginButtons()}
           </div>
