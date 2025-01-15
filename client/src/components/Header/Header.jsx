@@ -113,6 +113,7 @@ class Header extends React.Component {
           <a href='http://www.google.com'>Read Announcement</a>
         </div>
         <div className={styles.loginSignnUpHeaders}>
+<<<<<<< HEAD
           <a href={`tel: ${TEL}`}>
             <div className={styles.numberContainer}>
               <img
@@ -122,6 +123,12 @@ class Header extends React.Component {
               <span>{TEL}</span>
             </div>
           </a>
+=======
+          <div className={styles.numberContainer}>
+            <img src={`${CONSTANTS.STATIC_IMAGES_PATH}phone.png`} alt='phone' />
+            <span>(877)&nbsp;355-3585</span>
+          </div>
+>>>>>>> parent of 9323a9d (Refactor fix tel)
           <div className={styles.userButtonsContainer}>
             {this.renderLoginButtons()}
           </div>
