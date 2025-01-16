@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
 import DialogListContainer from '../../DialogComponents/DialogListContainer/DialogListContainer';
@@ -18,7 +18,7 @@ import CatalogCreation from '../../CatalogComponents/CatalogCreation/CatalogCrea
 import CatalogListHeader from '../../CatalogComponents/CatalogListHeader/CatalogListHeader';
 import ChatError from '../../../ChatError/ChatError';
 
-class Chat extends React.Component {
+class Chat extends Component {
   componentDidMount () {
     chatController.subscribeChat(this.props.userStore.data.id);
     this.props.getPreviewChat();
@@ -92,12 +92,8 @@ class Chat extends React.Component {
   };
 
   render () {
-    const {
-      isExpanded,
-      isShow,
-      isShowCatalogCreation,
-      error,
-    } = this.props.chatStore;
+    const { isExpanded, isShow, isShowCatalogCreation, error } =
+      this.props.chatStore;
     const { id } = this.props.userStore.data;
     const { changeShow, getPreviewChat } = this.props;
     return (

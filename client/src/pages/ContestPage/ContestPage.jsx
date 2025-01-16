@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
 import isEqual from 'lodash/isEqual';
@@ -25,7 +25,7 @@ import TryAgain from '../../components/TryAgain/TryAgain';
 import 'react-18-image-lightbox/style.css';
 import Error from '../../components/Error/Error';
 
-class ContestPage extends React.Component {
+class ContestPage extends Component {
   componentWillUnmount () {
     this.props.changeEditContest(false);
   }

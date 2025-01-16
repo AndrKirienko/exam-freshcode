@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Field, Form, Formik } from 'formik';
 import { checkAuth, clearAuth } from '../../store/slices/authSlice';
@@ -8,7 +8,7 @@ import Schems from '../../utils/validators/validationSchems';
 import Error from '../Error/Error';
 import CONSTANTS from '../../constants';
 
-class LoginForm extends React.Component {
+class LoginForm extends Component {
   componentWillUnmount () {
     this.props.authClear();
   }

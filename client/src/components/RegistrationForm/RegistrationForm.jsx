@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Field, Form, Formik } from 'formik';
 import Error from '../Error/Error';
@@ -10,7 +10,7 @@ import AgreeTermOfServiceInput from '../AgreeTermOfServiceInput/AgreeTermOfServi
 import CONSTANTS from '../../constants';
 import Schems from '../../utils/validators/validationSchems';
 
-class RegistrationForm extends React.Component {
+class RegistrationForm extends Component {
   componentWillUnmount () {
     this.props.authClear();
   }

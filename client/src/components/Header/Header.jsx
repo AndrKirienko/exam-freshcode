@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styles from './Header.module.sass';
@@ -14,7 +14,7 @@ const {
   CONTACTS: { TEL },
 } = CONSTANTS;
 
-class Header extends React.Component {
+class Header extends Component {
   componentDidMount () {
     if (!this.props.data) {
       this.props.getUser();

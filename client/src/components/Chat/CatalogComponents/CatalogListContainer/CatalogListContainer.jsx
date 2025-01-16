@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
   getCatalogList,
@@ -7,7 +7,7 @@ import {
 import CatalogList from '../CatalogList/CatalogList';
 import DialogList from '../../DialogComponents/DialogList/DialogList';
 
-class CatalogListContainer extends React.Component {
+class CatalogListContainer extends Component {
   componentDidMount () {
     this.props.getCatalogList();
   }

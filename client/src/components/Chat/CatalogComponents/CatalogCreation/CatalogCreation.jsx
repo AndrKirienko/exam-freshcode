@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
 import CONSTANTS from '../../../../constants';
@@ -11,7 +11,7 @@ import styles from './CatalogCreation.module.sass';
 import AddToCatalog from '../AddToCatalog/AddToCatalog';
 import CreateCatalog from '../CreateCatalog/CreateCatalog';
 
-class CatalogCreation extends React.Component {
+class CatalogCreation extends Component {
   componentDidMount () {
     this.props.getCatalogList();
   }
@@ -23,10 +23,8 @@ class CatalogCreation extends React.Component {
       changeShowAddChatToCatalogMenu,
       isFetching,
     } = this.props;
-    const {
-      ADD_CHAT_TO_OLD_CATALOG,
-      CREATE_NEW_CATALOG_AND_ADD_CHAT,
-    } = CONSTANTS;
+    const { ADD_CHAT_TO_OLD_CATALOG, CREATE_NEW_CATALOG_AND_ADD_CHAT } =
+      CONSTANTS;
     return (
       <>
         {!isFetching && (

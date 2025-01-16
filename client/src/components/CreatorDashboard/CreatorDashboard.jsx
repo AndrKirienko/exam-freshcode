@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import queryString from 'query-string';
 import classNames from 'classnames';
@@ -27,7 +27,7 @@ const types = [
   'name,logo',
 ];
 
-class CreatorDashboard extends React.Component {
+class CreatorDashboard extends Component {
   renderSelectType = () => {
     const array = [];
     const { creatorFilter } = this.props;
