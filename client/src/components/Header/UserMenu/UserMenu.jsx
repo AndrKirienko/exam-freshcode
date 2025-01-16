@@ -22,7 +22,7 @@ class UserMenu extends Component {
     return userMenu.menuItems.map((item, index) => {
       if (item.type === 'link') {
         return (
-          <li key={index} className={styles.menuItem}>
+          <li key={index}>
             <Link to={item.to}>
               <span className={styles.menuText}>{item.text}</span>
             </Link>
@@ -31,7 +31,7 @@ class UserMenu extends Component {
       }
       if (item.type === 'action') {
         return (
-          <li key={index} className={styles.menuItem}>
+          <li key={index}>
             <span
               className={styles.logOut}
               onClick={() => this.handleAction(item.function)}
