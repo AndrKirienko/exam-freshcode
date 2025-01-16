@@ -1,0 +1,36 @@
+.userInfo
+	display: flex
+	color: #718888
+	justify-content: center
+	align-items: center
+	padding: 10px 15px
+	border-right: 1px solid #ebebeb
+	cursor: pointer
+
+	&:hover
+		color: #f27e51
+		.userMenu
+			display: block
+			z-index: 1
+			position: absolute
+			top: 70px
+
+.userMenu
+	display: none
+
+.userAvatar, .menuIcon
+	width: 20px
+	height: 20px
+	border-radius: 10px
+
+.emailIcon
+	padding: 0 15px
+	border-right: 1px solid #ebebeb
+
+.userName
+	padding: 0
+	margin-left: 5px
+	border: none
+	color: inherit
+	font-weight: 400
+	font-size: 16px

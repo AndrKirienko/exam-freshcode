@@ -3,12 +3,12 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styles from './Header.module.sass';
 import CONSTANTS from '../../constants';
-import { clearUserStore } from '../../store/slices/userSlice';
-import { getUser } from '../../store/slices/userSlice';
+import { clearUserStore, getUser } from '../../store/slices/userSlice';
 import withRouter from '../../hocs/withRouter';
 import Logo from '../Logo';
-import userMenu from './../../data/menus/userMenu.json';
 import MainMenu from './MainMenu/MainMenu';
+
+import RenderLoginButtons from './UserMenu/RenderLoginButtons/RenderLoginButtons';
 
 const {
   CONTACTS: { TEL },
@@ -21,90 +21,8 @@ class Header extends Component {
     }
   }
 
-  logOut = () => {
-    localStorage.clear();
-    this.props.clearUserStore();
-    this.props.navigate('/login', { replace: true });
-  };
-
   startContests = () => {
     this.props.navigate('/startContest');
-  };
-
-  handleAction = action => {
-    if (typeof this[action] === 'function') {
-      this[action]();
-    } else {
-      console.error(`Function "${action}" is not defined.`);
-    }
-  };
-
-  mapUserMenu = () => {
-    return userMenu.menuItems.map((item, index) => {
-      if (item.type === 'link') {
-        return (
-          <li key={index}>
-            <Link to={item.to} style={{ textDecoration: 'none' }}>
-              <span>{item.text}</span>
-            </Link>
-          </li>
-        );
-      }
-      if (item.type === 'action') {
-        return (
-          <li key={index}>
-            <span
-              className={styles.logOut}
-              onClick={() => this.handleAction(item.function)}
-              style={{ cursor: 'pointer' }}
-            >
-              {item.text}
-            </span>
-          </li>
-        );
-      }
-      return null;
-    });
-  };
-
-  renderLoginButtons = () => {
-    if (this.props.data) {
-      return (
-        <>
-          <div className={styles.userInfo}>
-            <img
-              src={
-                this.props.data.avatar === 'anon.png'
-                  ? CONSTANTS.ANONYM_IMAGE_PATH
-                  : `${CONSTANTS.publicURL}${this.props.data.avatar}`
-              }
-              alt='user'
-            />
-            <span>{`Hi, ${this.props.data.displayName}`}</span>
-            <img
-              src={`${CONSTANTS.STATIC_IMAGES_PATH}menu-down.png`}
-              alt='menu'
-            />
-            <ul>{this.mapUserMenu()}</ul>
-          </div>
-          <img
-            src={`${CONSTANTS.STATIC_IMAGES_PATH}email.png`}
-            className={styles.emailIcon}
-            alt='email'
-          />
-        </>
-      );
-    }
-    return (
-      <>
-        <Link to='/login' style={{ textDecoration: 'none' }}>
-          <span className={styles.btn}>LOGIN</span>
-        </Link>
-        <Link to='/registration' style={{ textDecoration: 'none' }}>
-          <span className={styles.btn}>SIGN UP</span>
-        </Link>
-      </>
-    );
   };
 
   render () {
@@ -126,7 +44,12 @@ class Header extends Component {
             <span>{TEL}</span>
           </a>
           <div className={styles.userButtonsContainer}>
-            {this.renderLoginButtons()}
+            <RenderLoginButtons
+              localStorage={localStorage}
+              data={this.props.data}
+              clearUserStore={this.props.clearUserStore}
+              navigate={this.props.navigate}
+            />
           </div>
         </div>
         <div className={styles.navContainer}>
