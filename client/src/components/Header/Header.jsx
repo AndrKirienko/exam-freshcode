@@ -7,7 +7,8 @@ import { clearUserStore } from '../../store/slices/userSlice';
 import { getUser } from '../../store/slices/userSlice';
 import withRouter from '../../hocs/withRouter';
 import Logo from '../Logo';
-import menuContents from './../../data/menus/mainMenu.json';
+import mainMenu from './../../data/menus/mainMenu.json';
+import userMenu from './../../data/menus/userMenu.json';
 
 const {
   CONTACTS: { TEL },
@@ -30,11 +31,11 @@ class Header extends React.Component {
     this.props.navigate('/startContest');
   };
 
-  mapMenuContents = () => {
+  mapMainMenu = () => {
     return (
       <>
         <ul>
-          {menuContents.menu.map((menuSection, index) => (
+          {mainMenu.menu.map((menuSection, index) => (
             <li key={index} className={styles.menuList}>
               <span>{menuSection.title}</span>
               <img
@@ -55,6 +56,42 @@ class Header extends React.Component {
     );
   };
 
+  handleAction = action => {
+    if (typeof this[action] === 'function') {
+      this[action]();
+    } else {
+      console.error(`Function "${action}" is not defined.`);
+    }
+  };
+
+  mapUserMenu = () => {
+    return userMenu.menuItems.map((item, index) => {
+      if (item.type === 'link') {
+        return (
+          <li key={index}>
+            <Link to={item.to} style={{ textDecoration: 'none' }}>
+              <span>{item.text}</span>
+            </Link>
+          </li>
+        );
+      }
+      if (item.type === 'action') {
+        return (
+          <li key={index}>
+            <span
+              className={styles.logOut}
+              onClick={() => this.handleAction(item.function)}
+              style={{ cursor: 'pointer' }}
+            >
+              {item.text}
+            </span>
+          </li>
+        );
+      }
+      return null;
+    });
+  };
+
   renderLoginButtons = () => {
     if (this.props.data) {
       return (
@@ -73,39 +110,7 @@ class Header extends React.Component {
               src={`${CONSTANTS.STATIC_IMAGES_PATH}menu-down.png`}
               alt='menu'
             />
-            <ul>
-              <li>
-                <Link to='/dashboard' style={{ textDecoration: 'none' }}>
-                  <span>View Dashboard</span>
-                </Link>
-              </li>
-              <li>
-                <Link to='/account' style={{ textDecoration: 'none' }}>
-                  <span>My Account</span>
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to='http:/www.google.com'
-                  style={{ textDecoration: 'none' }}
-                >
-                  <span>Messages</span>
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to='http:/www.google.com'
-                  style={{ textDecoration: 'none' }}
-                >
-                  <span>Affiliate Dashboard</span>
-                </Link>
-              </li>
-              <li>
-                <span className={styles.logOut} onClick={this.logOut}>
-                  Logout
-                </span>
-              </li>
-            </ul>
+            <ul>{this.mapUserMenu()}</ul>
           </div>
           <img
             src={`${CONSTANTS.STATIC_IMAGES_PATH}email.png`}
@@ -152,9 +157,7 @@ class Header extends React.Component {
         <div className={styles.navContainer}>
           <Logo className={styles.logo} alt='blue_logo'></Logo>
           <div className={styles.leftNav}>
-            <div className={styles.nav}>
-              {this.mapMenuContents(menuContents)}
-            </div>
+            <div className={styles.nav}>{this.mapMainMenu()}</div>
             {this.props.data && this.props.data.role !== CONSTANTS.CREATOR && (
               <div
                 className={styles.startContestBtn}
