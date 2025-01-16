@@ -7,8 +7,8 @@ import { clearUserStore } from '../../store/slices/userSlice';
 import { getUser } from '../../store/slices/userSlice';
 import withRouter from '../../hocs/withRouter';
 import Logo from '../Logo';
-import mainMenu from './../../data/menus/mainMenu.json';
 import userMenu from './../../data/menus/userMenu.json';
+import MainMenu from './MainMenu/MainMenu';
 
 const {
   CONTACTS: { TEL },
@@ -29,31 +29,6 @@ class Header extends React.Component {
 
   startContests = () => {
     this.props.navigate('/startContest');
-  };
-
-  mapMainMenu = () => {
-    return (
-      <>
-        <ul>
-          {mainMenu.menu.map((menuSection, index) => (
-            <li key={index} className={styles.menuList}>
-              <span>{menuSection.title}</span>
-              <img
-                src={`${CONSTANTS.STATIC_IMAGES_PATH}menu-down.png`}
-                alt='menu'
-              />
-              <ul>
-                {menuSection.items.map((item, idx) => (
-                  <li key={idx}>
-                    <a href={item.link}>{item.name}</a>
-                  </li>
-                ))}
-              </ul>
-            </li>
-          ))}
-        </ul>
-      </>
-    );
   };
 
   handleAction = action => {
@@ -157,7 +132,7 @@ class Header extends React.Component {
         <div className={styles.navContainer}>
           <Logo className={styles.logo} alt='blue_logo'></Logo>
           <div className={styles.leftNav}>
-            <div className={styles.nav}>{this.mapMainMenu()}</div>
+            <MainMenu />
             {this.props.data && this.props.data.role !== CONSTANTS.CREATOR && (
               <div
                 className={styles.startContestBtn}
