@@ -7,7 +7,7 @@ import { clearUserStore } from '../../store/slices/userSlice';
 import { getUser } from '../../store/slices/userSlice';
 import withRouter from '../../hocs/withRouter';
 import Logo from '../Logo';
-import menuContents from './menu.json';
+import menuContents from './../../data/menus/mainMenu.json';
 
 const {
   CONTACTS: { TEL },
