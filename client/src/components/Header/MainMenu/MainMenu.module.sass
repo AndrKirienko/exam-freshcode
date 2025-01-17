@@ -1,3 +1,5 @@
+@import './../../../constants.module'
+
 .nav
 	display: flex
 
@@ -33,7 +35,7 @@
 	&:hover
 		.menuSectionTitle
 			display: block
-			color: #f27e51
+			color: $menu-hover-color
 
 		.submenuList
 			display: block
@@ -61,22 +63,22 @@
 	display: block
 
 	&:hover
-		color: #f27e51
-		background: #f9fafb
+		color: $menu-hover-color
+		background: $submenu-bg-color
 
 	.menuLink
 		padding: 10px 15px
 		font-size: inherit
 		text-decoration: none
-		color: #333
+		color: $primary-color-main-menu
 		display: block
 		cursor: pointer
 
 		&:hover
-			color: #f27e51
+			color: $menu-hover-color
 
 .menuSectionTitle
-	color: #495d8b
+	color: $primary-color-main-menu
 	font-size: 15px
 	font-weight: 300
 	padding: 15px 0

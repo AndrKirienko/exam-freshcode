@@ -1,3 +1,5 @@
+@import	'./../../../constants.module'
+
 .userMenuList
 	border: 1px solid #eee
 	list-style: none
@@ -5,20 +7,20 @@
 	list-style: none
 	background: white
 	width: 167px
-	color: #718888
+	color: $primary-color-user-menu
 
 .logOut, .menuText
 	cursor: pointer
 	display: block
 	padding: 10px 15px
 	font-size: 16px
-	color: #718888
+	color: $primary-color-user-menu
 	width: auto
 	text-decoration: none
 
 	&:hover
-		color: #f27e51
-		background: #f9fafb
+		color: $menu-hover-color
+		background: $submenu-bg-color
 
 	&:visited
 		color: red
