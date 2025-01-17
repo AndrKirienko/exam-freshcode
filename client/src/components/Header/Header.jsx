@@ -43,14 +43,12 @@ class Header extends Component {
             <img src={`${CONSTANTS.STATIC_IMAGES_PATH}phone.png`} alt='phone' />
             <span>{TEL}</span>
           </a>
-          <div className={styles.userButtonsContainer}>
-            <RenderLoginButtons
-              localStorage={localStorage}
-              data={this.props.data}
-              clearUserStore={this.props.clearUserStore}
-              navigate={this.props.navigate}
-            />
-          </div>
+          <RenderLoginButtons
+            localStorage={localStorage}
+            data={this.props.data}
+            clearUserStore={this.props.clearUserStore}
+            navigate={this.props.navigate}
+          />
         </div>
         <div className={styles.navContainer}>
           <Logo className={styles.logo} alt='blue_logo'></Logo>

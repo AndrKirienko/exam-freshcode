@@ -45,17 +45,21 @@ class RenderLoginButtons extends Component {
     }
     return (
       <>
-        <Link to='/login' style={{ textDecoration: 'none' }}>
-          <span className={styles.btn}>LOGIN</span>
+        <Link to='/login'>
+          <span className={styles.authBtn}>LOGIN</span>
         </Link>
-        <Link to='/registration' style={{ textDecoration: 'none' }}>
-          <span className={styles.btn}>SIGN UP</span>
+        <Link to='/registration'>
+          <span className={styles.authBtn}>SIGN UP</span>
         </Link>
       </>
     );
   };
   render () {
-    return <>{this.renderLoginButtons()}</>;
+    return (
+      <div className={styles.userButtonsContainer}>
+        {this.renderLoginButtons()}
+      </div>
+    );
   }
 }
 export default RenderLoginButtons;
