@@ -35,7 +35,6 @@ class UserMenu extends Component {
             <span
               className={styles.logOut}
               onClick={() => this.handleAction(item.function)}
-              style={{ cursor: 'pointer' }}
             >
               {item.text}
             </span>
