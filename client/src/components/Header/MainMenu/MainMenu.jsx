@@ -6,10 +6,38 @@ import styles from './MainMenu.module.sass';
 const { STATIC_IMAGES_PATH } = CONSTANTS;
 
 class MainMenu extends Component {
+  constructor (props) {
+    super(props);
+    this.state = {
+      isOpen: false,
+    };
+  }
+
+  toggleMenu = () => {
+    this.setState(prevState => ({
+      isOpen: !prevState.isOpen,
+    }));
+  };
+
   mapMainMenu = () => {
     return (
       <nav className={styles.nav}>
-        <ul className={styles.navList}>
+        <div className={styles.burgerIcon} onClick={this.toggleMenu}>
+          <div
+            className={`${styles.line} ${this.state.isOpen ? styles.open : ''}`}
+          ></div>
+          <div
+            className={`${styles.line} ${this.state.isOpen ? styles.open : ''}`}
+          ></div>
+          <div
+            className={`${styles.line} ${this.state.isOpen ? styles.open : ''}`}
+          ></div>
+        </div>
+        <ul
+          className={`${styles.navList} ${
+            this.state.isOpen ? styles.active : ''
+          }`}
+        >
           {mainMenu.menu.map((menuSection, index) => (
             <li key={index} className={styles.menuSection}>
               <span className={styles.menuSectionTitle}>

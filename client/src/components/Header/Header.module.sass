@@ -10,22 +10,21 @@
 
 .navContainer
 	box-sizing: border-box
+	position: relative
 	max-width: 1170px
 	width: 100%
 	padding: 0 15px
 	margin: 7px auto
 	display: flex
+	gap: 10px
 	justify-content: space-between
 	align-items: center
-	@media(max-width: 920px)
+	@media(max-width: 930px)
+		margin: 7px 0
 		justify-content: center
-	@media(max-width: 700px)
-		justify-content: flex-start
 
 .logo
 	align-self: flex-end
-	@media(max-width: 920px)
-		display: none
 
 .startContestBtn
 	box-sizing: border-box
@@ -38,9 +37,15 @@
 	color: #28d2d0
 	border-radius: 5px
 	font-size: 14px
+	text-align: center
 	font-weight: 400
 	margin-left: 30px
 	cursor: pointer
+
+	@media(max-width: 930px)
+		margin: 0 auto
+		max-width: 160px
+		width: 100%
 
 	&:hover
 		color: white
@@ -48,9 +53,12 @@
 
 .leftNav
 	display: flex
-	@media(max-width: 750px)
-		align-items: center
-		flex-direction: column
+	@media(max-width: 930px)
+		width: 100%
+		align-items: start
+		justify-content: space-between
+		flex-direction: row-reverse
+		gap: 10px
 
 .loginSignnUpHeaders
 	border-bottom: 1px solid #ebebeb
