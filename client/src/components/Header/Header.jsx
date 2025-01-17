@@ -36,32 +36,41 @@ class Header extends Component {
             Squadhelp recognized as one of the Most Innovative Companies by Inc
             Magazine.
           </span>
-          <a href='http://www.google.com'>Read Announcement</a>
+          <a href='#' className={styles.infoLink}>
+            Read Announcement
+          </a>
         </div>
         <div className={styles.loginSignnUpHeaders}>
-          <a href={`tel:${TEL}`} className={styles.numberContainer}>
-            <img src={`${CONSTANTS.STATIC_IMAGES_PATH}phone.png`} alt='phone' />
-            <span>{TEL}</span>
-          </a>
-          <RenderLoginButtons
-            localStorage={localStorage}
-            data={this.props.data}
-            clearUserStore={this.props.clearUserStore}
-            navigate={this.props.navigate}
-          />
+          <div className={styles.loginSignUpHearersContainer}>
+            <a href={`tel:${TEL}`} className={styles.numberContainer}>
+              <img
+                src={`${CONSTANTS.STATIC_IMAGES_PATH}phone.png`}
+                alt='phone'
+              />
+              <span className={styles.tel}>{TEL}</span>
+            </a>
+            <RenderLoginButtons
+              localStorage={localStorage}
+              data={this.props.data}
+              clearUserStore={this.props.clearUserStore}
+              navigate={this.props.navigate}
+            />
+          </div>
         </div>
-        <div className={styles.navContainer}>
-          <Logo className={styles.logo} alt='blue_logo'></Logo>
-          <div className={styles.leftNav}>
-            <MainMenu />
-            {this.props.data && this.props.data.role !== CONSTANTS.CREATOR && (
-              <div
-                className={styles.startContestBtn}
-                onClick={this.startContests}
-              >
-                START CONTEST
-              </div>
-            )}
+        <div className={styles.navMenu}>
+          <div className={styles.navContainer}>
+            <Logo className={styles.logo} alt='blue_logo'></Logo>
+            <div className={styles.leftNav}>
+              <MainMenu />
+              {this.props.data && this.props.data.role !== CONSTANTS.CREATOR && (
+                <div
+                  className={styles.startContestBtn}
+                  onClick={this.startContests}
+                >
+                  START CONTEST
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>
