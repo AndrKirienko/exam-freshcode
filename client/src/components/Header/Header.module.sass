@@ -21,12 +21,13 @@
 	align-items: center
 	@media(max-width: 930px)
 		margin: 7px 0
-		justify-content: center
 
 .logo
 	align-self: flex-end
+	order: 1
 
 .startContestBtn
+	order: 3
 	box-sizing: border-box
 	display: flex
 	align-items: center
@@ -39,10 +40,10 @@
 	font-size: 14px
 	text-align: center
 	font-weight: 400
-	margin-left: 30px
 	cursor: pointer
 
 	@media(max-width: 930px)
+		order: 2
 		margin: 0 auto
 		max-width: 160px
 		width: 100%
@@ -53,12 +54,11 @@
 
 .leftNav
 	display: flex
+	margin: 0 auto
+	order: 2
 	@media(max-width: 930px)
-		width: 100%
-		align-items: start
-		justify-content: space-between
-		flex-direction: row-reverse
-		gap: 10px
+		order: 3
+		margin: 0
 
 .loginSignnUpHeaders
 	border-bottom: 1px solid #ebebeb

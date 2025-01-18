@@ -62,15 +62,15 @@ class Header extends Component {
             <Logo className={styles.logo} alt='blue_logo'></Logo>
             <div className={styles.leftNav}>
               <MainMenu />
-              {this.props.data && this.props.data.role !== CONSTANTS.CREATOR && (
-                <div
-                  className={styles.startContestBtn}
-                  onClick={this.startContests}
-                >
-                  START CONTEST
-                </div>
-              )}
             </div>
+            {this.props.data && this.props.data.role !== CONSTANTS.CREATOR && (
+              <div
+                className={styles.startContestBtn}
+                onClick={this.startContests}
+              >
+                START CONTEST
+              </div>
+            )}
           </div>
         </div>
       </div>
