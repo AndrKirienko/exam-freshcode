@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import Logo from '../../Logo';
+import Logo from '../../Logo/Logo';
 import styles from './AuthHeader.module.sass';
 import CONSTANTS from '../../../constants';
 

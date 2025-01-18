@@ -5,7 +5,7 @@ import styles from './Header.module.sass';
 import CONSTANTS from '../../constants';
 import { clearUserStore, getUser } from '../../store/slices/userSlice';
 import withRouter from '../../hocs/withRouter';
-import Logo from '../Logo';
+import Logo from '../Logo/Logo';
 import MainMenu from './MainMenu/MainMenu';
 
 import RenderLoginButtons from './UserMenu/RenderLoginButtons/RenderLoginButtons';
