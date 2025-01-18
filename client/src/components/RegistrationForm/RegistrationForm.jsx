@@ -49,8 +49,10 @@ class RegistrationForm extends Component {
           />
         )}
         <div className={styles.headerFormContainer}>
-          <h2>CREATE AN ACCOUNT</h2>
-          <h4>We always keep your name and email address private.</h4>
+          <h2 className={styles.headerFormTitle}>CREATE AN ACCOUNT</h2>
+          <h4 className={styles.headerFormSubtitle}>
+            We always keep your name and email address private.
+          </h4>
         </div>
         <Formik
           initialValues={{
@@ -66,49 +68,43 @@ class RegistrationForm extends Component {
           onSubmit={this.clicked}
           validationSchema={Schems.RegistrationSchem}
         >
-          <Form>
-            <div className={styles.row}>
-              <FormInput
-                name='firstName'
-                classes={formInputClasses}
-                type='text'
-                label='First name'
-              />
-              <FormInput
-                name='lastName'
-                classes={formInputClasses}
-                type='text'
-                label='Last name'
-              />
-            </div>
-            <div className={styles.row}>
-              <FormInput
-                name='displayName'
-                classes={formInputClasses}
-                type='text'
-                label='Display Name'
-              />
-              <FormInput
-                name='email'
-                classes={formInputClasses}
-                type='text'
-                label='Email Address'
-              />
-            </div>
-            <div className={styles.row}>
-              <FormInput
-                name='password'
-                classes={formInputClasses}
-                type='password'
-                label='Password'
-              />
-              <FormInput
-                name='confirmPassword'
-                classes={formInputClasses}
-                type='password'
-                label='Password confirmation'
-              />
-            </div>
+          <Form className={styles.registrationForm}>
+            <FormInput
+              name='firstName'
+              classes={formInputClasses}
+              type='text'
+              label='First name'
+            />
+            <FormInput
+              name='lastName'
+              classes={formInputClasses}
+              type='text'
+              label='Last name'
+            />
+            <FormInput
+              name='displayName'
+              classes={formInputClasses}
+              type='text'
+              label='Display Name'
+            />
+            <FormInput
+              name='email'
+              classes={formInputClasses}
+              type='text'
+              label='Email Address'
+            />
+            <FormInput
+              name='password'
+              classes={formInputClasses}
+              type='password'
+              label='Password'
+            />
+            <FormInput
+              name='confirmPassword'
+              classes={formInputClasses}
+              type='password'
+              label='Password confirmation'
+            />
             <div className={styles.choseRoleContainer}>
               <Field
                 name='role'

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Field } from 'formik';
+import styles from './AgreeTermOfServiceInput.module.sass';
 
 const AgreeTermOfServiceInput = ({ id, type, classes, label, ...rest }) => (
   <Field {...rest}>
@@ -15,7 +16,12 @@ const AgreeTermOfServiceInput = ({ id, type, classes, label, ...rest }) => (
             <input {...field} placeholder={label} id={id} type={type} />
             <label htmlFor={id}>
               By clicking this checkbox, you agree to our{' '}
-              <a href='https://www.google.com' target='_blank' rel='noreferrer'>
+              <a
+                className={styles.termsLink}
+                href='#'
+                target='_blank'
+                rel='noreferrer'
+              >
                 Terms of Service.
               </a>
             </label>
