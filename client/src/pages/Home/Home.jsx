@@ -157,7 +157,7 @@ const Home = props => {
             <h2>How Do Name Contest Work?</h2>
             <div className={styles.whiteContainer}>
               <div className={styles.stepReverse}>
-                <div>
+                <div className={styles.whiteStep}>
                   <h3>Step 1: Launch a Naming Contest</h3>
                   <p>
                     <i className='fas fa-check' />
@@ -205,7 +205,7 @@ const Home = props => {
             </div>
             <div className={styles.greyContainer}>
               <div className={styles.stepReverse}>
-                <div>
+                <div className={styles.whiteStep}>
                   <h3>Step 3: Rate Entries & Brainstorm with Creatives</h3>
                   <p>
                     <i className='fas fa-check' />
