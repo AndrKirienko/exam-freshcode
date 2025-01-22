@@ -1,40 +1,43 @@
 .catalogContainer
-  display: flex
-  flex-direction: row
-  justify-content: space-between
-  align-items: center
-  min-height: 50px
-  cursor: pointer
-  border-bottom: 1px solid #4e618d
-  align-self: stretch
-  padding: 0 10px
+	display: flex
+	flex-direction: row
+	justify-content: space-between
+	align-items: center
+	min-height: 50px
+	cursor: pointer
+	border-bottom: 1px solid #4e618d
+	align-self: stretch
+	padding: 0 10px
 
-  .infoContainer
-    display: flex
-    align-items: center
-    justify-content: flex-start
+	.infoContainer
+		display: flex
+		align-items: center
+		justify-content: flex-start
 
-    .numbers
-      margin-left: 5px
+		.numbers
+			margin-left: 5px
 
-    i
-      margin-left: 10px
-      font-size: 18px
-      transition: font-size 0.2s
+		i
+			margin-left: 10px
+			font-size: 18px
+			transition: font-size 0.2s
 
-      &:hover
-        color: red
-        font-size: 24px
-        transition: font-size 0.2s
+			&:hover
+				color: red
+				transform: scale(1.05)
+				transition: font-size 0.2s, transform 0.1s ease, color 0.1s ease
 
-  &:hover
-    background-color: #e5e5e5
+			&:active
+				transform: scale(1.01)
 
-  .catalogName
-    display: inline-block
-    overflow: hidden
-    text-overflow: ellipsis
-    white-space: nowrap
-    font-size: 16px
-    width: 110px
-    color: black
+	&:hover
+		background-color: #e5e5e5
+
+	.catalogName
+		display: inline-block
+		overflow: hidden
+		text-overflow: ellipsis
+		white-space: nowrap
+		font-size: 16px
+		width: 110px
+		color: black

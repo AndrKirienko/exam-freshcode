@@ -17,6 +17,13 @@ const ChatInput = props => {
     resetForm();
   };
 
+  const chatInputClasses = {
+    container: styles.container,
+    input: styles.input,
+    notValid: styles.notValid,
+    warning: styles.fieldWarning,
+  };
+
   return (
     <div className={styles.inputContainer}>
       <Formik
@@ -29,14 +36,11 @@ const ChatInput = props => {
             name='message'
             type='text'
             label='message'
-            classes={{
-              container: styles.container,
-              input: styles.input,
-              notValid: styles.notValid,
-            }}
+            classes={chatInputClasses}
           />
-          <button type='submit'>
+          <button type='submit' className={styles.submitBtn}>
             <img
+              className={styles.submitImg}
               src={`${CONSTANTS.STATIC_IMAGES_PATH}send.png`}
               alt='send Message'
             />
