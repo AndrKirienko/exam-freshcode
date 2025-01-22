@@ -219,11 +219,11 @@ class CreatorDashboard extends Component {
               My Entries
             </div>
             <div className={styles.inputContainer}>
-              <span>By contest type</span>
+              <span className={styles.filterItem}>By contest type</span>
               {this.renderSelectType()}
             </div>
             <div className={styles.inputContainer}>
-              <span>By contest ID</span>
+              <span className={styles.filterItem}>By contest ID</span>
               <input
                 type='text'
                 onChange={({ target }) =>
@@ -239,12 +239,12 @@ class CreatorDashboard extends Component {
             </div>
             {!isFetching && (
               <div className={styles.inputContainer}>
-                <span>By industry</span>
+                <span className={styles.filterItem}>By industry</span>
                 {this.renderIndustryType()}
               </div>
             )}
             <div className={styles.inputContainer}>
-              <span>By amount award</span>
+              <span className={styles.filterItem}>By amount award</span>
               <select
                 onChange={({ target }) =>
                   this.changePredicate({
