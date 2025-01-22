@@ -20,6 +20,7 @@ import ChatContainer from './components/Chat/ChatComponents/ChatContainer/ChatCo
 import Layout from './pages/Layout/Layout';
 import OnlyNotAuthorizedUserRoute from './components/Routes/OnlyNotAuthorizedUserRoute/OnlyNotAuthorizedUserRoute';
 import PrivateRoute from './components/Routes/PrivateRoute/PrivateRoute';
+import HowItWorksPage from './pages/HowItWorksPage/HowItWorksPage';
 
 class App extends Component {
   render () {
@@ -43,6 +44,7 @@ class App extends Component {
             <Route element={<OnlyNotAuthorizedUserRoute />}>
               <Route path='/login' element={<LoginPage />} />
               <Route path='/registration' element={<RegistrationPage />} />
+              <Route path='/howItWorks' element={<HowItWorksPage />} />
             </Route>
 
             <Route element={<PrivateRoute />}>

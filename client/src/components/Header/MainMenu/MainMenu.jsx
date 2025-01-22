@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import mainMenu from './../../../data/menus/mainMenu.json';
 import CONSTANTS from './../../../constants';
 import styles from './MainMenu.module.sass';
@@ -46,10 +47,10 @@ class MainMenu extends Component {
               <img src={`${STATIC_IMAGES_PATH}menu-down.png`} alt='menu' />
               <ul className={styles.submenuList}>
                 {menuSection.items.map((item, idx) => (
-                  <li key={idx} className={styles.submenuItem}>
-                    <a href={item.link} className={styles.menuLink}>
-                      {item.name}
-                    </a>
+                  <li key={idx}>
+                    <Link to={item.link} className={styles.submenuItem}>
+                      <span className={styles.menuLink}>{item.name}</span>
+                    </Link>
                   </li>
                 ))}
               </ul>
