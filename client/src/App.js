@@ -40,11 +40,11 @@ class App extends Component {
         <Routes>
           <Route path='/' element={<Layout />}>
             <Route index element={<Home />} />
+            <Route path='/howItWorks' element={<HowItWorksPage />} />
 
             <Route element={<OnlyNotAuthorizedUserRoute />}>
               <Route path='/login' element={<LoginPage />} />
               <Route path='/registration' element={<RegistrationPage />} />
-              <Route path='/howItWorks' element={<HowItWorksPage />} />
             </Route>
 
             <Route element={<PrivateRoute />}>

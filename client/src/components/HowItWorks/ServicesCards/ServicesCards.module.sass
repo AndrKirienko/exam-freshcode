@@ -1,0 +1,77 @@
+.serviceContainer
+	display: grid
+	grid-template-columns: repeat(auto-fit, minmax(30%, 1fr))
+	gap: 10px
+	@media (max-width: 900px)
+		grid-template-columns: repeat(auto-fit, minmax(40%, 1fr))
+	@media (max-width: 700px)
+		grid-template-columns: repeat(auto-fit, minmax(100%, 1fr))
+
+.serviceCard
+	display: flex
+	flex-direction: column
+	justify-content: space-between
+	height: 450px
+	background-color: #fff
+	padding: 25px 25px 16px
+	box-shadow: 0 16px 32px rgb(0 0 0 / .04)
+	border-radius: 24px
+	margin: 0 12px 24px
+	@media (max-width: 900px)
+		height: 350px
+	@media (max-width: 700px)
+		align-items: center
+		height: 320px
+
+.serviceContext
+	@media (max-width: 700px)
+		display: flex
+		flex-direction: column
+		align-items: center
+
+.serviceImage
+	margin-bottom: 10px
+
+.serviceCardTitle
+	font-weight: 700
+	margin-bottom: 10px
+	line-height: 1.3
+	font-size: 20px
+	color: #000
+	overflow: hidden
+	display: -webkit-box
+	-webkit-box-orient: vertical
+	-webkit-line-clamp: 2
+
+.serviceCardDescription
+	color: #828282
+	line-height: 1.5
+	overflow: hidden
+	display: -webkit-box
+	-webkit-box-orient: vertical
+	-webkit-line-clamp: 9
+	@media (max-width: 900px)
+		-webkit-line-clamp: 5
+	@media (max-width: 700px)
+		-webkit-line-clamp: 4
+
+.serviceCardLink
+	background: linear-gradient(45deg, #5a73ed 0, #3d57d5 100%)
+	border-radius: 8px
+	display: inline-block
+	padding: 13px 20px
+	transition: background 0.3s linear
+	&:hover
+		background: linear-gradient(-45deg, #5a73ed 0, #3d57d5 100%)
+
+		.serviceLinkIcon
+			left: 5px
+
+.serviceCardLinkTitle
+	color: #fff
+
+.serviceLinkIcon
+	margin-left: 10px
+	position: relative
+	left: 0
+	transition: left 0.2s linear
