@@ -1,60 +1,67 @@
 .chatHeader
-  height: 50px
-  background-color: #4e618d
-  display: flex
-  justify-content: flex-start
-  align-items: center
-  border-bottom: 1px solid #f3f3f3
-  box-sizing: border-box
-  z-index: 600
-  padding-left: 15px
+	height: 50px
+	background-color: #4e618d
+	display: flex
+	justify-content: flex-start
+	align-items: center
+	border-bottom: 1px solid #f3f3f3
+	box-sizing: border-box
+	z-index: 600
+	padding-left: 15px
 
-  .buttonContainer
-    display: flex
-    justify-content: center
-    align-items: center
-    cursor: pointer
+.buttonContainer
+	display: flex
+	justify-content: center
+	align-items: center
+	cursor: pointer
 
-  .infoContainer
-    flex: 1
-    display: flex
-    justify-content: space-between
-    align-items: center
-    margin-left: 15px
+	&:hover
+		transform: scale(1.05)
 
-    div
-      display: flex
-      flex-direction: row
-      justify-content: center
-      align-items: center
+	&:active
+		transform: scale(0.95)
 
-      &:last-child
-        margin-right: 15px
+.infoContainer
+	flex: 1
+	display: flex
+	justify-content: space-between
+	align-items: center
+	margin-left: 15px
 
-      i
-        margin-right: 10px
-        font-size: 18px
-        transition: font-size 0.2s ease
+	div
+		display: flex
+		flex-direction: row
+		justify-content: center
+		align-items: center
 
-        &:hover
-          font-size: 22px
-          color: red
-          transition: font-size 0.2s ease
+		&:last-child
+			margin-right: 15px
 
-      img
-        height: 44px
-        width: 44px
-        border-radius: 50%
+		i
+			margin-right: 10px
+			font-size: 18px
+			transition: font-size 0.2s ease
+			cursor: pointer
 
-      span
-        display: inline-block
-        overflow: hidden
-        text-overflow: ellipsis
-        white-space: nowrap
-        width: 100px
-        color: white
-        font-size: 18px
-        font-weight: 500
-        margin-left: 12px
+			&:hover
+				transform: scale(1.05)
+				color: red
+				transition: font-size 0.2s ease, transform 0.1s ease, color 0.1s ease
 
+			&:active
+				transform: scale(1.01)
+		img
+			height: 44px
+			width: 44px
+			border-radius: 50%
 
+		span
+			display: inline-block
+			overflow: hidden
+			text-overflow: ellipsis
+			white-space: nowrap
+			width: 100px
+			color: white
+			font-size: 18px
+			font-weight: 500
+			margin-left: 12px

@@ -1,28 +1,30 @@
 import React, { Component } from 'react';
 import styles from './Footer.module.sass';
-import CONSTANTS from '../../constants';
+import mainFooter from './../../data/footers/mainFooter.json';
 
 class Footer extends Component {
   topFooterItemsRender = item => (
-    <div key={item.title}>
-      <h4>{item.title}</h4>
+    <div key={item.title} className={styles.footerSection}>
+      <h4 className={styles.footerTitle}>{item.title}</h4>
       {item.items.map(i => (
-        <a key={i} href='https://google.com'>
-          {i}
+        <a key={i} href={i.link} className={styles.footerLink}>
+          {i.name}
         </a>
       ))}
     </div>
   );
 
   topFooterRender () {
-    return CONSTANTS.FooterItems.map(item => this.topFooterItemsRender(item));
+    return mainFooter.FooterItems.map(item => this.topFooterItemsRender(item));
   }
 
   render () {
     return (
       <div className={styles.footerContainer}>
         <div className={styles.footerTop}>
-          <div>{this.topFooterRender()}</div>
+          <div className={styles.footerItemsWrapper}>
+            {this.topFooterRender()}
+          </div>
         </div>
       </div>
     );

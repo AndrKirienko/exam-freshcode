@@ -6,7 +6,7 @@ import CONSTANTS from '../../constants';
 import SlideBar from '../../components/SlideBar/SlideBar';
 import Footer from '../../components/Footer/Footer';
 import styles from './Home.module.sass';
-import carouselConstants from '../../carouselConstants';
+import carouselConstants from '../../data/carouselConstants';
 import Spinner from '../../components/Spinner/Spinner';
 
 const Home = props => {
@@ -56,7 +56,7 @@ const Home = props => {
             </div>
             <div className={styles.greyContainer}>
               <SlideBar
-                images={carouselConstants.mainSliderImages}
+                images={carouselConstants.MAIN_SLIDER_IMAGES}
                 carouselType={carouselConstants.MAIN_SLIDER}
               />
             </div>
@@ -157,7 +157,7 @@ const Home = props => {
             <h2>How Do Name Contest Work?</h2>
             <div className={styles.whiteContainer}>
               <div className={styles.stepReverse}>
-                <div>
+                <div className={styles.whiteStep}>
                   <h3>Step 1: Launch a Naming Contest</h3>
                   <p>
                     <i className='fas fa-check' />
@@ -205,7 +205,7 @@ const Home = props => {
             </div>
             <div className={styles.greyContainer}>
               <div className={styles.stepReverse}>
-                <div>
+                <div className={styles.whiteStep}>
                   <h3>Step 3: Rate Entries & Brainstorm with Creatives</h3>
                   <p>
                     <i className='fas fa-check' />
@@ -240,19 +240,21 @@ const Home = props => {
                 Logo design
               </p>
             </div>
-            <SlideBar
-              images={carouselConstants.exampleSliderImages}
-              carouselType={carouselConstants.EXAMPLE_SLIDER}
-            />
-            <div className={styles.button}>
-              <Link className={styles.button__link} to='/dashboard'>
-                DASHBOARD
-              </Link>
+            <div className={styles.exampleBar}>
+              <SlideBar
+                data={carouselConstants.EXAMPLE_SLIDER_DATA}
+                carouselType={carouselConstants.EXAMPLE_SLIDER}
+              />
+              <div className={styles.button}>
+                <Link className={styles.button__link} to='/dashboard'>
+                  DASHBOARD
+                </Link>
+              </div>
             </div>
             <div className={styles.blueContainer}>
               <h2 className={styles.whiteUnderline}>What our customers say</h2>
               <SlideBar
-                images={carouselConstants.feedbackSliderImages}
+                data={carouselConstants.FEEDBACK_SLIDER_DATA}
                 carouselType={carouselConstants.FEEDBACK_SLIDER}
               />
             </div>

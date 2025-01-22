@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Field, Form, Formik } from 'formik';
+import { Form, Formik } from 'formik';
 import { checkAuth, clearAuth } from '../../store/slices/authSlice';
 import styles from './LoginForm.module.sass';
 import FormInput from '../FormInput/FormInput';
@@ -8,7 +8,7 @@ import Schems from '../../utils/validators/validationSchems';
 import Error from '../Error/Error';
 import CONSTANTS from '../../constants';
 
-class LoginForm extends React.Component {
+class LoginForm extends Component {
   componentWillUnmount () {
     this.props.authClear();
   }
@@ -38,7 +38,7 @@ class LoginForm extends React.Component {
             clearError={authClear}
           />
         )}
-        <h2>LOGIN TO YOUR ACCOUNT</h2>
+        <h2 className={styles.loginFormTitle}>LOGIN TO YOUR ACCOUNT</h2>
         <Formik
           initialValues={{
             email: '',

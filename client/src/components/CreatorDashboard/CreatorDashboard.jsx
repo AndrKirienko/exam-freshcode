@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import queryString from 'query-string';
 import classNames from 'classnames';
@@ -27,7 +27,7 @@ const types = [
   'name,logo',
 ];
 
-class CreatorDashboard extends React.Component {
+class CreatorDashboard extends Component {
   renderSelectType = () => {
     const array = [];
     const { creatorFilter } = this.props;
@@ -219,11 +219,11 @@ class CreatorDashboard extends React.Component {
               My Entries
             </div>
             <div className={styles.inputContainer}>
-              <span>By contest type</span>
+              <span className={styles.filterItem}>By contest type</span>
               {this.renderSelectType()}
             </div>
             <div className={styles.inputContainer}>
-              <span>By contest ID</span>
+              <span className={styles.filterItem}>By contest ID</span>
               <input
                 type='text'
                 onChange={({ target }) =>
@@ -239,12 +239,12 @@ class CreatorDashboard extends React.Component {
             </div>
             {!isFetching && (
               <div className={styles.inputContainer}>
-                <span>By industry</span>
+                <span className={styles.filterItem}>By industry</span>
                 {this.renderIndustryType()}
               </div>
             )}
             <div className={styles.inputContainer}>
-              <span>By amount award</span>
+              <span className={styles.filterItem}>By amount award</span>
               <select
                 onChange={({ target }) =>
                   this.changePredicate({

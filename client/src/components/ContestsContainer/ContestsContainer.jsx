@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { Component } from 'react';
 import styles from './ContestContainer.module.sass';
 import Spinner from '../Spinner/Spinner';
 
-class ContestsContainer extends React.Component {
+class ContestsContainer extends Component {
   componentDidMount () {
     window.addEventListener('scroll', this.scrollHandler);
   }
