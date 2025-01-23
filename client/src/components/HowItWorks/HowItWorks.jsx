@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import styles from './HowItWorks.module.sass';
 import ServicesCards from './ServicesCards/ServicesCards';
+import stepIcon from './../../../public/staticImages/howItWorksImg/steps_icon/icon-27.svg';
+import StepsCards from './StepsCards/StepsCards';
 
 class HowItWorks extends Component {
   render () {
@@ -38,6 +40,15 @@ class HowItWorks extends Component {
               </p>
             </div>
             <ServicesCards />
+          </div>
+        </section>
+        <section className={styles.stepSection}>
+          <div className={styles.stepContainer}>
+            <div className={styles.stepContext}>
+              <img className={styles.stepIcon} src={stepIcon} alt='' />
+              <h2 className={styles.stepTitle}>How Do Naming Contests Work?</h2>
+            </div>
+            <StepsCards />
           </div>
         </section>
       </>

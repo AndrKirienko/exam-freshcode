@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import servicesCardsData from './../../../data/servicesCardsData';
+import servicesCardsData from '../../../data/howItWorksData/servicesCardsData';
 import styles from './ServicesCards.module.sass';
 
 class ServicesCards extends Component {
   render () {
     return (
-      <div className={styles.serviceContainer}>
+      <div className={styles.serviceCardsContainer}>
         {servicesCardsData.map((key, index) => (
-          <article className={styles.serviceCard}>
+          <article className={styles.serviceCard} key={index}>
             <div className={styles.serviceContext}>
-              <img className={styles.serviceImage} src={key.icon} alt='' />
+              <img className={styles.serviceImage} src={key.icon} />
               <h3 className={styles.serviceCardTitle}>{key.title}</h3>
               <p className={styles.serviceCardDescription}>{key.description}</p>
             </div>
@@ -19,11 +19,7 @@ class ServicesCards extends Component {
                 <span className={styles.serviceCardLinkTitle}>
                   {key.btnTitle}
                 </span>
-                <img
-                  className={styles.serviceLinkIcon}
-                  src={key.btnIcon}
-                  alt=''
-                />
+                <img className={styles.serviceLinkIcon} src={key.btnIcon} />
               </Link>
             </div>
           </article>
