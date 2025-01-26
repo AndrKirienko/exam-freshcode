@@ -3,6 +3,7 @@ import styles from './HowItWorks.module.sass';
 import ServicesCards from './ServicesCards/ServicesCards';
 import stepIcon from './../../../public/staticImages/howItWorksImg/steps_icon/icon-27.svg';
 import StepsCards from './StepsCards/StepsCards';
+import QuestionsCards from './QuestionsCards/QuestionsCards';
 
 class HowItWorks extends Component {
   render () {
@@ -42,13 +43,21 @@ class HowItWorks extends Component {
             <ServicesCards />
           </div>
         </section>
-        <section className={styles.stepSection}>
+        <section className={styles.stepsSection}>
           <div className={styles.stepContainer}>
             <div className={styles.stepContext}>
               <img className={styles.stepIcon} src={stepIcon} alt='' />
               <h2 className={styles.stepTitle}>How Do Naming Contests Work?</h2>
             </div>
             <StepsCards />
+          </div>
+        </section>
+        <section className={styles.questionsSection}>
+          <div className={styles.questionsContainer}>
+            <h2 className={styles.questionsTitle}>
+              Frequently Asked Questions
+            </h2>
+            <QuestionsCards />
           </div>
         </section>
       </>
