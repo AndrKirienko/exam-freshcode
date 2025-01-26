@@ -13,7 +13,7 @@
     {
       "title": "RESOURCES",
       "items": [
-        { "name": "How It Works", "link": "#" },
+        { "name": "How It Works", "link": "/howItWorks" },
         { "name": "Become a Creative", "link": "#" },
         { "name": "Business Name Generator", "link": "#" },
         { "name": "Discussion Forum", "link": "#" },
