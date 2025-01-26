@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './SearchForm.module.sass';
 import searchData from './../../../data/howItWorksData/searchData.json';
-import searchIcon from '../../../../public/staticImages/howItWorksImg/search_icon/search_icon';
+import searchIcon from '../../../../public/staticImages/how_it_works_img/search_icon/search_icon';
 
 class SearchForm extends Component {
   render () {

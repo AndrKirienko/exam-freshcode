@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import styles from './HowItWorks.module.sass';
 import ServicesCards from './ServicesCards/ServicesCards';
-import stepIcon from './../../../public/staticImages/howItWorksImg/steps_icon/icon-27.svg';
+import stepIcon from '../../../public/staticImages/how_it_works_img/steps_icon/icon-27.svg';
 import StepsCards from './StepsCards/StepsCards';
 import QuestionsCards from './QuestionsCards/QuestionsCards';
 import SearchForm from './SearchForm/SearchForm';
