@@ -4,6 +4,7 @@ import ServicesCards from './ServicesCards/ServicesCards';
 import stepIcon from './../../../public/staticImages/howItWorksImg/steps_icon/icon-27.svg';
 import StepsCards from './StepsCards/StepsCards';
 import QuestionsCards from './QuestionsCards/QuestionsCards';
+import SearchForm from './SearchForm/SearchForm';
 
 class HowItWorks extends Component {
   render () {
@@ -58,6 +59,11 @@ class HowItWorks extends Component {
               Frequently Asked Questions
             </h2>
             <QuestionsCards />
+          </div>
+        </section>
+        <section className={styles.searchSection}>
+          <div className={styles.searchContainer}>
+            <SearchForm />
           </div>
         </section>
       </>
