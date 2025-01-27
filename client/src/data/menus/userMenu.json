@@ -12,6 +12,11 @@
     },
     {
       "type": "link",
+      "text": "Events",
+      "to": "/events"
+    },
+    {
+      "type": "link",
       "text": "Messages",
       "to": "#"
     },
