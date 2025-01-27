@@ -47,7 +47,7 @@ class MainMenu extends Component {
               <img src={`${STATIC_IMAGES_PATH}menu-down.png`} alt='menu' />
               <ul className={styles.submenuList}>
                 {menuSection.items.map((item, idx) => (
-                  <li key={idx}>
+                  <li key={idx} onClick={this.toggleMenu}>
                     <Link to={item.link} className={styles.submenuItem}>
                       <span className={styles.menuLink}>{item.name}</span>
                     </Link>
