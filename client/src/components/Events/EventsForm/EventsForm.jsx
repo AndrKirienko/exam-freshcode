@@ -1,21 +1,30 @@
 import React, { Component } from 'react';
-import { Form, Formik, Field, ErrorMessage } from 'formik';
+import { Form, Formik } from 'formik';
 import Schems from './../../../utils/validators/validationSchems';
 import styles from './EventsForm.module.sass';
+import FormInput from '../../FormInput/FormInput';
 
-const initialValues = {
-  eventName: '',
-  date: '',
-  time: '',
-  notificationTime: '',
-};
 class EventsForm extends Component {
   clicked = (values, { resetForm }) => {
     console.log(values);
     resetForm();
     window.location.reload();
   };
+
   render () {
+    const initialValues = {
+      eventName: '',
+      date: '',
+      time: '',
+      notificationTime: '',
+    };
+
+    const formInputClasses = {
+      warning: styles.fieldWarning,
+      input: styles.input,
+      notValid: styles.notValid,
+    };
+
     return (
       <div className={styles.formContainer}>
         <h2 className={styles.titleForm}>Create an event</h2>
@@ -31,42 +40,32 @@ class EventsForm extends Component {
                   <label className={styles.titleInput} htmlFor='eventName'>
                     Title of event
                   </label>
-                  <Field
+                  <FormInput
                     name='eventName'
                     type='text'
-                    className={styles.input}
-                  />
-                  <ErrorMessage
-                    name='eventName'
-                    component='div'
-                    className={styles.error}
+                    classes={formInputClasses}
                   />
                 </div>
-
                 <div className={styles.inputContainer}>
                   <label className={styles.titleInput} htmlFor='date'>
                     Date
                   </label>
-                  <Field name='date' type='date' className={styles.input} />
-                  <ErrorMessage
+                  <FormInput
                     name='date'
-                    component='div'
-                    className={styles.error}
+                    type='date'
+                    classes={formInputClasses}
                   />
                 </div>
-
                 <div className={styles.inputContainer}>
                   <label className={styles.titleInput} htmlFor='time'>
                     Time
                   </label>
-                  <Field name='time' type='time' className={styles.input} />
-                  <ErrorMessage
+                  <FormInput
                     name='time'
-                    component='div'
-                    className={styles.error}
+                    type='time'
+                    classes={formInputClasses}
                   />
                 </div>
-
                 <div className={styles.inputContainer}>
                   <label
                     className={styles.titleInput}
@@ -74,15 +73,10 @@ class EventsForm extends Component {
                   >
                     How much time to notify (minutes)
                   </label>
-                  <Field
+                  <FormInput
                     name='notificationTime'
                     type='number'
-                    className={styles.input}
-                  />
-                  <ErrorMessage
-                    name='notificationTime'
-                    component='div'
-                    className={styles.error}
+                    classes={formInputClasses}
                   />
                 </div>
               </div>
