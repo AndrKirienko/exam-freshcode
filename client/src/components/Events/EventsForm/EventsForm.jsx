@@ -6,6 +6,9 @@ import FormInput from '../../FormInput/FormInput';
 
 class EventsForm extends Component {
   clicked = (values, { resetForm }) => {
+    const existingEvents = JSON.parse(localStorage.getItem('events')) || [];
+    const updatedEvents = [...existingEvents, values];
+    localStorage.setItem('events', JSON.stringify(updatedEvents));
     console.log(values);
     resetForm();
     window.location.reload();
@@ -14,9 +17,8 @@ class EventsForm extends Component {
   render () {
     const initialValues = {
       eventName: '',
-      date: '',
-      time: '',
-      notificationTime: '',
+      datetime: '',
+      notificationDatatime: '',
     };
 
     const formInputClasses = {
@@ -48,21 +50,11 @@ class EventsForm extends Component {
                 </div>
                 <div className={styles.inputContainer}>
                   <label className={styles.titleInput} htmlFor='date'>
-                    Date
+                    Date & Time
                   </label>
                   <FormInput
-                    name='date'
-                    type='date'
-                    classes={formInputClasses}
-                  />
-                </div>
-                <div className={styles.inputContainer}>
-                  <label className={styles.titleInput} htmlFor='time'>
-                    Time
-                  </label>
-                  <FormInput
-                    name='time'
-                    type='time'
+                    name='datetime'
+                    type='datetime-local'
                     classes={formInputClasses}
                   />
                 </div>
@@ -71,11 +63,11 @@ class EventsForm extends Component {
                     className={styles.titleInput}
                     htmlFor='notificationTime'
                   >
-                    How much time to notify (minutes)
+                    When to give notice of the end of the event
                   </label>
                   <FormInput
-                    name='notificationTime'
-                    type='number'
+                    name='notificationDatatime'
+                    type='datetime-local'
                     classes={formInputClasses}
                   />
                 </div>
