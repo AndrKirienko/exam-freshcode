@@ -19,7 +19,6 @@
 	color: #585859
 	font-weight: 700
 	font-size: 19px
-	position: relative
 	&:not(:last-child)
 		margin-bottom: 20px
 
@@ -27,6 +26,9 @@
 	display: block
 	font-weight: bold
 	margin-bottom: 16px
+
+.inputErrorContainer
+	position: relative
 
 .input
 	box-sizing: border-box
@@ -44,9 +46,10 @@
 
 .notValid
 	border: 2px solid red !important
+
 .fieldWarning
 	position: absolute
-	top: 23px
+	top: -11px
 	left: 5px
 	color: red
 	font-size: 10px

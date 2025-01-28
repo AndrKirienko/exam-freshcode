@@ -42,21 +42,25 @@ class EventsForm extends Component {
                   <label className={styles.titleInput} htmlFor='eventName'>
                     Title of event
                   </label>
-                  <FormInput
-                    name='eventName'
-                    type='text'
-                    classes={formInputClasses}
-                  />
+                  <div className={styles.inputErrorContainer}>
+                    <FormInput
+                      name='eventName'
+                      type='text'
+                      classes={formInputClasses}
+                    />
+                  </div>
                 </div>
                 <div className={styles.inputContainer}>
                   <label className={styles.titleInput} htmlFor='date'>
                     Date & Time
                   </label>
-                  <FormInput
-                    name='datetime'
-                    type='datetime-local'
-                    classes={formInputClasses}
-                  />
+                  <div className={styles.inputErrorContainer}>
+                    <FormInput
+                      name='datetime'
+                      type='datetime-local'
+                      classes={formInputClasses}
+                    />
+                  </div>
                 </div>
                 <div className={styles.inputContainer}>
                   <label
@@ -65,11 +69,13 @@ class EventsForm extends Component {
                   >
                     When to give notice of the end of the event
                   </label>
-                  <FormInput
-                    name='notificationDatatime'
-                    type='datetime-local'
-                    classes={formInputClasses}
-                  />
+                  <div className={styles.inputErrorContainer}>
+                    <FormInput
+                      name='notificationDatatime'
+                      type='datetime-local'
+                      classes={formInputClasses}
+                    />
+                  </div>
                 </div>
               </div>
               <button
