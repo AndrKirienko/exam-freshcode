@@ -213,19 +213,26 @@ export default {
       )
       .required('required'),
   }),
-  EventSchema: yup.object({
+  EventSchema: yup.object().shape({
     eventName: yup
       .string()
-      .required('Enter the title of the event')
-      .min(3, 'The title must be at least 3 characters long'),
-    date: yup
+      .min(3, 'The name must be at least 3 characters long')
+      .max(150, 'The name must contain no more than 150 characters')
+      .required('Event name is required'),
+    datetime: yup
       .date()
-      .required('Choose a date')
-      .min(new Date(), 'The date must be in the future'),
-    time: yup.string().required('Choose a time'),
-    notificationTime: yup
-      .number()
-      .required('Specify the time for notification')
-      .min(1, 'The time should be at least 1 minute'),
+      .min(new Date(), 'The date cannot be in the past')
+      .required('Event date is required'),
+    notificationDatatime: yup
+      .date()
+      .min(new Date(), 'Notification should not be in the past')
+      .test(
+        'max-notification-time',
+        'Notification must be prior to the end of the event',
+        function (value) {
+          return value < this.parent.datetime;
+        }
+      )
+      .required('Notification is required'),
   }),
 };
