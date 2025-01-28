@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import { IoTrashOutline } from 'react-icons/io5';
 import { calculateTimers } from '../../../utils/calculateTimers';
+import styles from './EventsList.module.sass';
 
 class EventsList extends Component {
   constructor (props) {
@@ -33,23 +35,37 @@ class EventsList extends Component {
     this.setState({ timers: currentTimers });
   };
 
+  handleDeleteEvent = index => {
+    const { events } = this.state;
+    const updatedEvents = events.filter((_, i) => i !== index);
+    localStorage.setItem('events', JSON.stringify(updatedEvents));
+
+    this.setState({ events: updatedEvents });
+  };
+
   render () {
     const { events, timers } = this.state;
 
     return (
-      <div>
-        <h2>Events List</h2>
+      <div className={styles.eventsContainer}>
+        <h2 className={styles.listTitle}>Events List</h2>
         {events.length > 0 ? (
-          <ul>
+          <ul className={styles.listContainer}>
             {events.map((event, index) => (
-              <li key={index}>
-                <strong>{event.eventName}</strong> - {event.datetime}
-                <span>{timers[index]}</span>
+              <li key={index} className={styles.listItem}>
+                <h3 className={styles.listItemTitle}>{event.eventName}</h3>
+                <div className={styles.eventItem}>
+                  <span className={styles.timers}>{timers[index]}</span>
+                  <IoTrashOutline
+                    className={styles.trash}
+                    onClick={() => this.handleDeleteEvent(index)}
+                  />
+                </div>
               </li>
             ))}
           </ul>
         ) : (
-          <p>No events created yet.</p>
+          <p className={styles.notEvents}>No events created yet.</p>
         )}
       </div>
     );

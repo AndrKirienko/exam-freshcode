@@ -1,3 +1,4 @@
+import { IoIosTimer } from 'react-icons/io';
 /**
  * Calculates the remaining time for an array of events
  * @param {Array} events - Array of events with date and time fields
@@ -21,13 +22,32 @@ export const calculateTimers = events => {
       const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
 
       if (days > 0) {
-        currentTimers[index] = `${days}d`;
+        currentTimers[index] = (
+          <>
+            <IoIosTimer /> {days}d
+          </>
+        );
       } else if (hours > 0) {
-        currentTimers[index] = `${hours}h`;
+        currentTimers[index] = (
+          <>
+            <IoIosTimer />
+            {hours}h
+          </>
+        );
       } else if (minutes > 0) {
-        currentTimers[index] = `${minutes}m`;
+        currentTimers[index] = (
+          <>
+            <IoIosTimer />
+            {minutes}m
+          </>
+        );
       } else {
-        currentTimers[index] = `${seconds}s`;
+        currentTimers[index] = (
+          <>
+            <IoIosTimer />
+            {seconds}s
+          </>
+        );
       }
     } else {
       currentTimers[index] = 'Event has ended';
