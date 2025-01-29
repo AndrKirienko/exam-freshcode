@@ -9,7 +9,6 @@ class EventsForm extends Component {
     const existingEvents = JSON.parse(localStorage.getItem('events')) || [];
     const updatedEvents = [...existingEvents, values];
     localStorage.setItem('events', JSON.stringify(updatedEvents));
-    console.log(values);
     resetForm();
     window.location.reload();
   };
