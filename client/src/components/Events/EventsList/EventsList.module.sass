@@ -15,6 +15,7 @@
 .listContainer
 
 .listItem
+	position: relative
 	display: flex
 	justify-content: space-between
 	gap: 15px
@@ -49,3 +50,26 @@
 	transition: all 0.2s linear
 	&:hover
 		color: red
+
+.markerContainer
+	display: inline-block
+	display: flex
+	justify-content: center
+	align-items: center
+	position: absolute
+	top: 0
+	right: 0
+	padding: 5px
+	transform: translate(50%, -50%)
+	cursor: pointer
+
+.marker
+	border-radius: 50%
+	display: inline-block
+	width: 7px
+	height: 7px
+	background-color: red
+	transition: all 0.2s linear
+
+	&:hover
+		background-color: #c40000

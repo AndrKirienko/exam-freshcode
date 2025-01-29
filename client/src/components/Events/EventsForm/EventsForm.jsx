@@ -19,6 +19,7 @@ class EventsForm extends Component {
       eventName: '',
       datetime: '',
       notificationDatatime: '',
+      notificationAlerts: false,
     };
 
     const formInputClasses = {
