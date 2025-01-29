@@ -3,11 +3,15 @@ import { Link } from 'react-router-dom';
 import userMenu from './../../../data/menus/userMenu.json';
 import styles from './UserMenu.module.sass';
 import CountNotification from '../../Events/CountNotification/CountNotification';
+import { TimerContext } from '../../Events/EventsList/TimerProvider';
 
 class UserMenu extends Component {
+  static contextType = TimerContext;
   logOut = () => {
+    const { clearAllData } = this.context;
     this.props.localStorage.clear();
     this.props.clearUserStore();
+    clearAllData();
     this.props.navigate('/login', { replace: true });
   };
 

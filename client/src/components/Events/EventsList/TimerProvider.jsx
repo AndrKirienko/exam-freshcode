@@ -27,7 +27,12 @@ export class TimerProvider extends Component {
 
   componentWillUnmount () {
     clearInterval(this.timerInterval);
+    this.clearAllData();
   }
+  clearAllData = () => {
+    localStorage.clear();
+    this.setState({ events: [], timers: {} });
+  };
 
   updateTimers = () => {
     const { events } = this.state;
@@ -62,6 +67,7 @@ export class TimerProvider extends Component {
           events: this.state.events,
           deleteEvent: this.deleteEvent,
           clearNotification: this.clearNotification,
+          clearAllData: this.clearAllData,
         }}
       >
         {this.props.children}
