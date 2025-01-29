@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import userMenu from './../../../data/menus/userMenu.json';
 import styles from './UserMenu.module.sass';
+import CountNotification from '../../Events/CountNotification/CountNotification';
 
 class UserMenu extends Component {
   logOut = () => {
@@ -24,7 +25,9 @@ class UserMenu extends Component {
         return (
           <li key={index}>
             <Link to={item.to}>
-              <span className={styles.menuText}>{item.text}</span>
+              <span className={styles.menuText}>
+                {item.text} {item.text === 'Events' && <CountNotification />}
+              </span>
             </Link>
           </li>
         );
