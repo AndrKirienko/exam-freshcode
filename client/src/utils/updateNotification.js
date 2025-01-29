@@ -1,4 +1,4 @@
-import { parseISO, isValid, isBefore, isSameSecond } from 'date-fns';
+import { parseISO, isValid, isSameSecond } from 'date-fns';
 
 /**
  * Updates events to set notificationAlerts to true when the notificationDatatime matches the current time.
@@ -16,10 +16,7 @@ export const updateNotification = events => {
       const notificationDate = parseISO(notificationDatatime);
 
       if (isValid(notificationDate)) {
-        if (
-          isSameSecond(notificationDate, now) ||
-          isBefore(notificationDate, now)
-        ) {
+        if (isSameSecond(notificationDate, now)) {
           return { ...event, notificationAlerts: true };
         }
       } else {
