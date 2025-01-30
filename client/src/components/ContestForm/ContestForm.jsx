@@ -13,17 +13,20 @@ import FormTextArea from '../InputComponents/FormTextArea/FormTextArea';
 import TryAgain from '../TryAgain/TryAgain';
 import Schems from '../../utils/validators/validationSchems';
 import OptionalSelects from '../OptionalSelects/OptionalSelects';
+import DomainOptions from './DomainOptions/DomainOptions';
+
+const { NAME_CONTEST, LOGO_CONTEST, TAGLINE_CONTEST } = CONSTANTS;
 
 const variableOptions = {
-  [CONSTANTS.NAME_CONTEST]: {
+  [NAME_CONTEST]: {
     styleName: '',
     typeOfName: '',
   },
-  [CONSTANTS.LOGO_CONTEST]: {
+  [LOGO_CONTEST]: {
     nameVenture: '',
     brandStyle: '',
   },
-  [CONSTANTS.TAGLINE_CONTEST]: {
+  [TAGLINE_CONTEST]: {
     nameVenture: '',
     typeOfTagline: '',
   },
@@ -33,18 +36,18 @@ class ContestForm extends Component {
   getPreference = () => {
     const { contestType } = this.props;
     switch (contestType) {
-      case CONSTANTS.NAME_CONTEST: {
+      case NAME_CONTEST: {
         this.props.getData({
           characteristic1: 'nameStyle',
           characteristic2: 'typeOfName',
         });
         break;
       }
-      case CONSTANTS.TAGLINE_CONTEST: {
+      case TAGLINE_CONTEST: {
         this.props.getData({ characteristic1: 'typeOfTagline' });
         break;
       }
-      case CONSTANTS.LOGO_CONTEST: {
+      case LOGO_CONTEST: {
         this.props.getData({ characteristic1: 'brandStyle' });
         break;
       }
@@ -62,6 +65,16 @@ class ContestForm extends Component {
   }
 
   render () {
+    const initialValues = {
+      title: '',
+      industry: '',
+      focusOfWork: '',
+      targetCustomer: '',
+      file: '',
+      ...variableOptions[this.props.contestType],
+      ...this.props.initialValues,
+    };
+
     const { isFetching, error } = this.props.dataForContest;
     if (error) {
       return <TryAgain getData={this.getPreference} />;
@@ -73,15 +86,7 @@ class ContestForm extends Component {
       <>
         <div className={styles.formContainer}>
           <Formik
-            initialValues={{
-              title: '',
-              industry: '',
-              focusOfWork: '',
-              targetCustomer: '',
-              file: '',
-              ...variableOptions[this.props.contestType],
-              ...this.props.initialValues,
-            }}
+            initialValues={initialValues}
             onSubmit={this.props.handleSubmit}
             validationSchema={Schems.ContestSchem}
             innerRef={this.props.formRef}
@@ -145,6 +150,7 @@ class ContestForm extends Component {
                 />
               </div>
               <OptionalSelects {...this.props} />
+              <DomainOptions />
               <FieldFileInput
                 name='file'
                 classes={{
