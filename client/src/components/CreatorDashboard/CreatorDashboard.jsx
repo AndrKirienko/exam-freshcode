@@ -88,7 +88,7 @@ class CreatorDashboard extends Component {
     );
   };
 
-  componentWillReceiveProps (nextProps, nextContext) {
+  componentDidUpdate (nextProps) {
     if (nextProps.location.search !== this.props.location.search) {
       this.parseUrlForParams(nextProps.location.search);
     }
