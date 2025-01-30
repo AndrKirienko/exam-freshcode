@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import queryString from 'query-string';
 import classNames from 'classnames';
 import isEqual from 'lodash/isEqual';
+import { v4 as uuidv4 } from 'uuid';
 import {
   getContests,
   clearContestsList,
@@ -88,7 +89,7 @@ class CreatorDashboard extends Component {
     );
   };
 
-  componentWillReceiveProps (nextProps, nextContext) {
+  componentDidUpdate (nextProps) {
     if (nextProps.location.search !== this.props.location.search) {
       this.parseUrlForParams(nextProps.location.search);
     }
@@ -176,7 +177,7 @@ class CreatorDashboard extends Component {
       array.push(
         <ContestBox
           data={contests[i]}
-          key={contests[i].id}
+          key={uuidv4()}
           goToExtended={this.goToExtended}
         />
       );

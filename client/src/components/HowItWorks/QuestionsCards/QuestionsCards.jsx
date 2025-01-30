@@ -67,11 +67,15 @@ class QuestionsCards extends Component {
           ))}
         </nav>
 
-        {faqData.map(key => (
-          <section id={key.titleId} className={styles.faqSection}>
+        {faqData.map((key, index) => (
+          <section
+            id={key.titleId}
+            className={styles.faqSection}
+            key={key.titleId}
+          >
             <h3 className={styles.faqSectionTitle}>{key.title}</h3>
             <div className={styles.answerContainer}>
-              {key.faq.map(faqKey => (
+              {key.faq.map((faqKey, faqIndex) => (
                 <div
                   className={`${this.getClassName(
                     faqKey.id,
@@ -79,6 +83,7 @@ class QuestionsCards extends Component {
                     styles.faqItem
                   )}`}
                   {...this.initializeContentRefs(faqKey.id)}
+                  key={faqKey.id || faqIndex}
                 >
                   <h4
                     className={styles.faqQuestion}
