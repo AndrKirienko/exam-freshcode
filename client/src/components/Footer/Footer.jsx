@@ -6,8 +6,8 @@ class Footer extends Component {
   topFooterItemsRender = item => (
     <div key={item.title} className={styles.footerSection}>
       <h4 className={styles.footerTitle}>{item.title}</h4>
-      {item.items.map(i => (
-        <a key={i} href={i.link} className={styles.footerLink}>
+      {item.items.map((i, index) => (
+        <a key={index} href={i.link} className={styles.footerLink}>
           {i.name}
         </a>
       ))}

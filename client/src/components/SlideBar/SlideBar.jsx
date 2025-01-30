@@ -35,7 +35,7 @@ const SlideBar = props => {
           <img
             src={props.images[index]}
             alt='slide'
-            key={key}
+            key={index}
             className={styles.carouselCell}
           />
         ));
@@ -46,7 +46,7 @@ const SlideBar = props => {
             href={`https://${props.data[index].text}`}
             target='_blank'
             className={styles.exampleCell}
-            key={key}
+            key={index}
           >
             <img
               className={styles.exampleImg}
@@ -59,7 +59,7 @@ const SlideBar = props => {
       }
       case carouselConstants.FEEDBACK_SLIDER: {
         return Object.keys(props.data).map((key, index) => (
-          <div className={styles.feedbackCell} key={key}>
+          <div className={styles.feedbackCell} key={index}>
             <img
               className={styles.feedbackImg}
               src={props.data[index].image}
