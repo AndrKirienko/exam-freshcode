@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import UserMenu from './../UserMenu';
 import styles from './RenderLoginButtons.module.sass';
 import CONSTANTS from '../../../../constants';
+import CountNotification from '../../../Events/CountNotification/CountNotification';
 
 class RenderLoginButtons extends Component {
   renderLoginButtons = () => {
@@ -27,6 +28,7 @@ class RenderLoginButtons extends Component {
               alt='menu'
               className={styles.menuIcon}
             />
+            <CountNotification />
             <nav className={styles.userMenu}>
               <UserMenu
                 localStorage={this.props.localStorage}

@@ -1,0 +1,75 @@
+.formContainer
+	max-width: 800px
+	width: 100%
+	margin: 0 auto
+
+.titleForm
+	color: #333333
+	font-weight: 700
+	text-transform: uppercase
+	line-height: 1.1
+	font-size: 28px
+	text-align: center
+	margin-bottom: 50px
+
+.inputGroup
+	margin-bottom: 40px
+
+.inputContainer
+	color: #585859
+	font-weight: 700
+	font-size: 19px
+	&:not(:last-child)
+		margin-bottom: 20px
+
+.titleInput
+	display: block
+	font-weight: bold
+	margin-bottom: 16px
+
+.inputErrorContainer
+	position: relative
+
+.input
+	box-sizing: border-box
+	width: 100%
+	padding: 10px
+	border: 1px solid #ccc
+	border-radius: 4px
+	font-size: 14px
+	border: 2px solid #d0d0d0
+	color: #555
+	transition: all 0.15s ease-in-out
+
+	&:focus
+		border: 2px solid #28d2d0
+
+.notValid
+	border: 2px solid red !important
+
+.fieldWarning
+	position: absolute
+	top: -11px
+	left: 5px
+	color: red
+	font-size: 10px
+	font-weight: normal
+
+.submitButton
+	width: 100%
+	padding: 8px 50px
+	background-color: #f3875d
+	color: white
+	border: none
+	border-radius: 4px
+	font-size: 20px
+	cursor: pointer
+	line-height: 1.4
+	transition: all 0.2s linear
+
+	&:hover
+		background-color: #d9704e
+
+.submitButton:disabled
+	background-color: #ccc
+	cursor: not-allowed
