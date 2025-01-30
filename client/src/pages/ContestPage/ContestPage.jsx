@@ -13,7 +13,6 @@ import {
   changeContestViewMode,
   changeShowImage,
 } from '../../store/slices/contestByIdSlice';
-import Header from '../../components/Header/Header';
 import ContestSideBar from '../../components/ContestSideBar/ContestSideBar';
 import styles from './ContestPage.module.sass';
 import OfferBox from '../../components/OfferBox/OfferBox';
@@ -136,7 +135,6 @@ class ContestPage extends Component {
     } = contestByIdStore;
     return (
       <div>
-        {/* <Chat/> */}
         {isShowOnFull && (
           <LightBox
             mainSrc={`${CONSTANTS.publicURL}${imagePath}`}
