@@ -1,0 +1,17 @@
+[
+	{
+		"title": "Yes",
+		"descriptions": "But minor variations are allowed",
+		"isRecommended": true
+	},
+	{
+		"title": "Yes",
+		"descriptions": "The Domain should exactly match the name",
+		"isRecommended": false
+	},
+	{
+		"title": "No",
+		"descriptions": "I am only looking for a name, not a Domain",
+		"isRecommended": false
+	}
+]

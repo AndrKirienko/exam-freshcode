@@ -13,6 +13,7 @@ import FormTextArea from '../InputComponents/FormTextArea/FormTextArea';
 import TryAgain from '../TryAgain/TryAgain';
 import Schems from '../../utils/validators/validationSchems';
 import OptionalSelects from '../OptionalSelects/OptionalSelects';
+import DomainOptions from './DomainOptions/DomainOptions';
 
 const { NAME_CONTEST, LOGO_CONTEST, TAGLINE_CONTEST } = CONSTANTS;
 
@@ -149,6 +150,7 @@ class ContestForm extends Component {
                 />
               </div>
               <OptionalSelects {...this.props} />
+              <DomainOptions />
               <FieldFileInput
                 name='file'
                 classes={{
