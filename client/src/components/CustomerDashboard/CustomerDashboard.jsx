@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
+import { v4 as uuidv4 } from 'uuid';
 import {
   getContests,
   clearContestsList,
@@ -49,7 +50,7 @@ class CustomerDashboard extends Component {
       array.push(
         <ContestBox
           data={contests[i]}
-          key={contests[i].id}
+          key={uuidv4()}
           goToExtended={this.goToExtended}
         />
       );
