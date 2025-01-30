@@ -14,16 +14,18 @@ import TryAgain from '../TryAgain/TryAgain';
 import Schems from '../../utils/validators/validationSchems';
 import OptionalSelects from '../OptionalSelects/OptionalSelects';
 
+const { NAME_CONTEST, LOGO_CONTEST, TAGLINE_CONTEST } = CONSTANTS;
+
 const variableOptions = {
-  [CONSTANTS.NAME_CONTEST]: {
+  [NAME_CONTEST]: {
     styleName: '',
     typeOfName: '',
   },
-  [CONSTANTS.LOGO_CONTEST]: {
+  [LOGO_CONTEST]: {
     nameVenture: '',
     brandStyle: '',
   },
-  [CONSTANTS.TAGLINE_CONTEST]: {
+  [TAGLINE_CONTEST]: {
     nameVenture: '',
     typeOfTagline: '',
   },
@@ -33,18 +35,18 @@ class ContestForm extends Component {
   getPreference = () => {
     const { contestType } = this.props;
     switch (contestType) {
-      case CONSTANTS.NAME_CONTEST: {
+      case NAME_CONTEST: {
         this.props.getData({
           characteristic1: 'nameStyle',
           characteristic2: 'typeOfName',
         });
         break;
       }
-      case CONSTANTS.TAGLINE_CONTEST: {
+      case TAGLINE_CONTEST: {
         this.props.getData({ characteristic1: 'typeOfTagline' });
         break;
       }
-      case CONSTANTS.LOGO_CONTEST: {
+      case LOGO_CONTEST: {
         this.props.getData({ characteristic1: 'brandStyle' });
         break;
       }
