@@ -11,9 +11,7 @@
     "cors": "^2.8.5",
     "dotenv": "^9.0.0",
     "express": "^4.16.3",
-    "http-errors": "^2.0.0",
     "jsonwebtoken": "^8.5.1",
-    "lodash": "^4.17.21",
     "moment": "^2.29.1",
     "mongoose": "^7.6.5",
     "multer": "^1.4.2",
@@ -27,8 +25,6 @@
   },
   "devDependencies": {
     "eslint": "^8.57.1",
-    "eslint-config-airbnb-base": "^15.0.0",
-    "eslint-plugin-import": "^2.31.0",
     "nodemon": "^2.0.20",
     "sequelize-cli": "^6.6.2"
   }
