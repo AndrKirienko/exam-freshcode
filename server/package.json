@@ -15,6 +15,7 @@
     "moment": "^2.29.1",
     "mongoose": "^7.6.5",
     "multer": "^1.4.2",
+    "pg": "^8.13.1",
     "query-string": "^6.14.1",
     "sequelize": "^6.25.5",
     "socket.io": "^4.1.1",
@@ -22,6 +23,7 @@
     "yup": "^0.32.9"
   },
   "devDependencies": {
-    "nodemon": "^2.0.20"
+    "nodemon": "^2.0.20",
+    "sequelize-cli": "^6.6.2"
   }
 }
