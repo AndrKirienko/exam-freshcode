@@ -23,7 +23,10 @@ const ContestBox = props => {
   const ucFirstLetter = string =>
     string.charAt(0).toUpperCase() + string.slice(1);
 
-  const { id, title, contestType, prize, count, goToExtended } = props.data;
+  const {
+    data: { id, title, contestType, prize, count },
+    goToExtended,
+  } = props;
   return (
     <div
       className={styles.contestBoxContainer}
