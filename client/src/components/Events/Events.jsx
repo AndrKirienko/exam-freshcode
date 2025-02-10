@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { IoReturnUpBack, IoCreateOutline } from 'react-icons/io5';
+import classNames from 'classnames';
 import styles from './Events.module.sass';
 import EventsForm from './EventsForm/EventsForm';
 import EventsList from './EventsList/EventsList';
@@ -21,13 +21,14 @@ class Events extends Component {
       <div className={styles.eventsContainer}>
         <button
           onClick={this.toggleCreate}
-          className={styles.toggleEventBtn}
+          className={classNames(
+            styles.toggleEventBtn,
+            this.state.isCreate ? 'fa-solid fa-arrow-left' : 'far fa-edit'
+          )}
           title={
             this.state.isCreate ? 'Return to the events' : 'Create an event'
           }
-        >
-          {this.state.isCreate ? <IoReturnUpBack /> : <IoCreateOutline />}
-        </button>
+        ></button>
         {this.state.isCreate ? <EventsForm /> : <EventsList />}
       </div>
     );
