@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { IoTrashOutline } from 'react-icons/io5';
+import classNames from 'classnames';
 import { TimerContext } from './TimerProvider';
 import styles from './EventsList.module.sass';
 
@@ -30,11 +30,11 @@ class EventsList extends Component {
                 </h3>
                 <div className={styles.eventItem}>
                   <span className={styles.timers}>{timers[index]}</span>
-                  <IoTrashOutline
+                  <button
                     title='Delete event'
-                    className={styles.trash}
+                    className={classNames(styles.trash, 'far fa-trash-alt')}
                     onClick={() => deleteEvent(index)}
-                  />
+                  ></button>
                 </div>
               </li>
             ))}
