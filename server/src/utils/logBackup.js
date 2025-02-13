@@ -62,7 +62,7 @@ function transformAndBackupFile () {
   });
 }
 
-schedule.scheduleJob('40 15 * * *', () => {
+schedule.scheduleJob('0 6 * * *', () => {
   transformAndBackupFile();
 });
 
