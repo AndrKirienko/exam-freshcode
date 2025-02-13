@@ -1,0 +1,69 @@
+const winston = require('winston');
+const path = require('path');
+
+// Налаштування формату для JSON-об'єкта
+const logFormat = winston.format.printf(
+  ({ message, timestamp, code, stack }) => {
+    const logObject = {
+      time: new Date(timestamp).toISOString(),
+      code: code || 500,
+      message: message,
+      stackTrace: stack || null,
+    };
+
+    return JSON.stringify(logObject, null, 2); // форматоване JSON для читабельності
+  }
+);
+
+// Налаштування логгера
+const logger = winston.createLogger({
+  level: 'error',
+  format: winston.format.combine(
+    winston.format.timestamp(),
+    winston.format.errors({ stack: true }),
+    logFormat
+  ),
+  transports: [
+    new winston.transports.File({
+      filename: path.join(__dirname, '../logs/errors.log'),
+    }),
+    new winston.transports.Console({ format: winston.format.simple() }),
+  ],
+});
+
+// Функція для логування помилок
+function logError (error, code = 500) {
+  logger.error({ message: error.message, code, stack: error.stack });
+}
+
+process.on('uncaughtException', error => {
+  console.error('Uncaught Exception:', error);
+  logError(error, 500);
+  process.exit(1); // Завершуємо процес, якщо помилка критична
+});
+
+// Логування необроблених відмов (Unhandled Promise Rejections)
+process.on('unhandledRejection', reason => {
+  console.error('Unhandled Rejection:', reason);
+  logError(reason, 500);
+});
+
+const wrapAsync = controller => {
+  return Object.keys(controller).reduce((wrapped, key) => {
+    if (typeof controller[key] === 'function') {
+      wrapped[key] = async (req, res, next) => {
+        try {
+          await controller[key](req, res, next);
+        } catch (error) {
+          logError(error, error.status || 500);
+          next(error);
+        }
+      };
+    } else {
+      wrapped[key] = controller[key];
+    }
+    return wrapped;
+  }, {});
+};
+
+module.exports = { logError, wrapAsync };

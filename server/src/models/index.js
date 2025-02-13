@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const Sequelize = require('sequelize');
+const { logError } = require('../utils/logger');
 const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || 'development';
 const configPath =
@@ -22,6 +23,10 @@ const sequelize = new Sequelize(
   config.password,
   config
 );
+
+sequelize.authenticate().catch(error => {
+  logError(error, 500);
+});
 
 fs.readdirSync(__dirname)
   .filter(file => {
