@@ -1,7 +1,6 @@
 const winston = require('winston');
 const path = require('path');
 
-// Налаштування формату для JSON-об'єкта
 const logFormat = winston.format.printf(
   ({ message, timestamp, code, stack }) => {
     const logObject = {
@@ -11,11 +10,10 @@ const logFormat = winston.format.printf(
       stackTrace: stack || null,
     };
 
-    return JSON.stringify(logObject, null, 2); // форматоване JSON для читабельності
+    return JSON.stringify(logObject, null, 2);
   }
 );
 
-// Налаштування логгера
 const logger = winston.createLogger({
   level: 'error',
   format: winston.format.combine(
@@ -31,7 +29,6 @@ const logger = winston.createLogger({
   ],
 });
 
-// Функція для логування помилок
 function logError (error, code = 500) {
   logger.error({ message: error.message, code, stack: error.stack });
 }
@@ -39,10 +36,9 @@ function logError (error, code = 500) {
 process.on('uncaughtException', error => {
   console.error('Uncaught Exception:', error);
   logError(error, 500);
-  process.exit(1); // Завершуємо процес, якщо помилка критична
+  process.exit(1);
 });
 
-// Логування необроблених відмов (Unhandled Promise Rejections)
 process.on('unhandledRejection', reason => {
   console.error('Unhandled Rejection:', reason);
   logError(reason, 500);
