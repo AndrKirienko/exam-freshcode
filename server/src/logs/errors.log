@@ -1,0 +1,258 @@
+{
+  "time": "2025-02-13T11:50:58.721Z",
+  "code": 500,
+  "message": "need token",
+  "stackTrace": "TokenError: need token\n    at module.exports.checkAuth (/server/src/middlewares/checkToken.js:9:17)\n    at Layer.handle [as handle_request] (/server/node_modules/express/lib/router/layer.js:95:5)\n    at next (/server/node_modules/express/lib/router/route.js:144:13)\n    at Route.dispatch (/server/node_modules/express/lib/router/route.js:114:3)\n    at Layer.handle [as handle_request] (/server/node_modules/express/lib/router/layer.js:95:5)\n    at /server/node_modules/express/lib/router/index.js:284:15\n    at Function.process_params (/server/node_modules/express/lib/router/index.js:346:12)\n    at next (/server/node_modules/express/lib/router/index.js:280:10)\n    at Function.handle (/server/node_modules/express/lib/router/index.js:175:3)\n    at router (/server/node_modules/express/lib/router/index.js:47:12)"
+}
+{
+  "time": "2025-02-13T11:51:31.949Z",
+  "code": 500,
+  "message": "need token",
+  "stackTrace": "TokenError: need token\n    at module.exports.checkAuth (/server/src/middlewares/checkToken.js:9:17)\n    at Layer.handle [as handle_request] (/server/node_modules/express/lib/router/layer.js:95:5)\n    at next (/server/node_modules/express/lib/router/route.js:144:13)\n    at Route.dispatch (/server/node_modules/express/lib/router/route.js:114:3)\n    at Layer.handle [as handle_request] (/server/node_modules/express/lib/router/layer.js:95:5)\n    at /server/node_modules/express/lib/router/index.js:284:15\n    at Function.process_params (/server/node_modules/express/lib/router/index.js:346:12)\n    at next (/server/node_modules/express/lib/router/index.js:280:10)\n    at Function.handle (/server/node_modules/express/lib/router/index.js:175:3)\n    at router (/server/node_modules/express/lib/router/index.js:47:12)"
+}
+{
+  "time": "2025-02-13T11:51:36.385Z",
+  "code": 500,
+  "message": "need token",
+  "stackTrace": "TokenError: need token\n    at module.exports.checkAuth (/server/src/middlewares/checkToken.js:9:17)\n    at Layer.handle [as handle_request] (/server/node_modules/express/lib/router/layer.js:95:5)\n    at next (/server/node_modules/express/lib/router/route.js:144:13)\n    at Route.dispatch (/server/node_modules/express/lib/router/route.js:114:3)\n    at Layer.handle [as handle_request] (/server/node_modules/express/lib/router/layer.js:95:5)\n    at /server/node_modules/express/lib/router/index.js:284:15\n    at Function.process_params (/server/node_modules/express/lib/router/index.js:346:12)\n    at next (/server/node_modules/express/lib/router/index.js:280:10)\n    at Function.handle (/server/node_modules/express/lib/router/index.js:175:3)\n    at router (/server/node_modules/express/lib/router/index.js:47:12)"
+}
+{
+  "time": "2025-02-13T11:51:39.389Z",
+  "code": 500,
+  "message": "Wrong password or email",
+  "stackTrace": "UserNotFoundError: Wrong password or email\n    at module.exports.passwordCompare (/server/src/controllers/queries/userQueries.js:39:11)\n    at async module.exports.login (/server/src/controllers/userController.js:23:5)\n    at async wrapped.<computed> (/server/src/utils/logger.js:56:11)"
+}
+{
+  "time": "2025-02-13T11:52:07.092Z",
+  "code": 500,
+  "message": "this email were already exist",
+  "stackTrace": "NotUniqueEmail: this email were already exist\n    at module.exports.registration (/server/src/controllers/userController.js:69:12)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async wrapped.<computed> (/server/src/utils/logger.js:56:11)"
+}
+{
+  "time": "2025-02-13T11:52:13.107Z",
+  "code": 500,
+  "message": "need token",
+  "stackTrace": "TokenError: need token\n    at module.exports.checkAuth (/server/src/middlewares/checkToken.js:9:17)\n    at Layer.handle [as handle_request] (/server/node_modules/express/lib/router/layer.js:95:5)\n    at next (/server/node_modules/express/lib/router/route.js:144:13)\n    at Route.dispatch (/server/node_modules/express/lib/router/route.js:114:3)\n    at Layer.handle [as handle_request] (/server/node_modules/express/lib/router/layer.js:95:5)\n    at /server/node_modules/express/lib/router/index.js:284:15\n    at Function.process_params (/server/node_modules/express/lib/router/index.js:346:12)\n    at next (/server/node_modules/express/lib/router/index.js:280:10)\n    at Function.handle (/server/node_modules/express/lib/router/index.js:175:3)\n    at router (/server/node_modules/express/lib/router/index.js:47:12)"
+}
+{
+  "time": "2025-02-13T11:53:07.513Z",
+  "code": 500,
+  "message": "need token",
+  "stackTrace": "TokenError: need token\n    at module.exports.checkAuth (/server/src/middlewares/checkToken.js:9:17)\n    at Layer.handle [as handle_request] (/server/node_modules/express/lib/router/layer.js:95:5)\n    at next (/server/node_modules/express/lib/router/route.js:144:13)\n    at Route.dispatch (/server/node_modules/express/lib/router/route.js:114:3)\n    at Layer.handle [as handle_request] (/server/node_modules/express/lib/router/layer.js:95:5)\n    at /server/node_modules/express/lib/router/index.js:284:15\n    at Function.process_params (/server/node_modules/express/lib/router/index.js:346:12)\n    at next (/server/node_modules/express/lib/router/index.js:280:10)\n    at Function.handle (/server/node_modules/express/lib/router/index.js:175:3)\n    at router (/server/node_modules/express/lib/router/index.js:47:12)"
+}
+{
+  "time": "2025-02-13T11:53:55.728Z",
+  "code": 500,
+  "message": "need token",
+  "stackTrace": "TokenError: need token\n    at module.exports.checkAuth (/server/src/middlewares/checkToken.js:9:17)\n    at Layer.handle [as handle_request] (/server/node_modules/express/lib/router/layer.js:95:5)\n    at next (/server/node_modules/express/lib/router/route.js:144:13)\n    at Route.dispatch (/server/node_modules/express/lib/router/route.js:114:3)\n    at Layer.handle [as handle_request] (/server/node_modules/express/lib/router/layer.js:95:5)\n    at /server/node_modules/express/lib/router/index.js:284:15\n    at Function.process_params (/server/node_modules/express/lib/router/index.js:346:12)\n    at next (/server/node_modules/express/lib/router/index.js:280:10)\n    at Function.handle (/server/node_modules/express/lib/router/index.js:175:3)\n    at router (/server/node_modules/express/lib/router/index.js:47:12)"
+}
+{
+  "time": "2025-02-13T11:55:10.623Z",
+  "code": 500,
+  "message": "need token",
+  "stackTrace": "TokenError: need token\n    at module.exports.checkAuth (/server/src/middlewares/checkToken.js:9:17)\n    at Layer.handle [as handle_request] (/server/node_modules/express/lib/router/layer.js:95:5)\n    at next (/server/node_modules/express/lib/router/route.js:144:13)\n    at Route.dispatch (/server/node_modules/express/lib/router/route.js:114:3)\n    at Layer.handle [as handle_request] (/server/node_modules/express/lib/router/layer.js:95:5)\n    at /server/node_modules/express/lib/router/index.js:284:15\n    at Function.process_params (/server/node_modules/express/lib/router/index.js:346:12)\n    at next (/server/node_modules/express/lib/router/index.js:280:10)\n    at Function.handle (/server/node_modules/express/lib/router/index.js:175:3)\n    at router (/server/node_modules/express/lib/router/index.js:47:12)"
+}
+{
+  "time": "2025-02-13T11:55:31.368Z",
+  "code": 500,
+  "message": "need token",
+  "stackTrace": "TokenError: need token\n    at module.exports.checkAuth (/server/src/middlewares/checkToken.js:9:17)\n    at Layer.handle [as handle_request] (/server/node_modules/express/lib/router/layer.js:95:5)\n    at next (/server/node_modules/express/lib/router/route.js:144:13)\n    at Route.dispatch (/server/node_modules/express/lib/router/route.js:114:3)\n    at Layer.handle [as handle_request] (/server/node_modules/express/lib/router/layer.js:95:5)\n    at /server/node_modules/express/lib/router/index.js:284:15\n    at Function.process_params (/server/node_modules/express/lib/router/index.js:346:12)\n    at next (/server/node_modules/express/lib/router/index.js:280:10)\n    at Function.handle (/server/node_modules/express/lib/router/index.js:175:3)\n    at router (/server/node_modules/express/lib/router/index.js:47:12)"
+}
+{
+  "time": "2025-02-13T11:56:44.872Z",
+  "code": 500,
+  "message": "null value in column \"balance\" of relation \"Banks\" violates not-null constraint",
+  "stackTrace": "Error\n    at Query.run (/server/node_modules/sequelize/lib/dialects/postgres/query.js:50:25)\n    at /server/node_modules/sequelize/lib/sequelize.js:315:28\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async PostgresQueryInterface.bulkUpdate (/server/node_modules/sequelize/lib/dialects/abstract/query-interface.js:366:12)\n    at async Banks.update (/server/node_modules/sequelize/lib/model.js:2010:28)\n    at async module.exports.updateBankBalance (/server/src/controllers/queries/bankQueries.js:5:41)\n    at async module.exports.payment (/server/src/controllers/userController.js:138:5)\n    at async wrapped.<computed> (/server/src/utils/logger.js:56:11)"
+}
+{
+  "time": "2025-02-13T11:57:59.072Z",
+  "code": 500,
+  "message": "need token",
+  "stackTrace": "TokenError: need token\n    at module.exports.checkAuth (/server/src/middlewares/checkToken.js:9:17)\n    at Layer.handle [as handle_request] (/server/node_modules/express/lib/router/layer.js:95:5)\n    at next (/server/node_modules/express/lib/router/route.js:144:13)\n    at Route.dispatch (/server/node_modules/express/lib/router/route.js:114:3)\n    at Layer.handle [as handle_request] (/server/node_modules/express/lib/router/layer.js:95:5)\n    at /server/node_modules/express/lib/router/index.js:284:15\n    at Function.process_params (/server/node_modules/express/lib/router/index.js:346:12)\n    at next (/server/node_modules/express/lib/router/index.js:280:10)\n    at Function.handle (/server/node_modules/express/lib/router/index.js:175:3)\n    at router (/server/node_modules/express/lib/router/index.js:47:12)"
+}
+{
+  "time": "2025-02-13T11:58:06.235Z",
+  "code": 500,
+  "message": "user with this data didn`t exist",
+  "stackTrace": "UserNotFoundError: user with this data didn`t exist\n    at module.exports.findUser (/server/src/controllers/queries/userQueries.js:21:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async module.exports.login (/server/src/controllers/userController.js:22:23)\n    at async wrapped.<computed> (/server/src/utils/logger.js:56:11)"
+}
+{
+  "time": "2025-02-13T11:58:27.641Z",
+  "code": 500,
+  "message": "user with this data didn`t exist",
+  "stackTrace": "UserNotFoundError: user with this data didn`t exist\n    at module.exports.findUser (/server/src/controllers/queries/userQueries.js:21:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async module.exports.login (/server/src/controllers/userController.js:22:23)\n    at async wrapped.<computed> (/server/src/utils/logger.js:56:11)"
+}
+{
+  "time": "2025-02-13T11:58:46.285Z",
+  "code": 500,
+  "message": "Wrong password or email",
+  "stackTrace": "UserNotFoundError: Wrong password or email\n    at module.exports.passwordCompare (/server/src/controllers/queries/userQueries.js:39:11)\n    at async module.exports.login (/server/src/controllers/userController.js:23:5)\n    at async wrapped.<computed> (/server/src/utils/logger.js:56:11)"
+}
+{
+  "time": "2025-02-13T11:59:07.305Z",
+  "code": 500,
+  "message": "need token",
+  "stackTrace": "TokenError: need token\n    at module.exports.checkAuth (/server/src/middlewares/checkToken.js:9:17)\n    at Layer.handle [as handle_request] (/server/node_modules/express/lib/router/layer.js:95:5)\n    at next (/server/node_modules/express/lib/router/route.js:144:13)\n    at Route.dispatch (/server/node_modules/express/lib/router/route.js:114:3)\n    at Layer.handle [as handle_request] (/server/node_modules/express/lib/router/layer.js:95:5)\n    at /server/node_modules/express/lib/router/index.js:284:15\n    at Function.process_params (/server/node_modules/express/lib/router/index.js:346:12)\n    at next (/server/node_modules/express/lib/router/index.js:280:10)\n    at Function.handle (/server/node_modules/express/lib/router/index.js:175:3)\n    at router (/server/node_modules/express/lib/router/index.js:47:12)"
+}
+{
+  "time": "2025-02-13T12:05:46.848Z",
+  "code": 500,
+  "message": "password authentication failed for user \"postgres\"",
+  "stackTrace": "SequelizeConnectionError: password authentication failed for user \"postgres\"\n    at Client._connectionCallback (/server/node_modules/sequelize/lib/dialects/postgres/connection-manager.js:143:24)\n    at Client._handleErrorWhileConnecting (/server/node_modules/pg/lib/client.js:326:19)\n    at Client._handleErrorMessage (/server/node_modules/pg/lib/client.js:346:19)\n    at Connection.emit (node:events:524:28)\n    at /server/node_modules/pg/lib/connection.js:116:12\n    at Parser.parse (/server/node_modules/pg-protocol/dist/parser.js:36:17)\n    at Socket.<anonymous> (/server/node_modules/pg-protocol/dist/index.js:11:42)\n    at Socket.emit (node:events:524:28)\n    at addChunk (node:internal/streams/readable:561:12)\n    at readableAddChunkPushByteMode (node:internal/streams/readable:512:3)"
+}
+{
+  "time": "2025-02-13T12:05:52.437Z",
+  "code": 500,
+  "message": "token error",
+  "stackTrace": "TokenError: token error\n    at module.exports.checkAuth (/server/src/middlewares/checkToken.js:25:10)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)"
+}
+{
+  "time": "2025-02-13T12:05:59.018Z",
+  "code": 500,
+  "message": "token error",
+  "stackTrace": "TokenError: token error\n    at module.exports.checkAuth (/server/src/middlewares/checkToken.js:25:10)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)"
+}
+{
+  "time": "2025-02-13T12:06:01.973Z",
+  "code": 500,
+  "message": "password authentication failed for user \"postgres\"",
+  "stackTrace": "SequelizeConnectionError: password authentication failed for user \"postgres\"\n    at Client._connectionCallback (/server/node_modules/sequelize/lib/dialects/postgres/connection-manager.js:143:24)\n    at Client._handleErrorWhileConnecting (/server/node_modules/pg/lib/client.js:326:19)\n    at Client._handleErrorMessage (/server/node_modules/pg/lib/client.js:346:19)\n    at Connection.emit (node:events:524:28)\n    at /server/node_modules/pg/lib/connection.js:116:12\n    at Parser.parse (/server/node_modules/pg-protocol/dist/parser.js:36:17)\n    at Socket.<anonymous> (/server/node_modules/pg-protocol/dist/index.js:11:42)\n    at Socket.emit (node:events:524:28)\n    at addChunk (node:internal/streams/readable:561:12)\n    at readableAddChunkPushByteMode (node:internal/streams/readable:512:3)"
+}
+{
+  "time": "2025-02-13T12:06:30.301Z",
+  "code": 500,
+  "message": "Operation `messages.aggregate()` buffering timed out after 10000ms",
+  "stackTrace": "MongooseError: Operation `messages.aggregate()` buffering timed out after 10000ms\n    at Timeout.<anonymous> (/server/node_modules/mongoose/lib/drivers/node-mongodb-native/collection.js:186:23)\n    at listOnTimeout (node:internal/timers:594:17)\n    at process.processTimers (node:internal/timers:529:7)"
+}
+{
+  "time": "2025-02-13T12:06:34.737Z",
+  "code": 500,
+  "message": "Operation `catalogs.aggregate()` buffering timed out after 10000ms",
+  "stackTrace": "MongooseError: Operation `catalogs.aggregate()` buffering timed out after 10000ms\n    at Timeout.<anonymous> (/server/node_modules/mongoose/lib/drivers/node-mongodb-native/collection.js:186:23)\n    at listOnTimeout (node:internal/timers:594:17)\n    at process.processTimers (node:internal/timers:529:7)"
+}
+{
+  "time": "2025-02-13T12:06:44.757Z",
+  "code": 500,
+  "message": "Operation `catalogs.aggregate()` buffering timed out after 10000ms",
+  "stackTrace": "MongooseError: Operation `catalogs.aggregate()` buffering timed out after 10000ms\n    at Timeout.<anonymous> (/server/node_modules/mongoose/lib/drivers/node-mongodb-native/collection.js:186:23)\n    at listOnTimeout (node:internal/timers:594:17)\n    at process.processTimers (node:internal/timers:529:7)"
+}
+{
+  "time": "2025-02-13T12:06:45.898Z",
+  "code": 500,
+  "message": "Operation `messages.aggregate()` buffering timed out after 10000ms",
+  "stackTrace": "MongooseError: Operation `messages.aggregate()` buffering timed out after 10000ms\n    at Timeout.<anonymous> (/server/node_modules/mongoose/lib/drivers/node-mongodb-native/collection.js:186:23)\n    at listOnTimeout (node:internal/timers:594:17)\n    at process.processTimers (node:internal/timers:529:7)"
+}
+{
+  "time": "2025-02-13T12:06:46.627Z",
+  "code": 500,
+  "message": "Operation `messages.aggregate()` buffering timed out after 10000ms",
+  "stackTrace": "MongooseError: Operation `messages.aggregate()` buffering timed out after 10000ms\n    at Timeout.<anonymous> (/server/node_modules/mongoose/lib/drivers/node-mongodb-native/collection.js:186:23)\n    at listOnTimeout (node:internal/timers:594:17)\n    at process.processTimers (node:internal/timers:529:7)"
+}
+{
+  "time": "2025-02-13T12:06:46.752Z",
+  "code": 500,
+  "message": "connect ECONNREFUSED 172.18.0.2:27018",
+  "stackTrace": "MongoServerSelectionError: connect ECONNREFUSED 172.18.0.2:27018\n    at Timeout._onTimeout (/server/node_modules/mongodb/lib/sdam/topology.js:278:38)\n    at listOnTimeout (node:internal/timers:594:17)\n    at process.processTimers (node:internal/timers:529:7)"
+}
+{
+  "time": "2025-02-13T12:06:47.222Z",
+  "code": 500,
+  "message": "Operation `messages.aggregate()` buffering timed out after 10000ms",
+  "stackTrace": "MongooseError: Operation `messages.aggregate()` buffering timed out after 10000ms\n    at Timeout.<anonymous> (/server/node_modules/mongoose/lib/drivers/node-mongodb-native/collection.js:186:23)\n    at listOnTimeout (node:internal/timers:594:17)\n    at process.processTimers (node:internal/timers:529:7)"
+}
+{
+  "time": "2025-02-13T12:06:47.388Z",
+  "code": 500,
+  "message": "Operation `messages.aggregate()` buffering timed out after 10000ms",
+  "stackTrace": "MongooseError: Operation `messages.aggregate()` buffering timed out after 10000ms\n    at Timeout.<anonymous> (/server/node_modules/mongoose/lib/drivers/node-mongodb-native/collection.js:186:23)\n    at listOnTimeout (node:internal/timers:594:17)\n    at process.processTimers (node:internal/timers:529:7)"
+}
+{
+  "time": "2025-02-13T12:06:48.205Z",
+  "code": 500,
+  "message": "Operation `messages.aggregate()` buffering timed out after 10000ms",
+  "stackTrace": "MongooseError: Operation `messages.aggregate()` buffering timed out after 10000ms\n    at Timeout.<anonymous> (/server/node_modules/mongoose/lib/drivers/node-mongodb-native/collection.js:186:23)\n    at listOnTimeout (node:internal/timers:594:17)\n    at process.processTimers (node:internal/timers:529:7)"
+}
+{
+  "time": "2025-02-13T12:06:54.770Z",
+  "code": 500,
+  "message": "Operation `messages.aggregate()` buffering timed out after 10000ms",
+  "stackTrace": "MongooseError: Operation `messages.aggregate()` buffering timed out after 10000ms\n    at Timeout.<anonymous> (/server/node_modules/mongoose/lib/drivers/node-mongodb-native/collection.js:186:23)\n    at listOnTimeout (node:internal/timers:594:17)\n    at process.processTimers (node:internal/timers:529:7)"
+}
+{
+  "time": "2025-02-13T12:06:55.912Z",
+  "code": 500,
+  "message": "Operation `catalogs.aggregate()` buffering timed out after 10000ms",
+  "stackTrace": "MongooseError: Operation `catalogs.aggregate()` buffering timed out after 10000ms\n    at Timeout.<anonymous> (/server/node_modules/mongoose/lib/drivers/node-mongodb-native/collection.js:186:23)\n    at listOnTimeout (node:internal/timers:594:17)\n    at process.processTimers (node:internal/timers:529:7)"
+}
+{
+  "time": "2025-02-13T12:09:01.228Z",
+  "code": 500,
+  "message": "need token",
+  "stackTrace": "TokenError: need token\n    at module.exports.checkAuth (/server/src/middlewares/checkToken.js:9:17)\n    at Layer.handle [as handle_request] (/server/node_modules/express/lib/router/layer.js:95:5)\n    at next (/server/node_modules/express/lib/router/route.js:144:13)\n    at Route.dispatch (/server/node_modules/express/lib/router/route.js:114:3)\n    at Layer.handle [as handle_request] (/server/node_modules/express/lib/router/layer.js:95:5)\n    at /server/node_modules/express/lib/router/index.js:284:15\n    at Function.process_params (/server/node_modules/express/lib/router/index.js:346:12)\n    at next (/server/node_modules/express/lib/router/index.js:280:10)\n    at Function.handle (/server/node_modules/express/lib/router/index.js:175:3)\n    at router (/server/node_modules/express/lib/router/index.js:47:12)"
+}
+{
+  "time": "2025-02-13T12:13:47.356Z",
+  "code": 500,
+  "message": "Искусственная ошибка для теста логирования",
+  "stackTrace": "Error: Искусственная ошибка для теста логирования\n    at module.exports.addMessage (/server/src/controllers/chatController.js:12:11)\n    at wrapped.<computed> (/server/src/utils/logger.js:56:32)\n    at Layer.handle [as handle_request] (/server/node_modules/express/lib/router/layer.js:95:5)\n    at next (/server/node_modules/express/lib/router/route.js:144:13)\n    at Route.dispatch (/server/node_modules/express/lib/router/route.js:114:3)\n    at Layer.handle [as handle_request] (/server/node_modules/express/lib/router/layer.js:95:5)\n    at /server/node_modules/express/lib/router/index.js:284:15\n    at Function.process_params (/server/node_modules/express/lib/router/index.js:346:12)\n    at next (/server/node_modules/express/lib/router/index.js:280:10)\n    at module.exports.checkToken (/server/src/middlewares/checkToken.js:36:5)"
+}
+{
+  "time": "2025-02-13T12:16:39.094Z",
+  "code": 500,
+  "message": "need token",
+  "stackTrace": "TokenError: need token\n    at module.exports.checkAuth (/server/src/middlewares/checkToken.js:9:17)\n    at Layer.handle [as handle_request] (/server/node_modules/express/lib/router/layer.js:95:5)\n    at next (/server/node_modules/express/lib/router/route.js:144:13)\n    at Route.dispatch (/server/node_modules/express/lib/router/route.js:114:3)\n    at Layer.handle [as handle_request] (/server/node_modules/express/lib/router/layer.js:95:5)\n    at /server/node_modules/express/lib/router/index.js:284:15\n    at Function.process_params (/server/node_modules/express/lib/router/index.js:346:12)\n    at next (/server/node_modules/express/lib/router/index.js:280:10)\n    at Function.handle (/server/node_modules/express/lib/router/index.js:175:3)\n    at router (/server/node_modules/express/lib/router/index.js:47:12)"
+}
+{
+  "time": "2025-02-13T12:16:49.414Z",
+  "code": 500,
+  "message": "Искусственная ошибка для проверки логирования на оновление контеста",
+  "stackTrace": "Error: Искусственная ошибка для проверки логирования на оновление контеста\n    at module.exports.updateContest (/server/src/controllers/queries/contestQueries.js:5:9)\n    at module.exports.updateContest (/server/src/controllers/contestController.js:122:49)\n    at wrapped.<computed> (/server/src/utils/logger.js:56:32)\n    at Layer.handle [as handle_request] (/server/node_modules/express/lib/router/layer.js:95:5)\n    at next (/server/node_modules/express/lib/router/route.js:144:13)\n    at /server/src/utils/fileUpload.js:66:12\n    at /server/node_modules/multer/lib/make-middleware.js:53:37\n    at AsyncResource.runInAsyncScope (node:async_hooks:211:14)\n    at listener (/server/node_modules/on-finished/index.js:170:15)\n    at onFinish (/server/node_modules/on-finished/index.js:101:5)"
+}
+{
+  "time": "2025-02-13T12:28:40.289Z",
+  "code": 500,
+  "message": "need token",
+  "stackTrace": "TokenError: need token\n    at module.exports.checkAuth (/server/src/middlewares/checkToken.js:9:17)\n    at Layer.handle [as handle_request] (/server/node_modules/express/lib/router/layer.js:95:5)\n    at next (/server/node_modules/express/lib/router/route.js:144:13)\n    at Route.dispatch (/server/node_modules/express/lib/router/route.js:114:3)\n    at Layer.handle [as handle_request] (/server/node_modules/express/lib/router/layer.js:95:5)\n    at /server/node_modules/express/lib/router/index.js:284:15\n    at Function.process_params (/server/node_modules/express/lib/router/index.js:346:12)\n    at next (/server/node_modules/express/lib/router/index.js:280:10)\n    at Function.handle (/server/node_modules/express/lib/router/index.js:175:3)\n    at router (/server/node_modules/express/lib/router/index.js:47:12)"
+}
+{
+  "time": "2025-02-13T12:29:10.248Z",
+  "code": 500,
+  "message": "need token",
+  "stackTrace": "TokenError: need token\n    at module.exports.checkAuth (/server/src/middlewares/checkToken.js:9:17)\n    at Layer.handle [as handle_request] (/server/node_modules/express/lib/router/layer.js:95:5)\n    at next (/server/node_modules/express/lib/router/route.js:144:13)\n    at Route.dispatch (/server/node_modules/express/lib/router/route.js:114:3)\n    at Layer.handle [as handle_request] (/server/node_modules/express/lib/router/layer.js:95:5)\n    at /server/node_modules/express/lib/router/index.js:284:15\n    at Function.process_params (/server/node_modules/express/lib/router/index.js:346:12)\n    at next (/server/node_modules/express/lib/router/index.js:280:10)\n    at Function.handle (/server/node_modules/express/lib/router/index.js:175:3)\n    at router (/server/node_modules/express/lib/router/index.js:47:12)"
+}
+{
+  "time": "2025-02-13T12:29:14.426Z",
+  "code": 500,
+  "message": "Wrong password or email",
+  "stackTrace": "UserNotFoundError: Wrong password or email\n    at module.exports.passwordCompare (/server/src/controllers/queries/userQueries.js:39:11)\n    at async module.exports.login (/server/src/controllers/userController.js:23:5)\n    at async wrapped.<computed> (/server/src/utils/logger.js:56:11)"
+}
+{
+  "time": "2025-02-13T12:29:21.757Z",
+  "code": 500,
+  "message": "user with this data didn`t exist",
+  "stackTrace": "UserNotFoundError: user with this data didn`t exist\n    at module.exports.findUser (/server/src/controllers/queries/userQueries.js:21:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async module.exports.login (/server/src/controllers/userController.js:22:23)\n    at async wrapped.<computed> (/server/src/utils/logger.js:56:11)"
+}
+{
+  "time": "2025-02-13T12:29:37.742Z",
+  "code": 500,
+  "message": "this email were already exist",
+  "stackTrace": "NotUniqueEmail: this email were already exist\n    at module.exports.registration (/server/src/controllers/userController.js:69:12)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async wrapped.<computed> (/server/src/utils/logger.js:56:11)"
+}
+{
+  "time": "2025-02-13T12:29:44.372Z",
+  "code": 500,
+  "message": "need token",
+  "stackTrace": "TokenError: need token\n    at module.exports.checkAuth (/server/src/middlewares/checkToken.js:9:17)\n    at Layer.handle [as handle_request] (/server/node_modules/express/lib/router/layer.js:95:5)\n    at next (/server/node_modules/express/lib/router/route.js:144:13)\n    at Route.dispatch (/server/node_modules/express/lib/router/route.js:114:3)\n    at Layer.handle [as handle_request] (/server/node_modules/express/lib/router/layer.js:95:5)\n    at /server/node_modules/express/lib/router/index.js:284:15\n    at Function.process_params (/server/node_modules/express/lib/router/index.js:346:12)\n    at next (/server/node_modules/express/lib/router/index.js:280:10)\n    at Function.handle (/server/node_modules/express/lib/router/index.js:175:3)\n    at router (/server/node_modules/express/lib/router/index.js:47:12)"
+}
+{
+  "time": "2025-02-13T12:29:45.624Z",
+  "code": 500,
+  "message": "need token",
+  "stackTrace": "TokenError: need token\n    at module.exports.checkAuth (/server/src/middlewares/checkToken.js:9:17)\n    at Layer.handle [as handle_request] (/server/node_modules/express/lib/router/layer.js:95:5)\n    at next (/server/node_modules/express/lib/router/route.js:144:13)\n    at Route.dispatch (/server/node_modules/express/lib/router/route.js:114:3)\n    at Layer.handle [as handle_request] (/server/node_modules/express/lib/router/layer.js:95:5)\n    at /server/node_modules/express/lib/router/index.js:284:15\n    at Function.process_params (/server/node_modules/express/lib/router/index.js:346:12)\n    at next (/server/node_modules/express/lib/router/index.js:280:10)\n    at Function.handle (/server/node_modules/express/lib/router/index.js:175:3)\n    at router (/server/node_modules/express/lib/router/index.js:47:12)"
+}
+{
+  "time": "2025-02-13T12:29:45.637Z",
+  "code": 500,
+  "message": "need token",
+  "stackTrace": "TokenError: need token\n    at module.exports.checkAuth (/server/src/middlewares/checkToken.js:9:17)\n    at Layer.handle [as handle_request] (/server/node_modules/express/lib/router/layer.js:95:5)\n    at next (/server/node_modules/express/lib/router/route.js:144:13)\n    at Route.dispatch (/server/node_modules/express/lib/router/route.js:114:3)\n    at Layer.handle [as handle_request] (/server/node_modules/express/lib/router/layer.js:95:5)\n    at /server/node_modules/express/lib/router/index.js:284:15\n    at Function.process_params (/server/node_modules/express/lib/router/index.js:346:12)\n    at next (/server/node_modules/express/lib/router/index.js:280:10)\n    at Function.handle (/server/node_modules/express/lib/router/index.js:175:3)\n    at router (/server/node_modules/express/lib/router/index.js:47:12)"
+}
