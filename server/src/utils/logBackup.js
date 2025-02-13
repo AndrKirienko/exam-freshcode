@@ -49,8 +49,6 @@ function transformAndBackupFile () {
           return;
         }
 
-        console.log(`Бэкап файла создан: ${backupFilePath}`);
-
         fs.truncate(errorFilePath, 0, truncateErr => {
           if (truncateErr) {
             logError(truncateErr);
