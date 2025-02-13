@@ -10,7 +10,7 @@ const logFormat = winston.format.printf(
       stackTrace: stack || null,
     };
 
-    return JSON.stringify(logObject, null, 2);
+    return JSON.stringify(logObject);
   }
 );
 
