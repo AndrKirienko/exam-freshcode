@@ -16,6 +16,8 @@ contestsRouter.post(
 
 contestsRouter.get('/', basic.onlyForCreative, contestController.getContests);
 
+contestsRouter.get('/', basic.onlyForModerator);
+
 contestsRouter.get('/byCustomer', contestController.getCustomersContests);
 
 contestsRouter.patch(
