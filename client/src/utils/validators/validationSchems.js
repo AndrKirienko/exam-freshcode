@@ -53,7 +53,7 @@ export default {
       .required('Display Name is required'),
     role: yup
       .string()
-      .matches(/(customer|creator)/)
+      .matches(/(customer|creator|moderator)/)
       .required('Role is required'),
     agreeOfTerms: yup
       .boolean()
