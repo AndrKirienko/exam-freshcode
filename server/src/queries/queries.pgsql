@@ -23,13 +23,8 @@
              SELECT c."userId",
                     SUM(c."prize") * 0.1 AS total_cashback
                FROM "Contests" c
-              WHERE (
-                    "createdAt" BETWEEN (DATE_TRUNC('year', CURRENT_DATE) - INTERVAL '7 days') AND (
+              WHERE "createdAt" BETWEEN (DATE_TRUNC('year', CURRENT_DATE) - INTERVAL '7 days') AND (
                     DATE_TRUNC('year', CURRENT_DATE) + INTERVAL '14 days' - INTERVAL '1 second'
-                    )
-                 OR "createdAt" BETWEEN (DATE_TRUNC('year', CURRENT_DATE) - INTERVAL '2 year 7 days') AND (
-                    DATE_TRUNC('year', CURRENT_DATE) + INTERVAL '14 days' - INTERVAL '1 year 1 second'
-                    )
                     )
            GROUP BY c."userId"
           ) cb
