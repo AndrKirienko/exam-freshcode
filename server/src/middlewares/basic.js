@@ -5,7 +5,7 @@ const ServerError = require('../errors/ServerError');
 const CONSTANTS = require('../constants');
 
 const {
-  ROLE: { CUSTOMER, CREATOR },
+  ROLE: { CUSTOMER, CREATOR, MODERATOR },
   CONTEST_STATUS_ACTIVE,
   CONTEST_STATUS_FINISHED,
 } = CONSTANTS;
@@ -65,6 +65,15 @@ module.exports.onlyForCreative = (req, res, next) => {
 module.exports.onlyForCustomer = (req, res, next) => {
   if (req.tokenData.role === CREATOR) {
     return next(new RightsError('this page only for customers'));
+  } else {
+    next();
+  }
+};
+
+module.exports.onlyForModerator = (req, res, next) => {
+  if (req.tokenData.role === MODERATOR) {
+    console.log('moderator');
+    return next(new RightsError('this page only for moderator'));
   } else {
     next();
   }

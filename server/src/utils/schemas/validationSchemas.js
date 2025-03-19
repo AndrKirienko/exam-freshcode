@@ -8,7 +8,7 @@ module.exports.REGISTRATION_SCHEMA = yup.object().shape({
   password: yup.string().required().min(1),
   role: yup
     .string()
-    .matches(/(customer|creator)/)
+    .matches(/(customer|creator|moderator)/)
     .required(),
 });
 
