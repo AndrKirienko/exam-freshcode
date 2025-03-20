@@ -54,30 +54,27 @@ module.exports.canGetContest = async (req, res, next) => {
   }
 };
 
-module.exports.onlyForCreative = (req, res, next) => {
-  if (req.tokenData.role === CUSTOMER) {
-    next(new RightsError());
-  } else {
-    next();
+const checkRole = (allowedRole, errorMessage) => (req, res, next) => {
+  if (req.tokenData.role !== allowedRole) {
+    return next(new RightsError(errorMessage));
   }
+  next();
 };
 
-module.exports.onlyForCustomer = (req, res, next) => {
-  if (req.tokenData.role === CREATOR) {
-    return next(new RightsError('this page only for customers'));
-  } else {
-    next();
-  }
-};
+module.exports.onlyForCreative = checkRole(
+  CREATOR,
+  'This page is only for creatives'
+);
 
-module.exports.onlyForModerator = (req, res, next) => {
-  if (req.tokenData.role === MODERATOR) {
-    console.log('moderator');
-    return next(new RightsError('this page only for moderator'));
-  } else {
-    next();
-  }
-};
+module.exports.onlyForCustomer = checkRole(
+  CUSTOMER,
+  'This page is only for customers'
+);
+
+module.exports.onlyForModerator = checkRole(
+  MODERATOR,
+  'This page is only for moderator'
+);
 
 module.exports.canSendOffer = async (req, res, next) => {
   if (req.tokenData.role === CUSTOMER) {
