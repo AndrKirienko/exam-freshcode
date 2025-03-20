@@ -30,6 +30,7 @@ export const changeCatalogName = ({ catalogId, catalogName }) =>
 
 export const setNewOffer = data => http.post('offers/setNewOffer', data);
 export const setOfferStatus = data => http.post('offers/setOfferStatus', data);
+export const getOffersForModerator = () => http.get('offers');
 
 export const downloadContestFile = data =>
   http.get(`downloadFile/${data.fileName}`);
