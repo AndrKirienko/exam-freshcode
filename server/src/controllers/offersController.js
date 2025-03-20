@@ -1,10 +1,11 @@
-const { Offers } = require('../models');
+const db = require('../models');
 const CONSTANTS = require('../constants');
 const contestQueries = require('./queries/contestQueries');
 const controller = require('../socketInit');
-const db = require('../models');
 const userQueries = require('./queries/userQueries');
 const ServerError = require('../errors/ServerError');
+
+const { Offers } = db;
 
 const {
   LOGO_CONTEST,
@@ -18,14 +19,37 @@ const {
 module.exports.getOffersForModerator = async (req, res, next) => {
   try {
     const { status } = req.query;
-    console.log(status);
-
     const foundOffers = await Offers.findAll({
       where: { status },
-      //attributes: ['id', 'text', 'status'],
+      attributes: ['id', 'text', 'status'],
       raw: true,
     });
     res.status(400).send({ data: foundOffers });
+  } catch (err) {
+    next(err);
+  }
+};
+
+module.exports.updateOfferModeratorStatus = async (req, res, next) => {
+  const {
+    body: { status },
+    params: { offerId },
+  } = req;
+
+  try {
+    const [updatedCount, updatedOffer] = await Offers.update(
+      { status },
+      {
+        where: { id: offerId },
+        returning: true,
+      }
+    );
+
+    if (updatedCount === 0) {
+      return next(new ServerError('Offer not found or not updated'));
+    }
+
+    res.status(200).send({ data: updatedOffer });
   } catch (err) {
     next(err);
   }

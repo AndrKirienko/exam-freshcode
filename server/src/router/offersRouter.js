@@ -5,7 +5,17 @@ const { basic } = require('../middlewares');
 
 const offersRouter = Router();
 
-offersRouter.get('/', offersController.getOffersForModerator);
+offersRouter.get(
+  '/',
+  basic.onlyForModerator,
+  offersController.getOffersForModerator
+);
+
+offersRouter.patch(
+  '/:offerId',
+  basic.onlyForModerator,
+  offersController.updateOfferModeratorStatus
+);
 
 offersRouter.post(
   '/setNewOffer',
