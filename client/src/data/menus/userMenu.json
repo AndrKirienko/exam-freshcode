@@ -17,6 +17,11 @@
     },
     {
       "type": "link",
+      "text": "Offers",
+      "to": "/offers"
+    },
+    {
+      "type": "link",
       "text": "Messages",
       "to": "#"
     },

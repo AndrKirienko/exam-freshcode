@@ -1,5 +1,10 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import * as restController from './../../api/rest/restController';
+import CONSTANTS from './../../constants';
+
+const {
+  PAGINATION_OFFERS: { DEFAULT_PAGE, DEFAULT_RESULTS },
+} = CONSTANTS;
 
 const OFFERS_SLICE_NAME = 'offers';
 
@@ -7,6 +12,10 @@ const initialState = {
   offers: [],
   isFetching: false,
   error: null,
+  paginate: {
+    results: DEFAULT_RESULTS,
+    page: DEFAULT_PAGE,
+  },
 };
 
 export const getOffersThunk = createAsyncThunk(
@@ -15,7 +24,7 @@ export const getOffersThunk = createAsyncThunk(
     try {
       const {
         data: { data },
-      } = await restController.getOffersForModerator();
+      } = await restController.getOffersForModerator(payload);
       return data;
     } catch (err) {
       return rejectWithValue(err);
@@ -26,7 +35,11 @@ export const getOffersThunk = createAsyncThunk(
 const offersSlice = createSlice({
   name: OFFERS_SLICE_NAME,
   initialState,
-  reducers: {},
+  reducers: {
+    setPage: (state, { payload }) => {
+      state.paginate.page = payload;
+    },
+  },
   extraReducers: builder => {
     builder.addCase(getOffersThunk.pending, state => {
       state.isFetching = true;
@@ -45,6 +58,6 @@ const offersSlice = createSlice({
 
 const { reducer, actions } = offersSlice;
 
-//export const {} = action;
+export const { setPage } = actions;
 
 export default reducer;

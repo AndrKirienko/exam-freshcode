@@ -5,7 +5,7 @@ const controller = require('../socketInit');
 const userQueries = require('./queries/userQueries');
 const ServerError = require('../errors/ServerError');
 
-const { Offers } = db;
+const { Offers, Contests, Users } = db;
 
 const {
   LOGO_CONTEST,
@@ -18,13 +18,32 @@ const {
 
 module.exports.getOffersForModerator = async (req, res, next) => {
   try {
-    const { status } = req.query;
+    const {
+      pagination: { limit, offset },
+    } = req;
+
     const foundOffers = await Offers.findAll({
-      where: { status },
+      //where: { status: 'pending' },
       attributes: ['id', 'text', 'status'],
+      include: [
+        {
+          model: Contests,
+          attributes: ['title', 'originalFileName'],
+
+          include: [
+            {
+              model: Users,
+              attributes: ['firstName', 'lastName'],
+            },
+          ],
+        },
+      ],
       raw: true,
+      limit,
+      offset,
     });
-    res.status(400).send({ data: foundOffers });
+
+    res.status(200).send({ data: foundOffers });
   } catch (err) {
     next(err);
   }

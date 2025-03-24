@@ -1,4 +1,9 @@
 const yup = require('yup');
+const CONSTANTS = require('./../../constants');
+
+const {
+  PAGINATION_OFFERS: { DEFAULT_PAGE, DEFAULT_RESULTS, DEFAULT_MAX_RESULTS },
+} = CONSTANTS;
 
 module.exports.REGISTRATION_SCHEMA = yup.object().shape({
   firstName: yup.string().required().min(1),
@@ -34,3 +39,14 @@ module.exports.CONTEST_SCHEMA = yup.object().shape({
   typeOfTagline: yup.string().min(1),
   brandStyle: yup.string().min(1),
 });
+
+module.exports.PAGE_VALIDATION_SCHEMA = yup
+  .number()
+  .min(DEFAULT_PAGE)
+  .integer();
+
+module.exports.RESULTS_VALIDATION_SCHEMA = yup
+  .number()
+  .min(DEFAULT_RESULTS)
+  .max(DEFAULT_MAX_RESULTS)
+  .integer();

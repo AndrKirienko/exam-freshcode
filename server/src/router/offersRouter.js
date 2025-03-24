@@ -1,13 +1,14 @@
 const { Router } = require('express');
 const { offersController } = require('../controllers');
 const upload = require('../utils/fileUpload');
-const { basic } = require('../middlewares');
+const { basic, paginate } = require('../middlewares');
 
 const offersRouter = Router();
 
 offersRouter.get(
   '/',
-  basic.onlyForModerator,
+  //basic.onlyForModerator,
+  paginate.paginateOffers,
   offersController.getOffersForModerator
 );
 
