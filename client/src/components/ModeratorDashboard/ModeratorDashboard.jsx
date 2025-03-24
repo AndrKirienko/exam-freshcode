@@ -45,14 +45,19 @@ class ModeratorDashboard extends Component {
 
     return (
       <div>
-        <ul>
-          {offers.map(o => (
-            <li key={o.id} className={styles.offerItem}>
-              <h2>{o.text}</h2>
-              <p>{o.status}</p>
-            </li>
-          ))}
-        </ul>
+        {offers.length > 0 ? (
+          <ul>
+            {offers.map(o => (
+              <li key={o.id} className={styles.offerItem}>
+                <h2>{o.text}</h2>
+                <p>{o.status}</p>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p>There are no offers at the moment</p>
+        )}
+
         <div>
           <button
             onClick={() => {
