@@ -38,10 +38,12 @@ class ModeratorDashboard extends Component {
       paginate: { page },
     } = this.props;
 
-    if (offers.length === DEFAULT_RESULTS) {
-      this.props.setPage(page + 1);
-      window.scrollTo(0, 0);
+    if (offers.length <= DEFAULT_RESULTS) {
+      return;
     }
+
+    this.props.setPage(page + 1);
+    window.scrollTo(0, 0);
   };
 
   render () {

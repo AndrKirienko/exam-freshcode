@@ -23,7 +23,7 @@ module.exports.getOffersForModerator = async (req, res, next) => {
     } = req;
 
     const foundOffers = await Offers.findAll({
-      //where: { status: 'pending' },
+      //where: { status: 'rejecddted' },
       attributes: ['id', 'text', 'status'],
       include: [
         {
@@ -39,7 +39,8 @@ module.exports.getOffersForModerator = async (req, res, next) => {
         },
       ],
       raw: true,
-      limit,
+      order: [['id', 'DESC']],
+      limit: limit + 1,
       offset,
     });
 
