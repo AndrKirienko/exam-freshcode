@@ -3,9 +3,12 @@ import styles from './ModeratorDashboard.module.sass';
 import { connect } from 'react-redux';
 import CONSTANTS from './../../constants';
 import { getOffersThunk, setPage } from '../../store/slices/offersSlices';
+import withRouter from './../../hocs/withRouter';
+import NotFound from './../NotFound/NotFound';
 
 const {
   PAGINATION_OFFERS: { DEFAULT_RESULTS, DEFAULT_PAGE },
+  MODERATOR,
 } = CONSTANTS;
 
 class ModeratorDashboard extends Component {
@@ -41,9 +44,12 @@ class ModeratorDashboard extends Component {
     const {
       offers,
       paginate: { page },
+      userStore: {
+        data: { role },
+      },
     } = this.props;
 
-    return (
+    return role === MODERATOR ? (
       <div>
         {offers.length > 0 ? (
           <ul>
@@ -51,6 +57,7 @@ class ModeratorDashboard extends Component {
               <li key={o.id} className={styles.offerItem}>
                 <h2>{o.text}</h2>
                 <p>{o.status}</p>
+                {JSON.stringify(o)}
               </li>
             ))}
           </ul>
@@ -76,13 +83,16 @@ class ModeratorDashboard extends Component {
           </button>
         </div>
       </div>
+    ) : (
+      <NotFound />
     );
   }
 }
 
-const mapStateToProps = ({ offersStore }) => ({
+const mapStateToProps = ({ offersStore, userStore }) => ({
   offers: offersStore.offers,
   paginate: offersStore.paginate,
+  userStore,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -94,4 +104,7 @@ const mapDispatchToProps = dispatch => ({
   },
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(ModeratorDashboard);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(ModeratorDashboard));
