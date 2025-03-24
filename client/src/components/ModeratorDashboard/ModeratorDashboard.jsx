@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import styles from './ModeratorDashboard.module.sass';
+import classNames from 'classnames';
 import { connect } from 'react-redux';
+import styles from './ModeratorDashboard.module.sass';
 import CONSTANTS from './../../constants';
 import { getOffersThunk, setPage } from '../../store/slices/offersSlices';
 import withRouter from './../../hocs/withRouter';
@@ -9,6 +10,7 @@ import NotFound from './../NotFound/NotFound';
 const {
   PAGINATION_OFFERS: { DEFAULT_RESULTS, DEFAULT_PAGE },
   MODERATOR,
+  publicURL,
 } = CONSTANTS;
 
 class ModeratorDashboard extends Component {
@@ -26,6 +28,7 @@ class ModeratorDashboard extends Component {
     const { page } = this.props.paginate;
     if (page > DEFAULT_PAGE) {
       this.props.setPage(page - 1);
+      window.scrollTo(0, 0);
     }
   };
 
@@ -37,6 +40,7 @@ class ModeratorDashboard extends Component {
 
     if (offers.length === DEFAULT_RESULTS) {
       this.props.setPage(page + 1);
+      window.scrollTo(0, 0);
     }
   };
 
@@ -50,38 +54,74 @@ class ModeratorDashboard extends Component {
     } = this.props;
 
     return role === MODERATOR ? (
-      <div>
+      <div className={styles.offersContainer}>
         {offers.length > 0 ? (
-          <ul>
-            {offers.map(o => (
-              <li key={o.id} className={styles.offerItem}>
-                <h2>{o.text}</h2>
-                <p>{o.status}</p>
-                {JSON.stringify(o)}
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <p>There are no offers at the moment</p>
-        )}
+          <>
+            <ul className={styles.offersListContainer}>
+              {offers.map(o => {
+                const {
+                  id,
+                  text,
+                  status,
+                  'Contest.title': contestTitle,
+                  'Contest.originalFileName': originalFileName,
+                  'Contest.User.firstName': firstName,
+                  'Contest.User.lastName': lastName,
+                } = o;
 
-        <div>
-          <button
-            onClick={() => {
-              this.prevPage();
-            }}
-          >
-            prev
-          </button>
-          <p>{page}</p>
-          <button
-            onClick={() => {
-              this.nextPage();
-            }}
-          >
-            next
-          </button>
-        </div>
+                return (
+                  <li key={id} className={styles.offerItem}>
+                    <h2 className={styles.offerText}>Offer text: {text}</h2>
+                    <p>
+                      Full name customer:{' '}
+                      <span>{`${firstName} ${lastName}`}</span>
+                    </p>
+                    <p>Contest title: {contestTitle}</p>
+
+                    {originalFileName && (
+                      <div>
+                        <a
+                          target='_blank'
+                          className={styles.file}
+                          download={originalFileName}
+                          href={originalFileName}
+                          rel='noreferrer'
+                        >
+                          {originalFileName}
+                        </a>
+                      </div>
+                    )}
+                  </li>
+                );
+              })}
+            </ul>
+            <div className={styles.btnPaginationGroup}>
+              <button
+                className={classNames(
+                  styles.btnPagination,
+                  'fa fa-arrow-left-long '
+                )}
+                onClick={() => {
+                  this.prevPage();
+                }}
+              ></button>
+              <span>{page}</span>
+              <button
+                className={classNames(
+                  styles.btnPagination,
+                  'fa fa-arrow-right-long '
+                )}
+                onClick={() => {
+                  this.nextPage();
+                }}
+              ></button>
+            </div>
+          </>
+        ) : (
+          <p className={styles.noOffersContainer}>
+            There are no offers at the moment
+          </p>
+        )}
       </div>
     ) : (
       <NotFound />
