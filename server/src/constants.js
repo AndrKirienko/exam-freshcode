@@ -36,4 +36,9 @@ module.exports = {
     DEFAULT_RESULTS: 5,
     DEFAULT_MAX_RESULTS: 50,
   },
+  OFFER_MODERATOR_STATUS: {
+    REJECT: 'reject',
+    RESOLVE: 'resolve',
+    PENDING: 'pending',
+  },
 };
