@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
 import { connect } from 'react-redux';
+import { confirmAlert } from 'react-confirm-alert';
 import styles from './ModeratorDashboard.module.sass';
 import CONSTANTS from './../../constants';
 import { getOffers, setPage } from '../../store/slices/offersSlices';
@@ -10,6 +11,7 @@ import NotFound from './../NotFound/NotFound';
 const {
   PAGINATION_OFFERS: { DEFAULT_RESULTS, DEFAULT_PAGE },
   MODERATOR,
+  OFFER_MODERATOR_STATUS: { REJECT, RESOLVE },
 } = CONSTANTS;
 
 class ModeratorDashboard extends Component {
@@ -23,6 +25,38 @@ class ModeratorDashboard extends Component {
       this.props.getOffers(this.props.paginate);
     }
   }
+
+  resolveOffer = id => {
+    confirmAlert({
+      title: 'Confirm',
+      message: 'Are u sure?',
+      buttons: [
+        {
+          label: 'Yes',
+          onClick: () => console.log(RESOLVE, id),
+        },
+        {
+          label: 'No',
+        },
+      ],
+    });
+  };
+
+  rejectOffer = id => {
+    confirmAlert({
+      title: 'Confirm',
+      message: 'Are u sure?',
+      buttons: [
+        {
+          label: 'Yes',
+          onClick: () => console.log(REJECT, id),
+        },
+        {
+          label: 'No',
+        },
+      ],
+    });
+  };
 
   prevPage = () => {
     const { page } = this.props.paginate;
@@ -73,32 +107,62 @@ class ModeratorDashboard extends Component {
 
                 return (
                   <li key={id} className={styles.offerItem}>
-                    <h2 className={styles.offerText}>Offer text: {text}</h2>
-                    <p>
-                      Full name customer:{' '}
-                      <span>{`${firstName} ${lastName}`}</span>
-                    </p>
-                    <p>Contest title: {contestTitle}</p>
+                    <div className={styles.offersItemDescriptions}>
+                      <h2 className={styles.offerText}>Offer text: {text}</h2>
+                      <p>
+                        <span className={styles.offersDescriptionsItem}>
+                          Full name customer:
+                        </span>
 
-                    {originalFileName && (
-                      <div>
-                        File:{' '}
-                        <a
-                          target='_blank'
-                          className={styles.file}
-                          download={originalFileName}
-                          href={originalFileName}
-                          rel='noreferrer'
-                        >
-                          {originalFileName}
-                        </a>
-                      </div>
-                    )}
+                        <span>{`${firstName} ${lastName}`}</span>
+                      </p>
+                      <p>
+                        <span className={styles.offersDescriptionsItem}>
+                          Contest title:
+                        </span>
+                        {contestTitle}
+                      </p>
+
+                      {originalFileName && (
+                        <div>
+                          <span className={styles.offersDescriptionsItem}>
+                            File:
+                          </span>
+                          <a
+                            target='_blank'
+                            className={styles.file}
+                            download={originalFileName}
+                            href={originalFileName}
+                            rel='noreferrer'
+                          >
+                            {originalFileName}
+                          </a>
+                        </div>
+                      )}
+                    </div>
+                    <div className={styles.btnsActionsContainer}>
+                      <button
+                        onClick={() => {
+                          this.resolveOffer(id);
+                        }}
+                        className={styles.resolveBtn}
+                      >
+                        Resolve
+                      </button>
+                      <button
+                        onClick={() => {
+                          this.rejectOffer(id);
+                        }}
+                        className={styles.rejectBtn}
+                      >
+                        Reject
+                      </button>
+                    </div>
                   </li>
                 );
               })}
             </ul>
-            <div className={styles.btnPaginationGroup}>
+            <div className={styles.btnPaginationContainer}>
               <button
                 className={classNames(
                   styles.btnPagination,
