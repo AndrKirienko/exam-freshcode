@@ -7,6 +7,7 @@ import CONSTANTS from './../../constants';
 import { getOffers, setPage } from '../../store/slices/offersSlices';
 import withRouter from './../../hocs/withRouter';
 import NotFound from './../NotFound/NotFound';
+import SpinnerLoader from '../Spinner/Spinner';
 
 const {
   PAGINATION_OFFERS: { DEFAULT_RESULTS, DEFAULT_PAGE },
@@ -87,107 +88,112 @@ class ModeratorDashboard extends Component {
       userStore: {
         data: { role },
       },
+      isFetching,
     } = this.props;
 
     return role === MODERATOR ? (
       <div className={styles.offersContainer}>
-        {offers.length > 0 ? (
-          <>
-            <ul className={styles.offersListContainer}>
-              {offers.map(o => {
-                const {
-                  id,
-                  text,
-                  status,
-                  'Contest.title': contestTitle,
-                  'Contest.originalFileName': originalFileName,
-                  'Contest.User.firstName': firstName,
-                  'Contest.User.lastName': lastName,
-                } = o;
+        {!isFetching ? (
+          offers.length > 0 ? (
+            <>
+              <ul className={styles.offersListContainer}>
+                {offers.map(o => {
+                  const {
+                    id,
+                    text,
+                    status,
+                    'Contest.title': contestTitle,
+                    'Contest.originalFileName': originalFileName,
+                    'Contest.User.firstName': firstName,
+                    'Contest.User.lastName': lastName,
+                  } = o;
 
-                return (
-                  <li key={id} className={styles.offerItem}>
-                    <div className={styles.offersItemDescriptions}>
-                      <h2 className={styles.offerText}>Offer text: {text}</h2>
-                      <p>
-                        <span className={styles.offersDescriptionsItem}>
-                          Full name customer:
-                        </span>
-
-                        <span>{`${firstName} ${lastName}`}</span>
-                      </p>
-                      <p>
-                        <span className={styles.offersDescriptionsItem}>
-                          Contest title:
-                        </span>
-                        {contestTitle}
-                      </p>
-
-                      {originalFileName && (
-                        <div>
+                  return (
+                    <li key={id} className={styles.offerItem}>
+                      <div className={styles.offersItemDescriptions}>
+                        <h2 className={styles.offerText}>Offer text: {text}</h2>
+                        <p>
                           <span className={styles.offersDescriptionsItem}>
-                            File:
+                            Full name customer:
                           </span>
-                          <a
-                            target='_blank'
-                            className={styles.file}
-                            download={originalFileName}
-                            href={originalFileName}
-                            rel='noreferrer'
-                          >
-                            {originalFileName}
-                          </a>
-                        </div>
-                      )}
-                    </div>
-                    <div className={styles.btnsActionsContainer}>
-                      <button
-                        onClick={() => {
-                          this.resolveOffer(id);
-                        }}
-                        className={styles.resolveBtn}
-                      >
-                        Resolve
-                      </button>
-                      <button
-                        onClick={() => {
-                          this.rejectOffer(id);
-                        }}
-                        className={styles.rejectBtn}
-                      >
-                        Reject
-                      </button>
-                    </div>
-                  </li>
-                );
-              })}
-            </ul>
-            <div className={styles.btnPaginationContainer}>
-              <button
-                className={classNames(
-                  styles.btnPagination,
-                  'fa fa-arrow-left-long '
-                )}
-                onClick={() => {
-                  this.prevPage();
-                }}
-              ></button>
-              <span>{page}</span>
-              <button
-                className={classNames(
-                  styles.btnPagination,
-                  'fa fa-arrow-right-long '
-                )}
-                onClick={() => {
-                  this.nextPage();
-                }}
-              ></button>
-            </div>
-          </>
+
+                          <span>{`${firstName} ${lastName}`}</span>
+                        </p>
+                        <p>
+                          <span className={styles.offersDescriptionsItem}>
+                            Contest title:
+                          </span>
+                          {contestTitle}
+                        </p>
+
+                        {originalFileName && (
+                          <div>
+                            <span className={styles.offersDescriptionsItem}>
+                              File:
+                            </span>
+                            <a
+                              target='_blank'
+                              className={styles.file}
+                              download={originalFileName}
+                              href={originalFileName}
+                              rel='noreferrer'
+                            >
+                              {originalFileName}
+                            </a>
+                          </div>
+                        )}
+                      </div>
+                      <div className={styles.btnsActionsContainer}>
+                        <button
+                          onClick={() => {
+                            this.resolveOffer(id);
+                          }}
+                          className={styles.resolveBtn}
+                        >
+                          Resolve
+                        </button>
+                        <button
+                          onClick={() => {
+                            this.rejectOffer(id);
+                          }}
+                          className={styles.rejectBtn}
+                        >
+                          Reject
+                        </button>
+                      </div>
+                    </li>
+                  );
+                })}
+              </ul>
+              <div className={styles.btnPaginationContainer}>
+                <button
+                  className={classNames(
+                    styles.btnPagination,
+                    'fa fa-arrow-left-long '
+                  )}
+                  onClick={() => {
+                    this.prevPage();
+                  }}
+                ></button>
+                <span>{page}</span>
+                <button
+                  className={classNames(
+                    styles.btnPagination,
+                    'fa fa-arrow-right-long '
+                  )}
+                  onClick={() => {
+                    this.nextPage();
+                  }}
+                ></button>
+              </div>
+            </>
+          ) : (
+            <p className={styles.noOffersContainer}>
+              There are no offers at the moment
+            </p>
+          )
         ) : (
-          <p className={styles.noOffersContainer}>
-            There are no offers at the moment
-          </p>
+          <SpinnerLoader />
         )}
       </div>
     ) : (
@@ -199,6 +205,7 @@ class ModeratorDashboard extends Component {
 const mapStateToProps = ({ offersStore, userStore }) => ({
   offers: offersStore.offers,
   paginate: offersStore.paginate,
+  isFetching: offersStore.isFetching,
   userStore,
 });
 
