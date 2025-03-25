@@ -32,6 +32,8 @@ export const setNewOffer = data => http.post('offers/setNewOffer', data);
 export const setOfferStatus = data => http.post('offers/setOfferStatus', data);
 export const getOffersForModerator = data =>
   http.get(`offers?${stringify(data)}`);
+export const setOfferModeratorStatus = ({ offerId, moderatorStatus }) =>
+  http.patch(`offers/${offerId}`, { moderatorStatus });
 
 export const downloadContestFile = data =>
   http.get(`downloadFile/${data.fileName}`);

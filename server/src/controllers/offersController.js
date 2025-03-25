@@ -14,6 +14,7 @@ const {
   CONTEST_STATUS_ACTIVE,
   CONTEST_STATUS_PENDING,
   OFFER_STATUS_WON,
+  OFFER_MODERATOR_STATUS: { PENDING },
 } = CONSTANTS;
 
 module.exports.getOffersForModerator = async (req, res, next) => {
@@ -23,8 +24,8 @@ module.exports.getOffersForModerator = async (req, res, next) => {
     } = req;
 
     const foundOffers = await Offers.findAll({
-      //where: { status: 'rejecddted' },
-      attributes: ['id', 'text', 'status'],
+      where: { moderatorStatus: PENDING },
+      attributes: ['id', 'text'],
       include: [
         {
           model: Contests,
@@ -52,13 +53,13 @@ module.exports.getOffersForModerator = async (req, res, next) => {
 
 module.exports.updateOfferModeratorStatus = async (req, res, next) => {
   const {
-    body: { status },
+    body: { moderatorStatus },
     params: { offerId },
   } = req;
 
   try {
     const [updatedCount, updatedOffer] = await Offers.update(
-      { status },
+      { moderatorStatus },
       {
         where: { id: offerId },
         returning: true,

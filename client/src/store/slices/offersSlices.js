@@ -34,12 +34,38 @@ export const getOffers = decorateAsyncThunk({
   },
 });
 
+export const setOfferModeratorStatus = decorateAsyncThunk({
+  key: `${OFFERS_SLICE_NAME}/setOfferModeratorStatus`,
+  thunk: async payload => {
+    const {
+      data: { data },
+    } = await restController.setOfferModeratorStatus(payload);
+    return data;
+  },
+});
+
 const getOffersExtraReducers = createExtraReducers({
   thunk: getOffers,
   pendingReducer,
   fulfilledReducer: (state, { payload }) => {
     state.isFetching = false;
     state.offers = [...payload];
+  },
+  rejectedReducer,
+});
+
+const setOfferModeratorStatusExtraReducers = createExtraReducers({
+  thunk: setOfferModeratorStatus,
+  pendingReducer,
+  fulfilledReducer: (state, { payload }) => {
+    const offerIndex = state.offers.findIndex(o => o.id === payload.offerId);
+    if (offerIndex >= 0) {
+      state.offers[offerIndex] = {
+        ...state.offers[offerIndex],
+        moderatorStatus: payload.moderatorStatus,
+      };
+    }
+    state.isFetching = false;
   },
   rejectedReducer,
 });
@@ -52,6 +78,7 @@ const reducers = {
 
 const extraReducers = builder => {
   getOffersExtraReducers(builder);
+  setOfferModeratorStatusExtraReducers(builder);
 };
 
 const offersSlice = createSlice({

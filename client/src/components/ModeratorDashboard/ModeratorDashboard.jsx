@@ -4,7 +4,11 @@ import { connect } from 'react-redux';
 import { confirmAlert } from 'react-confirm-alert';
 import styles from './ModeratorDashboard.module.sass';
 import CONSTANTS from './../../constants';
-import { getOffers, setPage } from '../../store/slices/offersSlices';
+import {
+  getOffers,
+  setOfferModeratorStatus,
+  setPage,
+} from '../../store/slices/offersSlices';
 import withRouter from './../../hocs/withRouter';
 import NotFound from './../NotFound/NotFound';
 import SpinnerLoader from '../Spinner/Spinner';
@@ -34,7 +38,13 @@ class ModeratorDashboard extends Component {
       buttons: [
         {
           label: 'Yes',
-          onClick: () => console.log(RESOLVE, id),
+          onClick: () => {
+            this.props.setModeratorStatus({
+              offerId: id,
+              moderatorStatus: RESOLVE,
+            });
+            window.location.reload();
+          },
         },
         {
           label: 'No',
@@ -50,7 +60,13 @@ class ModeratorDashboard extends Component {
       buttons: [
         {
           label: 'Yes',
-          onClick: () => console.log(REJECT, id),
+          onClick: () => {
+            this.props.setModeratorStatus({
+              offerId: id,
+              moderatorStatus: REJECT,
+            });
+            window.location.reload();
+          },
         },
         {
           label: 'No',
@@ -101,7 +117,6 @@ class ModeratorDashboard extends Component {
                   const {
                     id,
                     text,
-                    status,
                     'Contest.title': contestTitle,
                     'Contest.originalFileName': originalFileName,
                     'Contest.User.firstName': firstName,
@@ -215,6 +230,9 @@ const mapDispatchToProps = dispatch => ({
   },
   setPage: data => {
     dispatch(setPage(data));
+  },
+  setModeratorStatus: data => {
+    dispatch(setOfferModeratorStatus(data));
   },
 });
 
