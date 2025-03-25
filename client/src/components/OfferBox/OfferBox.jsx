@@ -81,8 +81,11 @@ const OfferBox = props => {
   };
 
   const offerStatus = () => {
-    const { status } = props.data;
-    if (status === CONSTANTS.OFFER_STATUS_REJECTED) {
+    const { status, moderatorStatus } = props.data;
+    if (
+      status === CONSTANTS.OFFER_STATUS_REJECTED ||
+      moderatorStatus === CONSTANTS.OFFER_MODERATOR_STATUS.REJECT
+    ) {
       return (
         <i
           className={classNames('fas fa-times-circle reject', styles.reject)}
