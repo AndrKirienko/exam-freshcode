@@ -7,6 +7,7 @@ const CONSTANTS = require('../constants');
 
 const {
   ROLE: { CREATOR },
+  OFFER_MODERATOR_STATUS: { RESOLVE },
 } = CONSTANTS;
 
 module.exports.dataForContest = async (req, res, next) => {
@@ -64,7 +65,7 @@ module.exports.getContestById = async (req, res, next) => {
         {
           model: db.Offers,
           required: false,
-          where: role === CREATOR ? { userId } : {},
+          where: role === CREATOR ? { userId } : { moderatorStatus: RESOLVE },
           attributes: { exclude: ['userId', 'contestId'] },
           include: [
             {
