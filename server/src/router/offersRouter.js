@@ -7,7 +7,7 @@ const offersRouter = Router();
 
 offersRouter.get(
   '/',
-  //basic.onlyForModerator,
+  basic.onlyForModerator,
   paginate.paginateOffers,
   offersController.getOffersForModerator
 );

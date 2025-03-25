@@ -4,7 +4,6 @@ import { useNavigate, useParams } from 'react-router-dom';
 import CONSTANTS from '../../constants';
 import CustomerDashboard from '../../components/CustomerDashboard/CustomerDashboard';
 import CreatorDashboard from '../../components/CreatorDashboard/CreatorDashboard';
-import ModeratorDashboard from '../../components/ModeratorDashboard/ModeratorDashboard';
 import NotFound from '../../components/NotFound/NotFound';
 
 const { CUSTOMER, CREATOR, MODERATOR } = CONSTANTS;
@@ -22,8 +21,6 @@ const Dashboard = () => {
             return <CustomerDashboard navigate={navigate} params={params} />;
           case CREATOR:
             return <CreatorDashboard navigate={navigate} params={params} />;
-          case MODERATOR:
-            return <ModeratorDashboard navigate={navigate} params={params} />;
           default:
             return <NotFound />;
         }

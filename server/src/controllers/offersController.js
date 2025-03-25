@@ -30,7 +30,7 @@ module.exports.getOffersForModerator = async (req, res, next) => {
         {
           model: Contests,
           attributes: ['title', 'originalFileName'],
-
+          where: { status: CONTEST_STATUS_ACTIVE },
           include: [
             {
               model: Users,
