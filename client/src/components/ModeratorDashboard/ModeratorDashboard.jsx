@@ -3,18 +3,18 @@ import classNames from 'classnames';
 import { connect } from 'react-redux';
 import styles from './ModeratorDashboard.module.sass';
 import CONSTANTS from './../../constants';
-import { getOffersThunk, setPage } from '../../store/slices/offersSlices';
+import { getOffers, setPage } from '../../store/slices/offersSlices';
 import withRouter from './../../hocs/withRouter';
 import NotFound from './../NotFound/NotFound';
 
 const {
   PAGINATION_OFFERS: { DEFAULT_RESULTS, DEFAULT_PAGE },
   MODERATOR,
-  publicURL,
 } = CONSTANTS;
 
 class ModeratorDashboard extends Component {
   componentDidMount () {
+    this.props.setPage(DEFAULT_PAGE);
     this.props.getOffers(this.props.paginate);
   }
 
@@ -82,6 +82,7 @@ class ModeratorDashboard extends Component {
 
                     {originalFileName && (
                       <div>
+                        File:{' '}
                         <a
                           target='_blank'
                           className={styles.file}
@@ -139,7 +140,7 @@ const mapStateToProps = ({ offersStore, userStore }) => ({
 
 const mapDispatchToProps = dispatch => ({
   getOffers: data => {
-    dispatch(getOffersThunk(data));
+    dispatch(getOffers(data));
   },
   setPage: data => {
     dispatch(setPage(data));

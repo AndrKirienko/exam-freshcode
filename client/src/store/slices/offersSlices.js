@@ -1,6 +1,12 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 import * as restController from './../../api/rest/restController';
 import CONSTANTS from './../../constants';
+import {
+  createExtraReducers,
+  decorateAsyncThunk,
+  pendingReducer,
+  rejectedReducer,
+} from '../../utils/store';
 
 const {
   PAGINATION_OFFERS: { DEFAULT_PAGE, DEFAULT_RESULTS },
@@ -18,42 +24,41 @@ const initialState = {
   },
 };
 
-export const getOffersThunk = createAsyncThunk(
-  `${OFFERS_SLICE_NAME}/get`,
-  async (payload, { rejectWithValue }) => {
-    try {
-      const {
-        data: { data },
-      } = await restController.getOffersForModerator(payload);
-      return data;
-    } catch (err) {
-      return rejectWithValue(err);
-    }
-  }
-);
+export const getOffers = decorateAsyncThunk({
+  key: `${OFFERS_SLICE_NAME}/get`,
+  thunk: async payload => {
+    const {
+      data: { data },
+    } = await restController.getOffersForModerator(payload);
+    return data;
+  },
+});
+
+const getOffersExtraReducers = createExtraReducers({
+  thunk: getOffers,
+  pendingReducer,
+  fulfilledReducer: (state, { payload }) => {
+    state.isFetching = false;
+    state.offers = [...payload];
+  },
+  rejectedReducer,
+});
+
+const reducers = {
+  setPage: (state, { payload }) => {
+    state.paginate.page = payload;
+  },
+};
+
+const extraReducers = builder => {
+  getOffersExtraReducers(builder);
+};
 
 const offersSlice = createSlice({
   name: OFFERS_SLICE_NAME,
   initialState,
-  reducers: {
-    setPage: (state, { payload }) => {
-      state.paginate.page = payload;
-    },
-  },
-  extraReducers: builder => {
-    builder.addCase(getOffersThunk.pending, state => {
-      state.isFetching = true;
-      state.error = null;
-    });
-    builder.addCase(getOffersThunk.fulfilled, (state, { payload }) => {
-      state.isFetching = false;
-      state.offers = [...payload];
-    });
-    builder.addCase(getOffersThunk.rejected, (state, { payload }) => {
-      state.isFetching = false;
-      state.error = payload;
-    });
-  },
+  reducers,
+  extraReducers,
 });
 
 const { reducer, actions } = offersSlice;
