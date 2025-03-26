@@ -51,7 +51,7 @@ export default {
   ],
   PAGINATION_OFFERS: {
     DEFAULT_PAGE: 1,
-    DEFAULT_RESULTS: 5,
+    DEFAULT_RESULTS: 14,
   },
   OFFER_MODERATOR_STATUS: {
     REJECT: 'reject',
