@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { connect } from 'react-redux';
 import userMenu from './../../../data/menus/userMenu.json';
 import styles from './UserMenu.module.sass';
 import CountNotification from '../../Events/CountNotification/CountNotification';
@@ -9,7 +8,7 @@ import { TimerContext } from '../../Events/EventsList/TimerProvider';
 import CONSTANTS from './../../../constants';
 import withRouter from '../../../hocs/withRouter';
 
-const { MODERATOR , CUSTOMER} = CONSTANTS;
+const { MODERATOR, CUSTOMER } = CONSTANTS;
 
 class UserMenu extends Component {
   static contextType = TimerContext;
@@ -74,12 +73,6 @@ class UserMenu extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  const { userStore } = state;
-  return { userStore };
-};
-
-export default connect(mapStateToProps)(withRouter(UserMenu));
 const mapStateToProps = state => {
   const { userStore } = state;
   return { userStore };
