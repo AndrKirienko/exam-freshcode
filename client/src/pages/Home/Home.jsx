@@ -23,7 +23,8 @@ const Home = props => {
     };
   });
 
-  const { isFetching } = props;
+  const { isFetching, role } = props;
+
   const text =
     CONSTANTS.HEADER_ANIMATION_TEXT[
       index % CONSTANTS.HEADER_ANIMATION_TEXT.length
@@ -46,11 +47,13 @@ const Home = props => {
                 explore our hand-picked collection of premium names available
                 for immediate purchase
               </p>
-              <div className={styles.button}>
-                <Link className={styles.button__link} to='/dashboard'>
-                  DASHBOARD
-                </Link>
-              </div>
+              {CONSTANTS.MODERATOR === role || (
+                <div className={styles.button}>
+                  <Link className={styles.button__link} to='/dashboard'>
+                    DASHBOARD
+                  </Link>
+                </div>
+              )}
             </div>
             <div className={styles.greyContainer}>
               <SlideBar
@@ -243,11 +246,13 @@ const Home = props => {
                 data={carouselConstants.EXAMPLE_SLIDER_DATA}
                 carouselType={carouselConstants.EXAMPLE_SLIDER}
               />
-              <div className={styles.button}>
-                <Link className={styles.button__link} to='/dashboard'>
-                  DASHBOARD
-                </Link>
-              </div>
+              {CONSTANTS.MODERATOR === role || (
+                <div className={styles.button}>
+                  <Link className={styles.button__link} to='/dashboard'>
+                    DASHBOARD
+                  </Link>
+                </div>
+              )}
             </div>
             <div className={styles.blueContainer}>
               <h2 className={styles.whiteUnderline}>What our customers say</h2>
@@ -264,8 +269,9 @@ const Home = props => {
 };
 
 const mapStateToProps = state => {
-  const { isFetching } = state.userStore;
-  return { isFetching };
+  const { isFetching, data } = state.userStore;
+  const role = data?.role || '';
+  return { isFetching, role };
 };
 
 export default connect(mapStateToProps, null)(Home);
