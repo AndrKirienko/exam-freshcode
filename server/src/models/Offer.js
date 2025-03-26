@@ -1,3 +1,6 @@
+const {
+  OFFER_MODERATOR_STATUS: { PENDING },
+} = require('./../constants');
 module.exports = (sequelize, DataTypes) => {
   const Offer = sequelize.define(
     'Offers',
@@ -32,6 +35,11 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: true,
         defaultValue: 'pending',
+      },
+      moderatorStatus: {
+        type: DataTypes.STRING,
+        allowNull: true,
+        defaultValue: PENDING,
       },
     },
     {

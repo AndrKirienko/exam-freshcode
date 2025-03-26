@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Route, Routes } from 'react-router-dom';
-import './App.css';
 import { ToastContainer } from 'react-toastify';
+import './App.css';
 import Router from './router';
 import LoginPage from './pages/LoginPage/LoginPage';
 import RegistrationPage from './pages/RegistrationPage/RegistrationPage';
@@ -22,6 +22,7 @@ import OnlyNotAuthorizedUserRoute from './components/Routes/OnlyNotAuthorizedUse
 import PrivateRoute from './components/Routes/PrivateRoute/PrivateRoute';
 import HowItWorksPage from './pages/HowItWorksPage/HowItWorksPage';
 import EventsPage from './pages/EventsPage/EventsPage';
+import ModeratorDashboard from './components/ModeratorDashboard/ModeratorDashboard';
 
 class App extends Component {
   render () {
@@ -82,6 +83,7 @@ class App extends Component {
               <Route path='/contest/:id' element={<ContestPage />} />
               <Route path='/account' element={<UserProfile />} />
               <Route path='/events' element={<EventsPage />} />
+              <Route path='/offers' element={<ModeratorDashboard />} />
             </Route>
             <Route path='*' element={<NotFound />} />
           </Route>

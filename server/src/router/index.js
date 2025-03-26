@@ -9,6 +9,7 @@ const {
 const upload = require('../utils/fileUpload');
 const contestsRouter = require('./contestsRouter');
 const chatCatalogRoutes = require('./chatCatalogRoutes');
+const offersRouter = require('./offersRouter');
 
 router.post(
   '/registration',
@@ -25,23 +26,11 @@ router.use(checkToken.checkToken);
 
 router.use('/contests', contestsRouter);
 router.use('/catalogs', chatCatalogRoutes);
+router.use('/offers', offersRouter);
 
 router.post('/dataForContest', contestController.dataForContest);
 
 router.get('/downloadFile/:fileName', contestController.downloadFile);
-
-router.post(
-  '/setNewOffer',
-  upload.uploadLogoFiles,
-  basic.canSendOffer,
-  contestController.setNewOffer
-);
-
-router.post(
-  '/setOfferStatus',
-  basic.onlyForCustomerWhoCreateContest,
-  contestController.setOfferStatus
-);
 
 router.post('/changeMark', basic.onlyForCustomer, userController.changeMark);
 

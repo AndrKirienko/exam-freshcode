@@ -31,4 +31,14 @@ module.exports = {
   NOTIFICATION_CHANGE_OFFER_STATUS: 'changeOfferStatus',
   NEW_MESSAGE: 'newMessage',
   CHANGE_BLOCK_STATUS: 'CHANGE_BLOCK_STATUS',
+  PAGINATION_OFFERS: {
+    DEFAULT_PAGE: 1,
+    DEFAULT_RESULTS: 5,
+    DEFAULT_MAX_RESULTS: 50,
+  },
+  OFFER_MODERATOR_STATUS: {
+    REJECT: 'reject',
+    RESOLVE: 'resolve',
+    PENDING: 'pending',
+  },
 };

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { connect } from 'react-redux';
 import userMenu from './../../../data/menus/userMenu.json';
 import styles from './UserMenu.module.sass';
 import CountNotification from '../../Events/CountNotification/CountNotification';
@@ -8,7 +9,7 @@ import { TimerContext } from '../../Events/EventsList/TimerProvider';
 import CONSTANTS from './../../../constants';
 import withRouter from '../../../hocs/withRouter';
 
-const { CUSTOMER } = CONSTANTS;
+const { MODERATOR , CUSTOMER} = CONSTANTS;
 
 class UserMenu extends Component {
   static contextType = TimerContext;
@@ -32,6 +33,12 @@ class UserMenu extends Component {
     const { role } = this.props.userStore.data;
     return userMenu.menuItems.map((item, index) => {
       if (item.type === 'link') {
+        if (item.text === 'Offers' && role !== MODERATOR) {
+          return null;
+        }
+        if (item.text === 'View Dashboard' && role === MODERATOR) {
+          return null;
+        }
         if (item.text === 'Events' && role !== CUSTOMER) {
           return null;
         }
@@ -67,6 +74,12 @@ class UserMenu extends Component {
   }
 }
 
+const mapStateToProps = state => {
+  const { userStore } = state;
+  return { userStore };
+};
+
+export default connect(mapStateToProps)(withRouter(UserMenu));
 const mapStateToProps = state => {
   const { userStore } = state;
   return { userStore };
