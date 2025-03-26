@@ -15,7 +15,8 @@ offersRouter.get(
 offersRouter.patch(
   '/:offerId',
   basic.onlyForModerator,
-  offersController.updateOfferModeratorStatus
+  offersController.updateOfferModeratorStatus,
+  offersController.sendMessageOfferStatus
 );
 
 offersRouter.post(

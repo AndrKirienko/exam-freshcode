@@ -4,6 +4,7 @@ const contestQueries = require('./queries/contestQueries');
 const controller = require('../socketInit');
 const userQueries = require('./queries/userQueries');
 const ServerError = require('../errors/ServerError');
+const { sendMail } = require('../../services/sendEmail');
 
 const { Offers, Contests, Users } = db;
 
@@ -71,8 +72,49 @@ module.exports.updateOfferModeratorStatus = async (req, res, next) => {
     }
 
     res.status(200).send({ data: updatedOffer });
+    next();
   } catch (err) {
     next(err);
+  }
+};
+
+module.exports.sendMessageOfferStatus = async (req, res, next) => {
+  try {
+    const {
+      params: { offerId },
+    } = req;
+
+    const foundData = await Offers.findByPk(offerId, {
+      attributes: ['moderatorStatus', 'text'],
+      include: [
+        { model: Users, attributes: ['firstName', 'lastName', 'email'] },
+        { model: Contests, attributes: ['title'] },
+      ],
+    });
+
+    if (!foundData) {
+      return console.log('Offer not found');
+    }
+
+    const responseData = {
+      moderatorStatus: foundData.moderatorStatus,
+      text: foundData.text,
+      user: foundData.User
+        ? {
+            firstName: foundData.User.firstName,
+            lastName: foundData.User.lastName,
+            email: foundData.User.email,
+          }
+        : null,
+      contest: foundData.Contest
+        ? {
+            title: foundData.Contest.title,
+          }
+        : null,
+    };
+    sendMail(responseData);
+  } catch (err) {
+    console.log(err);
   }
 };
 
