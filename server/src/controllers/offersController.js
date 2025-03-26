@@ -4,7 +4,7 @@ const contestQueries = require('./queries/contestQueries');
 const controller = require('../socketInit');
 const userQueries = require('./queries/userQueries');
 const ServerError = require('../errors/ServerError');
-const { sendMail } = require('../../services/sendEmail');
+const { sendMail } = require('./../services/sendEmail');
 
 const { Offers, Contests, Users } = db;
 
