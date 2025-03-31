@@ -4,9 +4,9 @@
   "settings": {
     "width": 2000,
     "height": 2000,
-    "scrollTop": -604.9534,
-    "scrollLeft": -396.6665,
-    "zoomLevel": 0.82,
+    "scrollTop": -583.9534,
+    "scrollLeft": -321,
+    "zoomLevel": 0.76,
     "show": 492,
     "database": 16,
     "databaseName": "Chats",
@@ -113,15 +113,15 @@
           "laUeaWOY92ceKY_qmNGd1"
         ],
         "ui": {
-          "x": 1242.2095,
-          "y": 741.0956,
+          "x": 1237.3315,
+          "y": 742.3151,
           "zIndex": 38,
           "widthName": 78,
           "widthComment": 60,
           "color": ""
         },
         "meta": {
-          "updateAt": 1743437823361,
+          "updateAt": 1743438610184,
           "createAt": 1743068573822
         }
       },
@@ -1828,7 +1828,7 @@
         "comment": "",
         "dataType": "boolean",
         "default": "false",
-        "options": 8,
+        "options": 0,
         "ui": {
           "keys": 0,
           "widthName": 60,
@@ -1837,7 +1837,7 @@
           "widthDefault": 60
         },
         "meta": {
-          "updateAt": 1743433488554,
+          "updateAt": 1743439551303,
           "createAt": 1743433214551
         }
       },
@@ -1868,7 +1868,7 @@
         "comment": "",
         "dataType": "boolean",
         "default": "false",
-        "options": 8,
+        "options": 0,
         "ui": {
           "keys": 0,
           "widthName": 63,
@@ -1877,7 +1877,7 @@
           "widthDefault": 60
         },
         "meta": {
-          "updateAt": 1743433489932,
+          "updateAt": 1743439552346,
           "createAt": 1743433217690
         }
       },
@@ -1941,8 +1941,8 @@
           "columnIds": [
             "6ioikESkL9vAdSWoGo6Zx"
           ],
-          "x": 1242.2095,
-          "y": 837.0956,
+          "x": 1237.3315,
+          "y": 838.3151,
           "direction": 1
         },
         "end": {
@@ -1969,8 +1969,8 @@
           "columnIds": [
             "6ioikESkL9vAdSWoGo6Zx"
           ],
-          "x": 1242.2095,
-          "y": 773.0956,
+          "x": 1237.3315,
+          "y": 774.3151,
           "direction": 1
         },
         "end": {
@@ -2137,8 +2137,8 @@
           "columnIds": [
             "6ioikESkL9vAdSWoGo6Zx"
           ],
-          "x": 1438.2095,
-          "y": 869.0956,
+          "x": 1433.3315,
+          "y": 870.3151,
           "direction": 8
         },
         "end": {
@@ -3214,8 +3214,8 @@
     ],
     "laUeaWOY92ceKY_qmNGd1": [
       "tableColumnEntities",
-      1743433143583,
-      -1,
+      1743438610179,
+      1743438575001,
       {
         "name": 1743433153402,
         "dataType": 1743433156883,
@@ -3248,7 +3248,7 @@
         "default": 1743433214549,
         "comment": 1743433214549,
         "options(primaryKey)": 1743433214549,
-        "options(notNull)": 1743433214549,
+        "options(notNull)": 1743439551301,
         "options(unique)": 1743433488553,
         "options(autoIncrement)": 1743433214549
       }
@@ -3278,7 +3278,7 @@
         "default": 1743433217689,
         "comment": 1743433217689,
         "options(primaryKey)": 1743433217689,
-        "options(notNull)": 1743433217689,
+        "options(notNull)": 1743439552346,
         "options(unique)": 1743433489931,
         "options(autoIncrement)": 1743433217689
       }
