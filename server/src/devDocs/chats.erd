@@ -4,9 +4,9 @@
   "settings": {
     "width": 2000,
     "height": 2000,
-    "scrollTop": -566.6972,
-    "scrollLeft": -739.3879,
-    "zoomLevel": 0.73,
+    "scrollTop": -604.9534,
+    "scrollLeft": -396.6665,
+    "zoomLevel": 0.82,
     "show": 492,
     "database": 16,
     "databaseName": "Chats",
@@ -54,7 +54,7 @@
     "tableEntities": {
       "Y7ka3CGG2K30XSykAU4Xf": {
         "id": "Y7ka3CGG2K30XSykAU4Xf",
-        "name": "User",
+        "name": "Users",
         "comment": "",
         "columnIds": [
           "VzgNDAOI6xk3EacEwo3-J"
@@ -88,13 +88,13 @@
           "color": ""
         },
         "meta": {
-          "updateAt": 1743434525211,
+          "updateAt": 1743437814712,
           "createAt": 1743068255290
         }
       },
       "kIZThCnN0RS6Il1B4_jzs": {
         "id": "kIZThCnN0RS6Il1B4_jzs",
-        "name": "Conversation",
+        "name": "Conversations",
         "comment": "",
         "columnIds": [
           "6ioikESkL9vAdSWoGo6Zx",
@@ -116,18 +116,18 @@
           "x": 1242.2095,
           "y": 741.0956,
           "zIndex": 38,
-          "widthName": 73,
+          "widthName": 78,
           "widthComment": 60,
           "color": ""
         },
         "meta": {
-          "updateAt": 1743433143584,
+          "updateAt": 1743437823361,
           "createAt": 1743068573822
         }
       },
       "qC0Y4fc7G-MzqAB62J4WL": {
         "id": "qC0Y4fc7G-MzqAB62J4WL",
-        "name": "Message",
+        "name": "Messages",
         "comment": "",
         "columnIds": [
           "ocWW7hnYylFnFDwWZzhL2",
@@ -158,13 +158,13 @@
           "color": ""
         },
         "meta": {
-          "updateAt": 1743437202647,
+          "updateAt": 1743437817204,
           "createAt": 1743069093237
         }
       },
       "uiI6ctwdsaLaEV-CsCPjs": {
         "id": "uiI6ctwdsaLaEV-CsCPjs",
-        "name": "Catalog",
+        "name": "Catalogs",
         "comment": "",
         "columnIds": [
           "NHgg1AfcHwAkCfqWOUhIS",
@@ -186,7 +186,7 @@
           "color": ""
         },
         "meta": {
-          "updateAt": 1743434515904,
+          "updateAt": 1743437818876,
           "createAt": 1743431485357
         }
       },
@@ -245,7 +245,7 @@
           "color": ""
         },
         "meta": {
-          "updateAt": 1743434505357,
+          "updateAt": 1743437964604,
           "createAt": 1743431968781
         }
       },
@@ -275,7 +275,7 @@
           "color": ""
         },
         "meta": {
-          "updateAt": 1743434487221,
+          "updateAt": 1743437952009,
           "createAt": 1743432827798
         }
       }
@@ -2166,7 +2166,7 @@
       1743068255287,
       -1,
       {
-        "name": 1743068261582
+        "name": 1743437814710
       }
     ],
     "gqdAoQm3UUAezsI_o7dey": [
@@ -2217,7 +2217,7 @@
       1743068573820,
       -1,
       {
-        "name": 1743068585083
+        "name": 1743437823359
       }
     ],
     "6ioikESkL9vAdSWoGo6Zx": [
@@ -2244,7 +2244,7 @@
       1743069093236,
       -1,
       {
-        "name": 1743431425050
+        "name": 1743437817203
       }
     ],
     "mX-qIa07T-34dpXs6RYuw": [
@@ -2311,7 +2311,7 @@
       1743431485356,
       -1,
       {
-        "name": 1743431492438
+        "name": 1743437818875
       }
     ],
     "NHgg1AfcHwAkCfqWOUhIS": [
@@ -2397,7 +2397,7 @@
       1743431968780,
       -1,
       {
-        "name": 1743431983592
+        "name": 1743437964603
       }
     ],
     "1R6u9hoOcs1ZNNRND06Eo": [
@@ -2869,7 +2869,7 @@
       1743432827797,
       -1,
       {
-        "name": 1743432843103
+        "name": 1743437952008
       }
     ],
     "08RNVTRACdePuTTCcdjKb": [
