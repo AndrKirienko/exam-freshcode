@@ -10,6 +10,7 @@ const upload = require('../utils/fileUpload');
 const contestsRouter = require('./contestsRouter');
 const chatCatalogRoutes = require('./chatCatalogRoutes');
 const offersRouter = require('./offersRouter');
+const chatsRouter = require('./chatsRouter');
 
 router.post(
   '/registration',
@@ -27,6 +28,7 @@ router.use(checkToken.checkToken);
 router.use('/contests', contestsRouter);
 router.use('/catalogs', chatCatalogRoutes);
 router.use('/offers', offersRouter);
+router.use('/chats', chatsRouter);
 
 router.post('/dataForContest', contestController.dataForContest);
 

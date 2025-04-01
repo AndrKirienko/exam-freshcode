@@ -44,7 +44,7 @@ export const getPreviewChat = () => http.post('getPreview');
 
 export const cashOut = data => http.post('cashout', data);
 
-export const getDialog = data => http.post('getChat', data);
+export const getDialog = data => http.get(`chats/${data}`);
 export const newMessage = data => http.post('newMessage', data);
 export const changeChatFavorite = data => http.post('favorite', data);
 export const changeChatBlock = data => http.post('blackList', data);
