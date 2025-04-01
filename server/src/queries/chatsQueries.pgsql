@@ -8,8 +8,8 @@
 
    CREATE TABLE IF NOT EXISTS "Catalogs" (
           id SERIAL PRIMARY KEY,
-          "catalogName" VARCHAR(50) NOT NULL,
-          "userId" INTEGER NULL REFERENCES "Users" (id) ON UPDATE CASCADE ON DELETE SET NULL
+          "userId" INTEGER NULL REFERENCES "Users" (id) ON UPDATE CASCADE ON DELETE SET NULL,
+          "catalogName" VARCHAR(50) NOT NULL
           );
 
 
@@ -24,18 +24,18 @@
 
    CREATE TABLE IF NOT EXISTS "ConversationParticipants" (
           id SERIAL PRIMARY KEY,
-          "blackList" BOOLEAN DEFAULT FALSE,
-          "favoriteList" BOOLEAN DEFAULT FALSE,
           "conversationId" INTEGER NOT NULL REFERENCES "Conversations" (id) ON UPDATE CASCADE ON DELETE CASCADE,
-          "userId" INTEGER NULL REFERENCES "Users" (id) ON UPDATE CASCADE ON DELETE SET NULL
+          "userId" INTEGER NULL REFERENCES "Users" (id) ON UPDATE CASCADE ON DELETE SET NULL,
+          "blackList" BOOLEAN DEFAULT FALSE,
+          "favoriteList" BOOLEAN DEFAULT FALSE
           );
 
 
 
    CREATE TABLE IF NOT EXISTS "Messages" (
           id SERIAL PRIMARY KEY,
-          body TEXT NOT NULL,
-          "createdAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+          "senderId" INTEGER NULL REFERENCES "Users" (id) ON UPDATE CASCADE ON DELETE SET NULL,
           "conversationId" INTEGER NOT NULL REFERENCES "Conversations" (id) ON UPDATE CASCADE ON DELETE CASCADE,
-          "senderId" INTEGER NULL REFERENCES "Users" (id) ON UPDATE CASCADE ON DELETE SET NULL
+          body TEXT NOT NULL,
+          "createdAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
           );
