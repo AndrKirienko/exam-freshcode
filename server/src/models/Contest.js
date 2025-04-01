@@ -3,10 +3,10 @@ module.exports = (sequelize, DataTypes) => {
     'Contests',
     {
       id: {
-        allowNull: false,
-        autoIncrement: true,
-        primaryKey: true,
         type: DataTypes.INTEGER,
+        autoIncrement: true,
+        allowNull: false,
+        primaryKey: true,
       },
       orderId: {
         allowNull: false,
