@@ -85,13 +85,15 @@ module.exports.getChat = async (req, res, next) => {
 module.exports.addMessage = async (req, res, next) => {
   const {
     tokenData: { userId: sender },
-    body: { recipient: recipientId },
+    body: { recipient: recipientId, messageBody, interlocutor },
   } = req;
 
-  const participants = [sender, recipientId].sort((a, b) => a - b);
+  const participants = [sender, recipientId].sort(
+    (participant1, participant2) => participant1 - participant2
+  );
 
   try {
-    let conversation = await Conversations.findOne({
+    const conversation = await Conversations.findOne({
       attributes: ['id', 'createdAt', 'updatedAt'],
       include: [
         {
@@ -110,6 +112,8 @@ module.exports.addMessage = async (req, res, next) => {
           ','
         )})) = 2
       `),
+
+      raw: true,
     });
 
     if (!conversation) {
@@ -120,31 +124,48 @@ module.exports.addMessage = async (req, res, next) => {
       ]);
     }
 
-    const message = await Messages.create({
-      sender,
-      body: req.body.messageBody,
-      conversationId: conversation.id,
+    const blackLists = await ConversationParticipants.findAll({
+      where: {
+        conversationId: conversation.id,
+        userId: { [Sequelize.Op.in]: participants },
+      },
+      attributes: ['blackList'],
+      raw: true,
     });
 
-    const interlocutorId = participants.find(id => id !== sender);
+    let blackList = false;
+    if (blackLists.some(item => item.blackList)) {
+      blackList = true;
+    }
+
+    let message = null;
+    if (!blackList) {
+      message = await Messages.create({
+        sender,
+        body: messageBody,
+        conversationId: conversation.id,
+      });
+    }
 
     const preview = {
       _id: conversation.id,
       sender,
-      text: req.body.messageBody,
-      createAt: message.createdAt,
+      text: message ? messageBody : null,
+      createAt: message ? message.createdAt : null,
       participants: participants,
-      blackList: [false, false],
+      blackList,
       favoriteList: [false, false],
     };
 
+    const interlocutorId = participants.find(id => id !== sender);
+
     controller.getChatController().emitNewMessage(interlocutorId, {
       message: {
-        _id: message.id,
+        _id: message ? message.id : null,
         sender,
-        body: req.body.messageBody,
+        body: message ? messageBody : null,
         conversation: conversation.id,
-        createdAt: message.createdAt,
+        createdAt: message ? message.createdAt : null,
       },
       preview: {
         ...preview,
@@ -161,16 +182,13 @@ module.exports.addMessage = async (req, res, next) => {
 
     res.send({
       message: {
-        _id: message.id,
+        _id: message ? message.id : null,
         sender,
-        body: req.body.messageBody,
+        body: message ? messageBody : null,
         conversation: conversation.id,
-        createdAt: message.createdAt,
+        createdAt: message ? message.createdAt : null,
       },
-      preview: {
-        ...preview,
-        interlocutor: req.body.interlocutor,
-      },
+      preview: { ...preview, interlocutor },
     });
   } catch (err) {
     next(err);
@@ -207,13 +225,12 @@ module.exports.getPreview = async (req, res, next) => {
           'participants',
         ],
         [
-          Sequelize.fn(
-            'ARRAY_AGG',
-            Sequelize.fn(
-              'DISTINCT',
-              Sequelize.col('ConversationParticipants.blackList')
-            )
-          ),
+          Sequelize.literal(`
+						(SELECT "blackList"
+						 FROM "ConversationParticipants"
+						 WHERE "conversationId" = "Conversations"."id"
+							 AND "userId" = ${userId})
+					`),
           'blackList',
         ],
         [
@@ -283,6 +300,61 @@ module.exports.getPreview = async (req, res, next) => {
     });
 
     res.send(conversations);
+  } catch (err) {
+    next(err);
+  }
+};
+
+module.exports.blackList = async (req, res, next) => {
+  const {
+    tokenData: { userId },
+    body: { participants, blackListFlag },
+  } = req;
+
+  try {
+    await ConversationParticipants.update(
+      { blackList: blackListFlag },
+      {
+        where: {
+          conversationId: [
+            Sequelize.literal(`
+            (SELECT "conversationId" FROM "Conversations"
+             JOIN "ConversationParticipants"
+             ON "Conversations".id = "ConversationParticipants"."conversationId"
+             WHERE "ConversationParticipants"."userId" = ${userId})`),
+          ],
+          userId,
+        },
+      }
+    );
+
+    const updatedConversation = await Conversations.findOne({
+      include: [
+        {
+          attributes: ['blackList', 'favoriteList'],
+          model: ConversationParticipants,
+          where: { userId },
+        },
+      ],
+      raw: true,
+    });
+
+    const formattedConversation = {
+      _id: updatedConversation.id,
+      participants: participants,
+      blackList: updatedConversation['ConversationParticipants.blackList'],
+      createdAt: updatedConversation.createdAt,
+      favoriteList:
+        updatedConversation['ConversationParticipants.favoriteList'],
+      updatedAt: updatedConversation.updatedAt,
+    };
+
+    res.send(formattedConversation);
+
+    const interlocutorId = participants.find(id => id !== userId);
+    controller
+      .getChatController()
+      .emitChangeBlockStatus(interlocutorId, formattedConversation);
   } catch (err) {
     next(err);
   }

@@ -20,14 +20,14 @@ const ChatHeader = props => {
     event.stopPropagation();
   };
 
-  const isFavorite = (chatData, userId) => {
-    const { favoriteList, participants } = chatData;
-    return favoriteList[participants.indexOf(userId)];
-  };
+  // const isFavorite = (chatData, userId) => {
+  //   const { favoriteList, participants } = chatData;
+  //   return favoriteList[participants.indexOf(userId)];
+  // };
 
   const isBlocked = (chatData, userId) => {
     const { participants, blackList } = chatData;
-    return blackList[participants.indexOf(userId)];
+    return blackList;
   };
 
   const { avatar, firstName } = props.interlocutor;
@@ -57,7 +57,7 @@ const ChatHeader = props => {
         </div>
         {chatData && (
           <div>
-            <i
+            {/* <i
               onClick={event =>
                 changeFavorite(
                   {
@@ -71,7 +71,7 @@ const ChatHeader = props => {
                 'far fa-heart': !isFavorite(chatData, userId),
                 'fas fa-heart': isFavorite(chatData, userId),
               })}
-            />
+            /> */}
             <i
               onClick={event =>
                 changeBlackList(

@@ -9,4 +9,6 @@ chatsRouter.get('/:interlocutorId', chatControllerSQL.getChat);
 
 chatsRouter.post('/newMessage', chatControllerSQL.addMessage);
 
+chatsRouter.patch('/blackList', chatControllerSQL.blackList);
+
 module.exports = chatsRouter;

@@ -30,8 +30,7 @@ const DialogList = props => {
   const onlyFavoriteDialogs = (chatPreview, userId) =>
     chatPreview.favoriteList[chatPreview.participants.indexOf(userId)];
 
-  const onlyBlockDialogs = (chatPreview, userId) =>
-    chatPreview.blackList[chatPreview.participants.indexOf(userId)];
+  const onlyBlockDialogs = (chatPreview, userId) => chatPreview.blackList;
 
   const getTimeStr = time => {
     const currentTime = moment();
