@@ -41,8 +41,22 @@ module.exports.getChat = async (req, res, next) => {
       `),
     });
 
+    const interlocutor = await Users.findOne({
+      where: { id: interlocutorId },
+      attributes: ['id', 'firstName', 'lastName', 'displayName', 'avatar'],
+    });
+
     if (!conversation) {
-      return res.status(404).send({ message: 'Conversation not found' });
+      return res.status(200).send({
+        messages: [],
+        interlocutor: {
+          firstName: interlocutor.firstName,
+          lastName: interlocutor.lastName,
+          displayName: interlocutor.displayName,
+          id: interlocutor.id,
+          avatar: interlocutor.avatar,
+        },
+      });
     }
 
     const messages = await Messages.findAll({
@@ -58,15 +72,6 @@ module.exports.getChat = async (req, res, next) => {
       },
       order: [['createdAt', 'ASC']],
     });
-
-    const interlocutor = await Users.findOne({
-      where: { id: interlocutorId },
-      attributes: ['id', 'firstName', 'lastName', 'displayName', 'avatar'],
-    });
-
-    if (!interlocutor) {
-      return res.status(404).send({ message: 'Interlocutor not found' });
-    }
 
     res.status(200).send({
       messages,
@@ -84,9 +89,12 @@ module.exports.getChat = async (req, res, next) => {
 };
 
 module.exports.addMessage = async (req, res, next) => {
-  const participants = [req.tokenData.userId, req.body.recipient].sort(
-    (participant1, participant2) => participant1 - participant2
-  );
+  const {
+    tokenData: { userId: senderId },
+    body: { recipient: recipientId },
+  } = req;
+
+  const participants = [senderId, recipientId].sort((a, b) => a - b);
 
   try {
     let conversation = await Conversations.findOne({
@@ -94,17 +102,9 @@ module.exports.addMessage = async (req, res, next) => {
       include: [
         {
           model: ConversationParticipants,
-          attributes: [
-            'id',
-            'conversationId',
-            'userId',
-            'blackList',
-            'favoriteList',
-          ],
+          attributes: ['userId'],
           where: {
-            userId: {
-              [Op.in]: participants,
-            },
+            userId: { [Op.in]: participants },
           },
         },
       ],
@@ -127,19 +127,19 @@ module.exports.addMessage = async (req, res, next) => {
     }
 
     const message = await Messages.create({
-      senderId: req.tokenData.userId,
+      senderId: senderId,
       body: req.body.messageBody,
       conversationId: conversation.id,
     });
 
-    const interlocutorId = participants.find(id => id !== req.tokenData.userId);
+    const interlocutorId = participants.find(id => id !== senderId);
 
     const preview = {
       _id: conversation.id,
-      sender: req.tokenData.userId,
+      sender: senderId,
       text: req.body.messageBody,
       createAt: message.createdAt,
-      participants,
+      participants: participants,
       blackList: [false, false],
       favoriteList: [false, false],
     };
@@ -147,7 +147,7 @@ module.exports.addMessage = async (req, res, next) => {
     controller.getChatController().emitNewMessage(interlocutorId, {
       message: {
         _id: message.id,
-        sender: req.tokenData.userId,
+        sender: senderId,
         body: req.body.messageBody,
         conversation: conversation.id,
         createdAt: message.createdAt,
@@ -155,7 +155,7 @@ module.exports.addMessage = async (req, res, next) => {
       preview: {
         ...preview,
         interlocutor: {
-          id: req.tokenData.userId,
+          id: senderId,
           firstName: req.tokenData.firstName,
           lastName: req.tokenData.lastName,
           displayName: req.tokenData.displayName,
@@ -168,7 +168,7 @@ module.exports.addMessage = async (req, res, next) => {
     res.send({
       message: {
         _id: message.id,
-        sender: req.tokenData.userId,
+        sender: senderId,
         body: req.body.messageBody,
         conversation: conversation.id,
         createdAt: message.createdAt,
