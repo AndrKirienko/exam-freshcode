@@ -82,7 +82,7 @@ class Dialog extends Component {
 
   render () {
     const { chatData, userId } = this.props;
-    console.log(this.props);
+
     return (
       <>
         <ChatHeader userId={userId} />
