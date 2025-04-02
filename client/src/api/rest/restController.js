@@ -40,11 +40,12 @@ export const downloadContestFile = data =>
 
 export const changeMark = data => http.post('changeMark', data);
 
-export const getPreviewChat = () => http.post('getPreview');
-
 export const cashOut = data => http.post('cashout', data);
 
 export const getDialog = data => http.get(`chats/${data}`);
-export const newMessage = data => http.post('newMessage', data);
+export const newMessage = data => http.post('chats/newMessage', data);
+export const getPreviewChat = () => http.get('chats/getPreview');
+//export const getPreviewChat = () => http.post('getPreview');
+//export const newMessage = data => http.post('newMessage', data);
 export const changeChatFavorite = data => http.post('favorite', data);
 export const changeChatBlock = data => http.post('blackList', data);
