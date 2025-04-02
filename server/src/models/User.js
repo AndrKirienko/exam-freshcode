@@ -70,7 +70,7 @@ module.exports = (sequelize, DataTypes) => {
     User.hasMany(models.Contests, { foreignKey: 'userId' });
     User.hasMany(models.Ratings, { foreignKey: 'userId' });
     User.hasMany(models.ConversationParticipants, { foreignKey: 'userId' });
-    User.hasMany(models.Messages, { foreignKey: 'senderId' });
+    User.hasMany(models.Messages, { foreignKey: 'sender' });
     User.hasMany(models.Catalogs, { foreignKey: 'userId' });
   };
 

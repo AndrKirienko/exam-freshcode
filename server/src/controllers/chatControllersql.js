@@ -60,13 +60,7 @@ module.exports.getChat = async (req, res, next) => {
     }
 
     const messages = await Messages.findAll({
-      attributes: [
-        'id',
-        ['senderId', 'sender'],
-        'body',
-        'conversationId',
-        'createdAt',
-      ],
+      attributes: ['id', 'sender', 'body', 'conversationId', 'createdAt'],
       where: {
         conversationId: conversation.id,
       },
@@ -90,11 +84,11 @@ module.exports.getChat = async (req, res, next) => {
 
 module.exports.addMessage = async (req, res, next) => {
   const {
-    tokenData: { userId: senderId },
+    tokenData: { userId: sender },
     body: { recipient: recipientId },
   } = req;
 
-  const participants = [senderId, recipientId].sort((a, b) => a - b);
+  const participants = [sender, recipientId].sort((a, b) => a - b);
 
   try {
     let conversation = await Conversations.findOne({
@@ -127,16 +121,16 @@ module.exports.addMessage = async (req, res, next) => {
     }
 
     const message = await Messages.create({
-      senderId: senderId,
+      sender,
       body: req.body.messageBody,
       conversationId: conversation.id,
     });
 
-    const interlocutorId = participants.find(id => id !== senderId);
+    const interlocutorId = participants.find(id => id !== sender);
 
     const preview = {
       _id: conversation.id,
-      sender: senderId,
+      sender,
       text: req.body.messageBody,
       createAt: message.createdAt,
       participants: participants,
@@ -147,7 +141,7 @@ module.exports.addMessage = async (req, res, next) => {
     controller.getChatController().emitNewMessage(interlocutorId, {
       message: {
         _id: message.id,
-        sender: senderId,
+        sender,
         body: req.body.messageBody,
         conversation: conversation.id,
         createdAt: message.createdAt,
@@ -155,7 +149,7 @@ module.exports.addMessage = async (req, res, next) => {
       preview: {
         ...preview,
         interlocutor: {
-          id: senderId,
+          id: sender,
           firstName: req.tokenData.firstName,
           lastName: req.tokenData.lastName,
           displayName: req.tokenData.displayName,
@@ -168,7 +162,7 @@ module.exports.addMessage = async (req, res, next) => {
     res.send({
       message: {
         _id: message.id,
-        sender: senderId,
+        sender,
         body: req.body.messageBody,
         conversation: conversation.id,
         createdAt: message.createdAt,
@@ -192,7 +186,7 @@ module.exports.getPreview = async (req, res, next) => {
     const conversations = await Conversations.findAll({
       attributes: [
         'id',
-        [Sequelize.literal('MAX("Messages"."senderId")'), 'sender'],
+        [Sequelize.literal('MAX("Messages"."sender")'), 'sender'],
         [
           Sequelize.literal(`
 					(SELECT "body" FROM "Messages"

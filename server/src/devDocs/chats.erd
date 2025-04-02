@@ -4,8 +4,8 @@
   "settings": {
     "width": 2000,
     "height": 2000,
-    "scrollTop": -502.0351,
-    "scrollLeft": -65,
+    "scrollTop": -699.0351,
+    "scrollLeft": -585.3333,
     "zoomLevel": 1,
     "show": 492,
     "database": 16,
@@ -744,7 +744,7 @@
       "S-EYNA2xZx9V1F6GyOOyV": {
         "id": "S-EYNA2xZx9V1F6GyOOyV",
         "tableId": "qC0Y4fc7G-MzqAB62J4WL",
-        "name": "senderId",
+        "name": "sender",
         "comment": "",
         "dataType": "serial",
         "default": "",
@@ -757,7 +757,7 @@
           "widthDefault": 60
         },
         "meta": {
-          "updateAt": 1743435458071,
+          "updateAt": 1743588632542,
           "createAt": 1743432238179
         }
       },
@@ -2487,7 +2487,7 @@
       -1,
       {
         "options(notNull)": 1743435458070,
-        "name": 1743432251701,
+        "name": 1743588632541,
         "dataType": 1743432238176,
         "default": 1743432238176,
         "comment": 1743432238176

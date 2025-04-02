@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         primaryKey: true,
       },
-      senderId: {
+      sender: {
         type: DataTypes.INTEGER,
         allowNull: true,
       },
@@ -38,7 +38,7 @@ module.exports = (sequelize, DataTypes) => {
       onDelete: 'CASCADE',
     });
     Message.belongsTo(models.Users, {
-      foreignKey: 'senderId',
+      foreignKey: 'sender',
       onUpdate: 'CASCADE',
       onDelete: 'SET NULL',
     });
