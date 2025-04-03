@@ -3,10 +3,11 @@ const { chatController, chatCatalogController } = require('../controllers');
 
 const chatCatalogRoutes = Router();
 
-chatCatalogRoutes.get('/', chatController.getCatalogs);
-
-//chatCatalogRoutes.post('/', chatController.createCatalog);
+chatCatalogRoutes.get('/', chatCatalogController.getCatalogs);
 chatCatalogRoutes.post('/', chatCatalogController.createCatalog);
+
+//chatCatalogRoutes.get('/', chatController.getCatalogs);
+//chatCatalogRoutes.post('/', chatController.createCatalog);
 
 chatCatalogRoutes.post('/chats', chatController.addNewChatToCatalog);
 
