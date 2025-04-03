@@ -11,4 +11,6 @@ chatsRouter.post('/newMessage', chatControllerSQL.addMessage);
 
 chatsRouter.patch('/blackList', chatControllerSQL.blackList);
 
+chatsRouter.patch('/favoriteList', chatControllerSQL.favoriteList);
+
 module.exports = chatsRouter;

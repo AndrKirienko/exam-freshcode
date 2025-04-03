@@ -6,7 +6,6 @@ import CONSTANTS from '../../../../constants';
 const DialogBox = props => {
   const {
     chatPreview,
-    userId,
     getTimeStr,
     changeFavorite,
     changeBlackList,
@@ -17,8 +16,10 @@ const DialogBox = props => {
   } = props;
   const { favoriteList, participants, blackList, _id, text, createAt } =
     chatPreview;
-  //const isFavorite = favoriteList[participants.indexOf(userId)];
+
+  const isFavorite = favoriteList;
   const isBlocked = blackList;
+
   return (
     <div
       className={styles.previewChatBox}
@@ -51,7 +52,7 @@ const DialogBox = props => {
         </div>
         <div className={styles.buttonsContainer}>
           <span className={styles.time}>{getTimeStr(createAt)}</span>
-          {/* <i
+          <i
             onClick={event =>
               changeFavorite(
                 {
@@ -65,7 +66,7 @@ const DialogBox = props => {
               'far fa-heart': !isFavorite,
               'fas fa-heart': isFavorite,
             })}
-          /> */}
+          />
           <i
             onClick={event =>
               changeBlackList(

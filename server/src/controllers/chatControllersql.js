@@ -1,6 +1,7 @@
 const { Op, Sequelize } = require('sequelize');
 const db = require('./../models');
 const controller = require('./../socketInit');
+const ServerError = require('../errors/ServerError');
 
 const {
   Conversations,
@@ -93,12 +94,12 @@ module.exports.addMessage = async (req, res, next) => {
   );
 
   try {
-    const conversation = await Conversations.findOne({
+    let conversation = await Conversations.findOne({
       attributes: ['id', 'createdAt', 'updatedAt'],
       include: [
         {
           model: ConversationParticipants,
-          attributes: ['userId'],
+          attributes: ['userId', 'favoriteList'],
           where: {
             userId: { [Op.in]: participants },
           },
@@ -154,7 +155,8 @@ module.exports.addMessage = async (req, res, next) => {
       createAt: message ? message.createdAt : null,
       participants: participants,
       blackList,
-      favoriteList: [false, false],
+      favoriteList:
+        conversation['ConversationParticipants.favoriteList'] && false,
     };
 
     const interlocutorId = participants.find(id => id !== sender);
@@ -207,7 +209,8 @@ module.exports.getPreview = async (req, res, next) => {
         [Sequelize.literal('MAX("Messages"."sender")'), 'sender'],
         [
           Sequelize.literal(`
-					(SELECT "body" FROM "Messages"
+					(SELECT "body"
+					 FROM "Messages"
 					 WHERE "conversationId" = "Conversations".id
 					 ORDER BY "createdAt" DESC LIMIT 1)
 			`),
@@ -234,13 +237,12 @@ module.exports.getPreview = async (req, res, next) => {
           'blackList',
         ],
         [
-          Sequelize.fn(
-            'ARRAY_AGG',
-            Sequelize.fn(
-              'DISTINCT',
-              Sequelize.col('ConversationParticipants.favoriteList')
-            )
-          ),
+          Sequelize.literal(`
+						(SELECT "favoriteList"
+						 FROM "ConversationParticipants"
+						 WHERE "conversationId" = "Conversations"."id"
+							 AND "userId" = ${userId})
+					`),
           'favoriteList',
         ],
       ],
@@ -312,41 +314,124 @@ module.exports.blackList = async (req, res, next) => {
   } = req;
 
   try {
-    await ConversationParticipants.update(
+    const updatedConversation = await ConversationParticipants.update(
       { blackList: blackListFlag },
       {
         where: {
           conversationId: [
             Sequelize.literal(`
-            (SELECT "conversationId" FROM "Conversations"
-             JOIN "ConversationParticipants"
-             ON "Conversations".id = "ConversationParticipants"."conversationId"
-             WHERE "ConversationParticipants"."userId" = ${userId})`),
+            (SELECT "conversationId"
+        		 FROM "ConversationParticipants"
+         		 WHERE "userId" IN (${participants.join(',')})
+         		 GROUP BY "conversationId"
+         		 HAVING COUNT(DISTINCT "userId") = ${participants.length})`),
           ],
           userId,
         },
       }
     );
 
-    const updatedConversation = await Conversations.findOne({
+    if (!updatedConversation) {
+      return next(new ServerError());
+    }
+
+    const findConversation = await Conversations.findOne({
       include: [
         {
-          attributes: ['blackList', 'favoriteList'],
+          attributes: ['id', 'blackList', 'favoriteList'],
           model: ConversationParticipants,
-          where: { userId },
+          where: {
+            conversationId: [
+              Sequelize.literal(`
+            (SELECT "conversationId"
+        		 FROM "ConversationParticipants"
+         		 WHERE "userId" IN (${participants.join(',')})
+         		 GROUP BY "conversationId"
+         		 HAVING COUNT(DISTINCT "userId") = ${participants.length})`),
+            ],
+            userId,
+          },
         },
       ],
       raw: true,
     });
 
     const formattedConversation = {
-      _id: updatedConversation.id,
+      _id: findConversation.id,
       participants: participants,
-      blackList: updatedConversation['ConversationParticipants.blackList'],
-      createdAt: updatedConversation.createdAt,
-      favoriteList:
-        updatedConversation['ConversationParticipants.favoriteList'],
-      updatedAt: updatedConversation.updatedAt,
+      blackList: findConversation['ConversationParticipants.blackList'],
+      createdAt: findConversation.createdAt,
+      favoriteList: findConversation['ConversationParticipants.favoriteList'],
+      updatedAt: findConversation.updatedAt,
+    };
+
+    res.send(formattedConversation);
+
+    const interlocutorId = participants.find(id => id !== userId);
+    controller
+      .getChatController()
+      .emitChangeBlockStatus(interlocutorId, formattedConversation);
+  } catch (err) {
+    next(err);
+  }
+};
+
+module.exports.favoriteList = async (req, res, next) => {
+  const {
+    tokenData: { userId },
+    body: { participants, favoriteFlag },
+  } = req;
+
+  try {
+    const updatedConversation = await ConversationParticipants.update(
+      { favoriteList: favoriteFlag },
+      {
+        where: {
+          conversationId: [
+            Sequelize.literal(`
+            (SELECT "conversationId"
+        		 FROM "ConversationParticipants"
+         		 WHERE "userId" IN (${participants.join(',')})
+         		 GROUP BY "conversationId"
+         		 HAVING COUNT(DISTINCT "userId") = ${participants.length})`),
+          ],
+          userId,
+        },
+      }
+    );
+
+    if (!updatedConversation) {
+      return next(new ServerError());
+    }
+
+    const findConversation = await Conversations.findOne({
+      include: [
+        {
+          attributes: ['id', 'blackList', 'favoriteList'],
+          model: ConversationParticipants,
+          where: {
+            conversationId: [
+              Sequelize.literal(`
+            (SELECT "conversationId"
+        		 FROM "ConversationParticipants"
+         		 WHERE "userId" IN (${participants.join(',')})
+         		 GROUP BY "conversationId"
+         		 HAVING COUNT(DISTINCT "userId") = ${participants.length})`),
+            ],
+            userId,
+          },
+        },
+      ],
+      raw: true,
+    });
+
+    const formattedConversation = {
+      _id: findConversation.id,
+      participants: participants,
+      blackList: findConversation['ConversationParticipants.blackList'],
+      createdAt: findConversation.createdAt,
+      favoriteList: findConversation['ConversationParticipants.favoriteList'],
+      updatedAt: findConversation.updatedAt,
     };
 
     res.send(formattedConversation);

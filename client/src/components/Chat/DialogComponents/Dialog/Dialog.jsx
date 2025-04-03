@@ -88,7 +88,7 @@ class Dialog extends Component {
         <ChatHeader userId={userId} />
         {this.renderMainDialog()}
         <div ref={this.messagesEnd} />
-        {chatData.blackList ? this.blockMessage() : <ChatInput />}
+        {chatData && chatData.blackList ? this.blockMessage() : <ChatInput />}
       </>
     );
   }
