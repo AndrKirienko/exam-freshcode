@@ -1,4 +1,5 @@
 const db = require('./../models');
+const ServerError = require('../errors/ServerError');
 
 const {
   Conversations,
@@ -64,6 +65,25 @@ module.exports.getCatalogs = async (req, res, next) => {
     }));
 
     res.status(200).send(result);
+  } catch (err) {
+    next(err);
+  }
+};
+
+module.exports.deleteCatalog = async (req, res, next) => {
+  const {
+    params: { catalogId: id },
+    tokenData: { userId },
+  } = req;
+
+  try {
+    const deletedCatalog = await Catalogs.destroy({ where: { id, userId } });
+
+    if (!deletedCatalog) {
+      return next(new ServerError());
+    }
+
+    res.status(200).end();
   } catch (err) {
     next(err);
   }

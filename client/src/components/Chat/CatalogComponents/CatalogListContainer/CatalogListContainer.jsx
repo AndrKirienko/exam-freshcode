@@ -12,6 +12,10 @@ class CatalogListContainer extends Component {
     this.props.getCatalogList();
   }
 
+  componentDidUpdate () {
+    this.props.getCatalogList();
+  }
+
   removeChatFromCatalog = (event, chatId) => {
     const { _id } = this.props.chatStore.currentCatalog;
     this.props.removeChatFromCatalog({ chatId, catalogId: _id });
