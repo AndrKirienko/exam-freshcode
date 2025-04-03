@@ -307,15 +307,15 @@ module.exports.getPreview = async (req, res, next) => {
   }
 };
 
-module.exports.blackList = async (req, res, next) => {
-  const {
-    tokenData: { userId },
-    body: { participants, blackListFlag },
-  } = req;
-
+const updateConversationStatus = async (
+  participants,
+  userId,
+  statusFlag,
+  statusType
+) => {
   try {
     const updatedConversation = await ConversationParticipants.update(
-      { blackList: blackListFlag },
+      { [statusType]: statusFlag },
       {
         where: {
           conversationId: [
@@ -364,6 +364,25 @@ module.exports.blackList = async (req, res, next) => {
       favoriteList: findConversation['ConversationParticipants.favoriteList'],
       updatedAt: findConversation.updatedAt,
     };
+
+    return formattedConversation;
+  } catch (err) {
+    throw err;
+  }
+};
+module.exports.blackList = async (req, res, next) => {
+  const {
+    tokenData: { userId },
+    body: { participants, blackListFlag },
+  } = req;
+
+  try {
+    const formattedConversation = await updateConversationStatus(
+      participants,
+      userId,
+      blackListFlag,
+      'blackList'
+    );
 
     res.send(formattedConversation);
 
@@ -383,63 +402,14 @@ module.exports.favoriteList = async (req, res, next) => {
   } = req;
 
   try {
-    const updatedConversation = await ConversationParticipants.update(
-      { favoriteList: favoriteFlag },
-      {
-        where: {
-          conversationId: [
-            Sequelize.literal(`
-            (SELECT "conversationId"
-        		 FROM "ConversationParticipants"
-         		 WHERE "userId" IN (${participants.join(',')})
-         		 GROUP BY "conversationId"
-         		 HAVING COUNT(DISTINCT "userId") = ${participants.length})`),
-          ],
-          userId,
-        },
-      }
+    const formattedConversation = await updateConversationStatus(
+      participants,
+      userId,
+      favoriteFlag,
+      'favoriteList'
     );
 
-    if (!updatedConversation) {
-      return next(new ServerError());
-    }
-
-    const findConversation = await Conversations.findOne({
-      include: [
-        {
-          attributes: ['id', 'blackList', 'favoriteList'],
-          model: ConversationParticipants,
-          where: {
-            conversationId: [
-              Sequelize.literal(`
-            (SELECT "conversationId"
-        		 FROM "ConversationParticipants"
-         		 WHERE "userId" IN (${participants.join(',')})
-         		 GROUP BY "conversationId"
-         		 HAVING COUNT(DISTINCT "userId") = ${participants.length})`),
-            ],
-            userId,
-          },
-        },
-      ],
-      raw: true,
-    });
-
-    const formattedConversation = {
-      _id: findConversation.id,
-      participants: participants,
-      blackList: findConversation['ConversationParticipants.blackList'],
-      createdAt: findConversation.createdAt,
-      favoriteList: findConversation['ConversationParticipants.favoriteList'],
-      updatedAt: findConversation.updatedAt,
-    };
-
     res.send(formattedConversation);
-
-    const interlocutorId = participants.find(id => id !== userId);
-    controller
-      .getChatController()
-      .emitChangeBlockStatus(interlocutorId, formattedConversation);
   } catch (err) {
     next(err);
   }
