@@ -22,7 +22,7 @@ const DialogList = props => {
     event.stopPropagation();
   };
 
-  const changeShowCatalogCreation = (event, chatId) => {
+  const changeShowCatalogCreation = (chatId, event) => {
     props.changeShowAddChatToCatalogMenu(chatId);
     event.stopPropagation();
   };
@@ -63,7 +63,7 @@ const DialogList = props => {
           catalogOperation={
             chatMode === CONSTANTS.CATALOG_PREVIEW_CHAT_MODE
               ? removeChat
-              : changeShowCatalogCreation
+              : event => changeShowCatalogCreation(chatPreview.id, event)
           }
           goToExpandedDialog={goToExpandedDialog}
         />
