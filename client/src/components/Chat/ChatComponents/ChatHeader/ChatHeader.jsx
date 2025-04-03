@@ -5,6 +5,7 @@ import {
   backToDialogList,
   changeChatFavorite,
   changeChatBlock,
+  getPreviewChat,
 } from '../../../../store/slices/chatSlice';
 import styles from './ChatHeader.module.sass';
 import CONSTANTS from '../../../../constants';
@@ -28,14 +29,17 @@ const ChatHeader = props => {
     return chatData.blackList;
   };
 
+  const backToDialogList = async () => {
+    const { getPreviewChat, backToDialogList } = props;
+    await getPreviewChat();
+    backToDialogList();
+  };
+
   const { avatar, firstName } = props.interlocutor;
-  const { backToDialogList, chatData, userId } = props;
+  const { chatData } = props;
   return (
     <div className={styles.chatHeader}>
-      <div
-        className={styles.buttonContainer}
-        onClick={() => backToDialogList()}
-      >
+      <div className={styles.buttonContainer} onClick={backToDialogList}>
         <img
           src={`${CONSTANTS.STATIC_IMAGES_PATH}arrow-left-thick.png`}
           alt='back'
@@ -101,6 +105,7 @@ const mapDispatchToProps = dispatch => ({
   backToDialogList: () => dispatch(backToDialogList()),
   changeChatFavorite: data => dispatch(changeChatFavorite(data)),
   changeChatBlock: data => dispatch(changeChatBlock(data)),
+  getPreviewChat: () => dispatch(getPreviewChat()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChatHeader);
