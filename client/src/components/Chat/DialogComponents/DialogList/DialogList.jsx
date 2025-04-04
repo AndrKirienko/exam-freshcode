@@ -62,7 +62,7 @@ const DialogList = props => {
           chatMode={chatMode}
           catalogOperation={
             chatMode === CONSTANTS.CATALOG_PREVIEW_CHAT_MODE
-              ? removeChat
+              ? event => removeChat(chatPreview.id, event)
               : event => changeShowCatalogCreation(chatPreview.id, event)
           }
           goToExpandedDialog={goToExpandedDialog}

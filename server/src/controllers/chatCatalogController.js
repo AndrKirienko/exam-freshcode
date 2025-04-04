@@ -135,3 +135,22 @@ module.exports.updateNameCatalog = async (req, res, next) => {
     next(err);
   }
 };
+
+module.exports.removeChatFromCatalog = async (req, res, next) => {
+  const {
+    params: { catalogId, chatId },
+  } = req;
+
+  const deleteChatFromCatalog = await CatalogConversation.destroy({
+    where: {
+      catalogId,
+      conversationId: chatId,
+    },
+  });
+
+  if (!deleteChatFromCatalog) {
+    return next(new ServerError());
+  }
+
+  res.status(200).end();
+};
