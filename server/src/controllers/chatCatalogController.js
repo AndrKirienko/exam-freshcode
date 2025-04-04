@@ -36,28 +36,35 @@ module.exports.createCatalog = async (req, res, next) => {
 };
 
 const getCatalogsWithChats = async userId => {
-  const findCatalogs = await Catalogs.findAll({
-    where: { userId },
-    attributes: ['id', 'catalogName'],
-  });
+  try {
+    const findCatalogs = await Catalogs.findAll({
+      where: { userId },
+      attributes: ['id', 'catalogName'],
+      include: {
+        model: CatalogConversation,
+        attributes: ['conversationId'],
+        include: {
+          model: Conversations,
+          attributes: ['id'],
+        },
+        required: false,
+      },
+    });
 
-  const catalogIds = findCatalogs.map(c => c.id);
-  const findCatalogConversation = await CatalogConversation.findAll({
-    where: { catalogId: catalogIds },
-    attributes: ['catalogId', 'conversationId'],
-  });
-
-  const chatMap = {};
-  findCatalogConversation.forEach(({ catalogId, conversationId }) => {
-    if (!chatMap[catalogId]) chatMap[catalogId] = [];
-    chatMap[catalogId].push(conversationId);
-  });
-
-  return findCatalogs.map(catalog => ({
-    id: catalog.id,
-    catalogName: catalog.catalogName,
-    chats: chatMap[catalog.id] || [],
-  }));
+    return findCatalogs.map(catalog => {
+      const chats = catalog.CatalogConversations.map(
+        conversation => conversation.Conversation.id
+      );
+      return {
+        id: catalog.id,
+        catalogName: catalog.catalogName,
+        chats,
+      };
+    });
+  } catch (err) {
+    console.error(err);
+    throw new Error('Error while fetching catalogs with chats');
+  }
 };
 
 module.exports.getCatalogs = async (req, res, next) => {
