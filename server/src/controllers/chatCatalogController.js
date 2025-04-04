@@ -141,16 +141,20 @@ module.exports.removeChatFromCatalog = async (req, res, next) => {
     params: { catalogId, chatId },
   } = req;
 
-  const deleteChatFromCatalog = await CatalogConversation.destroy({
-    where: {
-      catalogId,
-      conversationId: chatId,
-    },
-  });
+  try {
+    const deleteChatFromCatalog = await CatalogConversation.destroy({
+      where: {
+        catalogId,
+        conversationId: chatId,
+      },
+    });
 
-  if (!deleteChatFromCatalog) {
-    return next(new ServerError());
+    if (!deleteChatFromCatalog) {
+      return next(new ServerError());
+    }
+
+    res.status(200).end();
+  } catch (err) {
+    next(err);
   }
-
-  res.status(200).end();
 };
