@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { basic, checkToken, hashPass, validators } = require('../middlewares');
-const { contestController, userController } = require('../controllers');
+const { contestController, usersController } = require('../controllers');
 const upload = require('../utils/fileUpload');
 const contestsRouter = require('./contestsRouter');
 const chatCatalogRoutes = require('./chatsCatalogsRouter');
@@ -12,10 +12,10 @@ router.post(
   '/registration',
   validators.validateRegistrationData,
   hashPass,
-  userController.registration
+  usersController.registration
 );
 
-router.post('/login', validators.validateLogin, userController.login);
+router.post('/login', validators.validateLogin, usersController.login);
 
 router.post('/getUser', checkToken.checkAuth);
 
@@ -30,10 +30,10 @@ router.post('/dataForContest', contestController.dataForContest);
 
 router.get('/downloadFile/:fileName', contestController.downloadFile);
 
-router.post('/changeMark', basic.onlyForCustomer, userController.changeMark);
+router.post('/changeMark', basic.onlyForCustomer, usersController.changeMark);
 
-router.post('/updateUser', upload.uploadAvatar, userController.updateUser);
+router.post('/updateUser', upload.uploadAvatar, usersController.updateUser);
 
-router.post('/cashout', basic.onlyForCreative, userController.cashout);
+router.post('/cashout', basic.onlyForCreative, usersController.cashout);
 
 module.exports = router;
