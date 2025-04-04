@@ -172,7 +172,7 @@ module.exports.addChatToCatalog = async (req, res, next) => {
     });
 
     if (existingChat) {
-      return next(new ServerError());
+      return res.status(204);
     }
 
     await CatalogsConversations.create({
