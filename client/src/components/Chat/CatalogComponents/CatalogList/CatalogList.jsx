@@ -15,6 +15,7 @@ const CatalogList = props => {
 
   const deleteCatalog = (event, catalogId) => {
     props.deleteCatalog({ catalogId });
+    window.location.reload();
     event.stopPropagation();
   };
 
