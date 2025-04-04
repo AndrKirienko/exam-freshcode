@@ -12,9 +12,10 @@ class CatalogListContainer extends Component {
     this.props.getCatalogList();
   }
 
-  removeChatFromCatalog = (event, chatId) => {
-    const { _id } = this.props.chatStore.currentCatalog;
-    this.props.removeChatFromCatalog({ chatId, catalogId: _id });
+  removeChatFromCatalog = (chatId, event) => {
+    const { id } = this.props.chatStore.currentCatalog;
+    this.props.removeChatFromCatalog({ chatId, catalogId: id });
+    window.location.reload();
     event.stopPropagation();
   };
 
@@ -24,7 +25,7 @@ class CatalogListContainer extends Component {
     const dialogsInCatalog = [];
     for (let i = 0; i < messagesPreview.length; i++) {
       for (let j = 0; j < chats.length; j++) {
-        if (chats[j] === messagesPreview[i]._id) {
+        if (chats[j] === messagesPreview[i].id) {
           dialogsInCatalog.push(messagesPreview[i]);
         }
       }

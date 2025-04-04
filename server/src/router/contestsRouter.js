@@ -1,7 +1,7 @@
 const { Router } = require('express');
 const { basic, validators } = require('../middlewares');
 const upload = require('../utils/fileUpload');
-const { contestController, userController } = require('../controllers');
+const { contestController, usersController } = require('../controllers');
 
 const contestsRouter = Router();
 
@@ -11,7 +11,7 @@ contestsRouter.post(
   upload.uploadContestFiles,
   basic.parseBody,
   validators.validateContestCreation,
-  userController.payment
+  usersController.payment
 );
 
 contestsRouter.get('/', basic.onlyForCreative, contestController.getContests);

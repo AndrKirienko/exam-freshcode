@@ -12,7 +12,7 @@ import ChatInput from '../../ChatComponents/ChatInut/ChatInput';
 
 class Dialog extends Component {
   componentDidMount () {
-    this.props.getDialog({ interlocutorId: this.props.interlocutor.id });
+    this.props.getDialog(this.props.interlocutor.id);
     this.scrollToBottom();
   }
 
@@ -28,7 +28,7 @@ class Dialog extends Component {
 
   componentDidUpdate (nextProps) {
     if (nextProps.interlocutor.id !== this.props.interlocutor.id)
-      this.props.getDialog({ interlocutorId: nextProps.interlocutor.id });
+      this.props.getDialog(nextProps.interlocutor.id);
 
     if (this.messagesEnd.current) this.scrollToBottom();
   }
@@ -38,57 +38,57 @@ class Dialog extends Component {
     const { messages, userId } = this.props;
     let currentTime = moment();
     messages.forEach((message, i) => {
-      if (!currentTime.isSame(message.createdAt, 'date')) {
+      if (message.createdAt !== null) {
+        if (!currentTime.isSame(message.createdAt, 'date')) {
+          messagesArray.push(
+            <div key={message.createdAt} className={styles.date}>
+              {moment(message.createdAt).format('MMMM DD, YYYY')}
+            </div>
+          );
+          currentTime = moment(message.createdAt);
+        }
+      }
+      if (message.body !== null && message.body !== undefined) {
         messagesArray.push(
-          <div key={message.createdAt} className={styles.date}>
-            {moment(message.createdAt).format('MMMM DD, YYYY')}
+          <div
+            key={i}
+            className={className(
+              userId === message.sender ? styles.ownMessage : styles.message
+            )}
+          >
+            <span>{message.body}</span>
+            <span className={styles.messageTime}>
+              {moment(message.createdAt).format('HH:mm')}
+            </span>
+            <div ref={this.messagesEnd} />
           </div>
         );
-        currentTime = moment(message.createdAt);
       }
-      messagesArray.push(
-        <div
-          key={i}
-          className={className(
-            userId === message.sender ? styles.ownMessage : styles.message
-          )}
-        >
-          <span>{message.body}</span>
-          <span className={styles.messageTime}>
-            {moment(message.createdAt).format('HH:mm')}
-          </span>
-          <div ref={this.messagesEnd} />
-        </div>
-      );
     });
     return <div className={styles.messageList}>{messagesArray}</div>;
   };
 
   blockMessage = () => {
-    const { userId, chatData } = this.props;
-    const { blackList, participants } = chatData;
-    const userIndex = participants.indexOf(userId);
+    const {
+      chatData: { blackList },
+    } = this.props;
+
     let message;
-    if (chatData && blackList[userIndex]) {
-      message = 'You block him';
-    } else if (chatData && blackList.includes(true)) {
-      message = 'He block you';
+    if (blackList) {
+      message = 'Chat is blocked';
     }
     return <span className={styles.messageBlock}>{message}</span>;
   };
 
   render () {
     const { chatData, userId } = this.props;
+
     return (
       <>
         <ChatHeader userId={userId} />
         {this.renderMainDialog()}
         <div ref={this.messagesEnd} />
-        {chatData && chatData.blackList.includes(true) ? (
-          this.blockMessage()
-        ) : (
-          <ChatInput />
-        )}
+        {chatData && chatData.blackList ? this.blockMessage() : <ChatInput />}
       </>
     );
   }

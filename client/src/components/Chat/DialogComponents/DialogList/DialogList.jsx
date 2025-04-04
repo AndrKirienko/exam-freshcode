@@ -22,16 +22,14 @@ const DialogList = props => {
     event.stopPropagation();
   };
 
-  const changeShowCatalogCreation = (event, chatId) => {
+  const changeShowCatalogCreation = (chatId, event) => {
     props.changeShowAddChatToCatalogMenu(chatId);
     event.stopPropagation();
   };
 
-  const onlyFavoriteDialogs = (chatPreview, userId) =>
-    chatPreview.favoriteList[chatPreview.participants.indexOf(userId)];
+  const onlyFavoriteDialogs = chatPreview => chatPreview.favoriteList;
 
-  const onlyBlockDialogs = (chatPreview, userId) =>
-    chatPreview.blackList[chatPreview.participants.indexOf(userId)];
+  const onlyBlockDialogs = chatPreview => chatPreview.blackList;
 
   const getTimeStr = time => {
     const currentTime = moment();
@@ -64,8 +62,8 @@ const DialogList = props => {
           chatMode={chatMode}
           catalogOperation={
             chatMode === CONSTANTS.CATALOG_PREVIEW_CHAT_MODE
-              ? removeChat
-              : changeShowCatalogCreation
+              ? event => removeChat(chatPreview.id, event)
+              : event => changeShowCatalogCreation(chatPreview.id, event)
           }
           goToExpandedDialog={goToExpandedDialog}
         />

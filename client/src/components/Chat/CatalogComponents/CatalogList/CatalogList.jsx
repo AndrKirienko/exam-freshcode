@@ -15,6 +15,7 @@ const CatalogList = props => {
 
   const deleteCatalog = (event, catalogId) => {
     props.deleteCatalog({ catalogId });
+    window.location.reload();
     event.stopPropagation();
   };
 
@@ -25,7 +26,7 @@ const CatalogList = props => {
       elementList.push(
         <Catalog
           catalog={catalog}
-          key={catalog._id}
+          key={catalog.id}
           deleteCatalog={deleteCatalog}
           goToCatalog={goToCatalog}
         />
