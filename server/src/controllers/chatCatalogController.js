@@ -1,14 +1,7 @@
 const db = require('./../models');
 const ServerError = require('../errors/ServerError');
 
-const {
-  Conversations,
-  ConversationParticipants,
-  Catalogs,
-  Messages,
-  Users,
-  CatalogConversation,
-} = db;
+const { Conversations, Catalogs, CatalogConversation } = db;
 
 module.exports.createCatalog = async (req, res, next) => {
   const {
@@ -154,6 +147,40 @@ module.exports.removeChatFromCatalog = async (req, res, next) => {
     }
 
     res.status(200).end();
+  } catch (err) {
+    next(err);
+  }
+};
+
+module.exports.addChatToCatalog = async (req, res, next) => {
+  const {
+    body: { catalogId, chatId },
+    tokenData: { userId },
+  } = req;
+
+  try {
+    const findCatalog = await Catalogs.findOne({
+      where: { id: catalogId, userId },
+    });
+
+    if (!findCatalog) {
+      return next(new ServerError());
+    }
+
+    const existingChat = await CatalogConversation.findOne({
+      where: { catalogId, conversationId: chatId },
+    });
+
+    if (existingChat) {
+      return next(new ServerError());
+    }
+
+    await CatalogConversation.create({
+      catalogId,
+      conversationId: chatId,
+    });
+
+    res.status(201).end();
   } catch (err) {
     next(err);
   }

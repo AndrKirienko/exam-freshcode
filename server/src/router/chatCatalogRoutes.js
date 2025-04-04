@@ -11,6 +11,7 @@ chatCatalogRoutes.delete(
   '/chats/:catalogId/:chatId',
   chatCatalogController.removeChatFromCatalog
 );
+chatCatalogRoutes.post('/chats', chatCatalogController.addChatToCatalog);
 
 //chatCatalogRoutes.get('/', chatController.getCatalogs);
 //chatCatalogRoutes.post('/', chatController.createCatalog);
@@ -20,7 +21,6 @@ chatCatalogRoutes.delete(
 //   '/chats/:catalogId/:chatId',
 //   chatController.removeChatFromCatalog
 // );
-
-chatCatalogRoutes.post('/chats', chatController.addNewChatToCatalog);
+//chatCatalogRoutes.post('/chats', chatController.addNewChatToCatalog);
 
 module.exports = chatCatalogRoutes;
