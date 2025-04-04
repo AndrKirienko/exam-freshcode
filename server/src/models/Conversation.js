@@ -28,10 +28,10 @@ module.exports = (sequelize, DataTypes) => {
     Conversation.hasMany(models.Messages, {
       foreignKey: 'conversationId',
     });
-    Conversation.hasMany(models.ConversationParticipants, {
+    Conversation.hasMany(models.ConversationsParticipants, {
       foreignKey: 'conversationId',
     });
-    Conversation.hasMany(models.CatalogConversation, {
+    Conversation.hasMany(models.CatalogsConversations, {
       foreignKey: 'conversationId',
     });
   };

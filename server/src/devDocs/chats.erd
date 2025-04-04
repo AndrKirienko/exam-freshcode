@@ -4,8 +4,8 @@
   "settings": {
     "width": 2000,
     "height": 2000,
-    "scrollTop": -699.0351,
-    "scrollLeft": -585.3333,
+    "scrollTop": -455.6754,
+    "scrollLeft": -518.4268,
     "zoomLevel": 1,
     "show": 492,
     "database": 16,
@@ -192,7 +192,7 @@
       },
       "ot7S7cCsk354yd7yy6NIJ": {
         "id": "ot7S7cCsk354yd7yy6NIJ",
-        "name": "ConversationParticipants",
+        "name": "ConversationsParticipants",
         "comment": "",
         "columnIds": [
           "1R6u9hoOcs1ZNNRND06Eo",
@@ -240,18 +240,18 @@
           "x": 699.4659,
           "y": 475.6732,
           "zIndex": 126,
-          "widthName": 137,
+          "widthName": 142,
           "widthComment": 60,
           "color": ""
         },
         "meta": {
-          "updateAt": 1743493882600,
+          "updateAt": 1743777320346,
           "createAt": 1743431968781
         }
       },
       "Aon0hWpCS-PIJjFDRe9Ch": {
         "id": "Aon0hWpCS-PIJjFDRe9Ch",
-        "name": "CatalogConversation",
+        "name": "CatalogsConversations",
         "comment": "",
         "columnIds": [
           "8qMQ1hUbeblkM37S7k6BX",
@@ -270,12 +270,12 @@
           "x": 1263.5308,
           "y": 1027.6664,
           "zIndex": 202,
-          "widthName": 115,
+          "widthName": 125,
           "widthComment": 60,
           "color": ""
         },
         "meta": {
-          "updateAt": 1743437952009,
+          "updateAt": 1743777314873,
           "createAt": 1743432827798
         }
       }
@@ -2397,7 +2397,7 @@
       1743431968780,
       -1,
       {
-        "name": 1743437964603
+        "name": 1743777320345
       }
     ],
     "1R6u9hoOcs1ZNNRND06Eo": [
@@ -2869,7 +2869,7 @@
       1743432827797,
       -1,
       {
-        "name": 1743437952008
+        "name": 1743777314871
       }
     ],
     "08RNVTRACdePuTTCcdjKb": [

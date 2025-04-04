@@ -1,7 +1,7 @@
 const db = require('../models');
 const ServerError = require('../errors/ServerError');
 
-const { Conversations, Catalogs, CatalogConversation } = db;
+const { Conversations, Catalogs, CatalogsConversations } = db;
 
 module.exports.createCatalog = async (req, res, next) => {
   const {
@@ -16,7 +16,7 @@ module.exports.createCatalog = async (req, res, next) => {
     });
 
     if (chatId) {
-      await CatalogConversation.create({
+      await CatalogsConversations.create({
         catalogId: createCatalog.id,
         conversationId: chatId,
       });
@@ -34,7 +34,7 @@ const getCatalogsWithChats = async userId => {
       where: { userId },
       attributes: ['id', 'catalogName'],
       include: {
-        model: CatalogConversation,
+        model: CatalogsConversations,
         attributes: ['conversationId'],
         include: {
           model: Conversations,
@@ -45,7 +45,7 @@ const getCatalogsWithChats = async userId => {
     });
 
     return findCatalogs.map(catalog => {
-      const chats = catalog.CatalogConversations.map(
+      const chats = catalog.CatalogsConversations.map(
         conversation => conversation.Conversation.id
       );
       return {
@@ -135,7 +135,7 @@ module.exports.removeChatFromCatalog = async (req, res, next) => {
   } = req;
 
   try {
-    const deleteChatFromCatalog = await CatalogConversation.destroy({
+    const deleteChatFromCatalog = await CatalogsConversations.destroy({
       where: {
         catalogId,
         conversationId: chatId,
@@ -167,7 +167,7 @@ module.exports.addChatToCatalog = async (req, res, next) => {
       return next(new ServerError());
     }
 
-    const existingChat = await CatalogConversation.findOne({
+    const existingChat = await CatalogsConversations.findOne({
       where: { catalogId, conversationId: chatId },
     });
 
@@ -175,7 +175,7 @@ module.exports.addChatToCatalog = async (req, res, next) => {
       return next(new ServerError());
     }
 
-    await CatalogConversation.create({
+    await CatalogsConversations.create({
       catalogId,
       conversationId: chatId,
     });

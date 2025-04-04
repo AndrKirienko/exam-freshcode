@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
-  const CatalogConversation = sequelize.define(
-    'CatalogConversation',
+  const CatalogsConversations = sequelize.define(
+    'CatalogsConversations',
     {
       id: {
         type: DataTypes.INTEGER,
@@ -23,18 +23,18 @@ module.exports = (sequelize, DataTypes) => {
     }
   );
 
-  CatalogConversation.associate = function (models) {
-    CatalogConversation.belongsTo(models.Conversations, {
+  CatalogsConversations.associate = function (models) {
+    CatalogsConversations.belongsTo(models.Conversations, {
       foreignKey: 'conversationId',
       onUpdate: 'CASCADE',
       onDelete: 'CASCADE',
     });
-    CatalogConversation.belongsTo(models.Catalogs, {
+    CatalogsConversations.belongsTo(models.Catalogs, {
       foreignKey: 'catalogId',
       onUpdate: 'CASCADE',
       onDelete: 'CASCADE',
     });
   };
 
-  return CatalogConversation;
+  return CatalogsConversations;
 };

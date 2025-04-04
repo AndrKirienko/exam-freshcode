@@ -14,7 +14,7 @@
 
 
 
-   CREATE TABLE IF NOT EXISTS "CatalogConversation" (
+   CREATE TABLE IF NOT EXISTS "CatalogsConversations" (
           id SERIAL PRIMARY KEY,
           "catalogId" INTEGER NULL REFERENCES "Catalogs" (id) ON UPDATE CASCADE ON DELETE CASCADE,
           "conversationId" INTEGER NULL REFERENCES "Conversations" (id) ON UPDATE CASCADE ON DELETE CASCADE
@@ -22,7 +22,7 @@
 
 
 
-   CREATE TABLE IF NOT EXISTS "ConversationParticipants" (
+   CREATE TABLE IF NOT EXISTS "ConversationsParticipants" (
           id SERIAL PRIMARY KEY,
           "conversationId" INTEGER NOT NULL REFERENCES "Conversations" (id) ON UPDATE CASCADE ON DELETE CASCADE,
           "userId" INTEGER NULL REFERENCES "Users" (id) ON UPDATE CASCADE ON DELETE SET NULL,

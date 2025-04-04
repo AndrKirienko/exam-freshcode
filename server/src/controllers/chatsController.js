@@ -3,7 +3,7 @@ const db = require('../models');
 const controller = require('../socketInit');
 const ServerError = require('../errors/ServerError');
 
-const { Conversations, ConversationParticipants, Messages, Users } = db;
+const { Conversations, ConversationsParticipants, Messages, Users } = db;
 
 module.exports.getChat = async (req, res, next) => {
   const {
@@ -16,7 +16,7 @@ module.exports.getChat = async (req, res, next) => {
       attributes: ['id'],
       include: [
         {
-          model: ConversationParticipants,
+          model: ConversationsParticipants,
           where: {
             userId: {
               [Op.in]: [userId, interlocutorId],
@@ -25,10 +25,10 @@ module.exports.getChat = async (req, res, next) => {
         },
       ],
       where: Sequelize.literal(`
-        (SELECT COUNT(DISTINCT "ConversationParticipants"."userId")
-        FROM "ConversationParticipants"
-        WHERE "ConversationParticipants"."conversationId" = "Conversations"."id"
-        AND "ConversationParticipants"."userId" IN (${[
+        (SELECT COUNT(DISTINCT "ConversationsParticipants"."userId")
+        FROM "ConversationsParticipants"
+        WHERE "ConversationsParticipants"."conversationId" = "Conversations"."id"
+        AND "ConversationsParticipants"."userId" IN (${[
           userId,
           interlocutorId,
         ].join(',')})) = 2
@@ -91,7 +91,7 @@ module.exports.addMessage = async (req, res, next) => {
       attributes: ['id', 'createdAt', 'updatedAt'],
       include: [
         {
-          model: ConversationParticipants,
+          model: ConversationsParticipants,
           attributes: ['userId', 'favoriteList'],
           where: {
             userId: { [Op.in]: participants },
@@ -99,10 +99,10 @@ module.exports.addMessage = async (req, res, next) => {
         },
       ],
       where: Sequelize.literal(`
-        (SELECT COUNT(DISTINCT "ConversationParticipants"."userId")
-        FROM "ConversationParticipants"
-        WHERE "ConversationParticipants"."conversationId" = "Conversations"."id"
-        AND "ConversationParticipants"."userId" IN (${participants.join(
+        (SELECT COUNT(DISTINCT "ConversationsParticipants"."userId")
+        FROM "ConversationsParticipants"
+        WHERE "ConversationsParticipants"."conversationId" = "Conversations"."id"
+        AND "ConversationsParticipants"."userId" IN (${participants.join(
           ','
         )})) = 2
       `),
@@ -112,13 +112,13 @@ module.exports.addMessage = async (req, res, next) => {
 
     if (!conversation) {
       conversation = await Conversations.create({});
-      await ConversationParticipants.bulkCreate([
+      await ConversationsParticipants.bulkCreate([
         { conversationId: conversation.id, userId: participants[0] },
         { conversationId: conversation.id, userId: participants[1] },
       ]);
     }
 
-    const blackLists = await ConversationParticipants.findAll({
+    const blackLists = await ConversationsParticipants.findAll({
       where: {
         conversationId: conversation.id,
         userId: { [Sequelize.Op.in]: participants },
@@ -149,7 +149,7 @@ module.exports.addMessage = async (req, res, next) => {
       participants: participants,
       blackList,
       favoriteList:
-        conversation['ConversationParticipants.favoriteList'] && false,
+        conversation['ConversationsParticipants.favoriteList'] && false,
     };
 
     const interlocutorId = participants.find(id => id !== sender);
@@ -215,7 +215,7 @@ module.exports.getPreview = async (req, res, next) => {
             'ARRAY_AGG',
             Sequelize.fn(
               'DISTINCT',
-              Sequelize.col('ConversationParticipants.userId')
+              Sequelize.col('ConversationsParticipants.userId')
             )
           ),
           'participants',
@@ -223,7 +223,7 @@ module.exports.getPreview = async (req, res, next) => {
         [
           Sequelize.literal(`
 						(SELECT "blackList"
-						 FROM "ConversationParticipants"
+						 FROM "ConversationsParticipants"
 						 WHERE "conversationId" = "Conversations"."id"
 							 AND "userId" = ${userId})
 					`),
@@ -232,7 +232,7 @@ module.exports.getPreview = async (req, res, next) => {
         [
           Sequelize.literal(`
 						(SELECT "favoriteList"
-						 FROM "ConversationParticipants"
+						 FROM "ConversationsParticipants"
 						 WHERE "conversationId" = "Conversations"."id"
 							 AND "userId" = ${userId})
 					`),
@@ -246,7 +246,7 @@ module.exports.getPreview = async (req, res, next) => {
           required: true,
         },
         {
-          model: ConversationParticipants,
+          model: ConversationsParticipants,
           attributes: [],
           required: true,
         },
@@ -254,7 +254,7 @@ module.exports.getPreview = async (req, res, next) => {
       where: {
         id: {
           [Sequelize.Op.in]: Sequelize.literal(
-            `(SELECT "conversationId" FROM "ConversationParticipants" WHERE "userId" = ${userId})`
+            `(SELECT "conversationId" FROM "ConversationsParticipants" WHERE "userId" = ${userId})`
           ),
         },
       },
@@ -307,14 +307,14 @@ const updateConversationStatus = async (
   statusType
 ) => {
   try {
-    const updatedConversation = await ConversationParticipants.update(
+    const updatedConversation = await ConversationsParticipants.update(
       { [statusType]: statusFlag },
       {
         where: {
           conversationId: [
             Sequelize.literal(`
             (SELECT "conversationId"
-        		 FROM "ConversationParticipants"
+        		 FROM "ConversationsParticipants"
          		 WHERE "userId" IN (${participants.join(',')})
          		 GROUP BY "conversationId"
          		 HAVING COUNT(DISTINCT "userId") = ${participants.length})`),
@@ -332,12 +332,12 @@ const updateConversationStatus = async (
       include: [
         {
           attributes: ['id', 'blackList', 'favoriteList'],
-          model: ConversationParticipants,
+          model: ConversationsParticipants,
           where: {
             conversationId: [
               Sequelize.literal(`
             (SELECT "conversationId"
-        		 FROM "ConversationParticipants"
+        		 FROM "ConversationsParticipants"
          		 WHERE "userId" IN (${participants.join(',')})
          		 GROUP BY "conversationId"
          		 HAVING COUNT(DISTINCT "userId") = ${participants.length})`),
@@ -352,9 +352,9 @@ const updateConversationStatus = async (
     const formattedConversation = {
       _id: findConversation.id,
       participants: participants,
-      blackList: findConversation['ConversationParticipants.blackList'],
+      blackList: findConversation['ConversationsParticipants.blackList'],
       createdAt: findConversation.createdAt,
-      favoriteList: findConversation['ConversationParticipants.favoriteList'],
+      favoriteList: findConversation['ConversationsParticipants.favoriteList'],
       updatedAt: findConversation.updatedAt,
     };
 

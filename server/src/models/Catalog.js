@@ -28,7 +28,7 @@ module.exports = (sequelize, DataTypes) => {
       onUpdate: 'CASCADE',
       onDelete: 'SET NULL',
     });
-    Catalog.hasMany(models.CatalogConversation, { foreignKey: 'catalogId' });
+    Catalog.hasMany(models.CatalogsConversations, { foreignKey: 'catalogId' });
   };
 
   return Catalog;
