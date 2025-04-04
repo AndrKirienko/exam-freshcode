@@ -1,4 +1,4 @@
-const db = require('./../models');
+const db = require('../models');
 const ServerError = require('../errors/ServerError');
 
 const { Conversations, Catalogs, CatalogConversation } = db;

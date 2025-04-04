@@ -1,16 +1,9 @@
 const { Op, Sequelize } = require('sequelize');
-const db = require('./../models');
-const controller = require('./../socketInit');
+const db = require('../models');
+const controller = require('../socketInit');
 const ServerError = require('../errors/ServerError');
 
-const {
-  Conversations,
-  ConversationParticipants,
-  Catalogs,
-  Messages,
-  Users,
-  CatalogConversation,
-} = db;
+const { Conversations, ConversationParticipants, Messages, Users } = db;
 
 module.exports.getChat = async (req, res, next) => {
   const {
