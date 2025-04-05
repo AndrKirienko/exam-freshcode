@@ -91,6 +91,14 @@ The ButtonGroup component located at [http://localhost:5000/startContest/nameCon
 
 Queries are located at the `server/src/queries/queries.mongodb.js` path.
 
+In order to check the functionality of requests, you need to switch to the `moderator-role` branch and run the following code in the console:
+
+```shell
+docker exec -it exam-freshcode-server-dev-1 npm install mongoose@7.6.5
+```
+
+
+
 #### 2. Db SQL
 
 Queries are located at the `server/src/queries/queries.pgsql` path.
