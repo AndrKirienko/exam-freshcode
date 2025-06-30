@@ -23,6 +23,7 @@ To connect PostgresSQL databases in development mode, the necessary configuratio
 
 To connect MongoDB databases in development mode, the necessary configurations are available in the file located at `server/src/config/mongoConfig.json`.
 
+All tasks should be checked in the main branch, except for the Db No-SQL task.
 </br>
 
 ---
