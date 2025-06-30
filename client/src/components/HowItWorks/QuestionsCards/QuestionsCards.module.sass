@@ -1,0 +1,111 @@
+@import './../../../_constants'
+
+.tabsContainer
+	width: 100%
+	display: grid
+	grid-template-columns: repeat(4, 1fr)
+	background: linear-gradient(0deg, rgba(0, 0, 0, 0.04), rgba(0, 0, 0, 0.04)), $white-color
+	border-radius: 16px
+	margin-bottom: 50px
+	@media (max-width: 600px)
+		grid-template-columns: 1fr
+
+%link
+	display: flex
+	align-items: center
+	justify-content: center
+	text-align: center
+	color: #343434
+	font-size: 16px
+	font-weight: 400
+	padding: 13px 5px
+	cursor: pointer
+	line-height: 1.5
+
+.link
+	@extend %link
+
+.activeLink
+	@extend %link
+	background: linear-gradient(45deg, #ff6955 0, #e97543 100%)
+	color: $white-color
+	border-radius: 1rem
+
+.faqSection
+	&:not(:last-child)
+		margin-bottom: 65px
+
+.faqSectionTitle
+	color: $primary-color-title-HIW
+	font-size: 28px
+	font-weight: 700
+	line-height: 1.3
+	margin-bottom: 30px
+
+.faqItem
+	border: 1px solid #f3f5fe
+	border-radius: 16px
+	transition: all 0.5s ease
+	color: #19184a
+
+	&:hover
+		border: 1px solid $theme-primary-color
+		background-color: #FFF1A
+
+.faqItemActive
+	transition: all 0.5s ease
+	background-color: $theme-primary-color
+	border: 1px solid $theme-primary-color
+	border-radius: 16px
+	color: $white-color
+	transition: all 0.5s ease
+
+.answerContainer
+	display: flex
+	flex-direction: column
+	gap: 16px
+
+.faqQuestion
+	cursor: pointer
+	position: relative
+	font-weight: 700
+	line-height: 1.5
+	font-size: calc(18px + (20 - 18) * ((100vw - 400px) / (1200 - 400)))
+	color: inherit
+	padding: 24px 64px 24px 24px
+
+.faqAnswer
+	overflow: hidden
+	line-height: 1.5
+	padding: 20px 24px 30px
+	ul
+		font-size: 14px
+		color: #525177
+		li::before
+			content: "•"
+			margin-right: 14px
+	a
+		color: $white-color
+		cursor: pointer
+		text-decoration: underline
+
+.faqAnswerActive
+	@extend .faqAnswer
+
+.iconPlus
+	svg
+		position: absolute
+		top: 50%
+		transform: translateY(-50%)
+		right: 34px
+		overflow: visible
+		path
+			transition: all 0.5s ease
+
+.iconPlusActive
+	@extend .iconPlus
+	svg
+		path
+			transform: rotate(-45deg)
+			transform-origin: center
+			fill: $white-color

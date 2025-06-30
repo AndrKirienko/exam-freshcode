@@ -1,0 +1,39 @@
+{
+  "menuItems": [
+    {
+      "type": "link",
+      "text": "View Dashboard",
+      "to": "/dashboard"
+    },
+    {
+      "type": "link",
+      "text": "My Account",
+      "to": "/account"
+    },
+    {
+      "type": "link",
+      "text": "Events",
+      "to": "/events"
+    },
+    {
+      "type": "link",
+      "text": "Offers",
+      "to": "/offers"
+    },
+    {
+      "type": "link",
+      "text": "Messages",
+      "to": "#"
+    },
+    {
+      "type": "link",
+      "text": "Affiliate Dashboard",
+      "to": "#"
+    },
+    {
+      "type": "action",
+      "text": "Logout",
+      "function": "logOut"
+    }
+  ]
+}

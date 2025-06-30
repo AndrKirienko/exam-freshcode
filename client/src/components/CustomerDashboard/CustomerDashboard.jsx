@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
+import { v4 as uuidv4 } from 'uuid';
 import {
   getContests,
   clearContestsList,
@@ -12,7 +13,7 @@ import ContestBox from '../ContestBox/ContestBox';
 import styles from './CustomerDashboard.module.sass';
 import TryAgain from '../TryAgain/TryAgain';
 
-class CustomerDashboard extends React.Component {
+class CustomerDashboard extends Component {
   loadMore = startFrom => {
     this.props.getContests({
       limit: 8,
@@ -49,7 +50,7 @@ class CustomerDashboard extends React.Component {
       array.push(
         <ContestBox
           data={contests[i]}
-          key={contests[i].id}
+          key={uuidv4()}
           goToExtended={this.goToExtended}
         />
       );
@@ -114,7 +115,7 @@ class CustomerDashboard extends React.Component {
         </div>
         <div className={styles.contestsContainer}>
           {error ? (
-            <TryAgain getData={this.tryToGetContest()} />
+            <TryAgain getData={this.tryToGetContest} />
           ) : (
             <ContestsContainer
               isFetching={this.props.isFetching}

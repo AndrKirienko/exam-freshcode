@@ -2,8 +2,12 @@ const env = process.env.NODE_ENV || 'development';
 const serverIP = 'localhost';
 const serverPort = 3000;
 export default {
+  CONTACTS: {
+    TEL: '(877) 355-3585',
+  },
   CUSTOMER: 'customer',
   CREATOR: 'creator',
+  MODERATOR: 'moderator',
   CONTEST_STATUS_ACTIVE: 'active',
   CONTEST_STATUS_FINISHED: 'finished',
   CONTEST_STATUS_PENDING: 'pending',
@@ -45,40 +49,12 @@ export default {
     'a Product',
     'a Startup',
   ],
-  FooterItems: [
-    {
-      title: 'SQUADHELP',
-      items: ['About', 'Contact', 'How It Works?', 'Testimonials', 'Our Work'],
-    },
-    {
-      title: 'RESOURCES',
-      items: [
-        'How It Works',
-        'Become a Creative',
-        'Business Name Generator',
-        'Discussion Forum',
-        'Blog',
-        'Download eBook',
-        'Pricing',
-        'Help & FAQs',
-      ],
-    },
-    {
-      title: 'OUR SERVICES',
-      items: [
-        'Naming',
-        'Logo Design',
-        'Taglines',
-        'Premium Names For Sale',
-        'Creative Owned Names For Sale',
-        'Audience Testing',
-        'Trademark Research & Filling',
-        'Managed Agency Service',
-      ],
-    },
-    {
-      title: 'LEGAL',
-      items: ['Terms of Service', 'Privacy Policy', 'Cookie Policy'],
-    },
-  ],
+  PAGINATION_OFFERS: {
+    DEFAULT_PAGE: 1,
+    DEFAULT_RESULTS: 14,
+  },
+  OFFER_MODERATOR_STATUS: {
+    REJECT: 'reject',
+    RESOLVE: 'resolve',
+  },
 };

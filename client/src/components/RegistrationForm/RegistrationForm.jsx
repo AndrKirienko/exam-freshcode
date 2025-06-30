@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Field, Form, Formik } from 'formik';
 import Error from '../Error/Error';
@@ -10,7 +10,7 @@ import AgreeTermOfServiceInput from '../AgreeTermOfServiceInput/AgreeTermOfServi
 import CONSTANTS from '../../constants';
 import Schems from '../../utils/validators/validationSchems';
 
-class RegistrationForm extends React.Component {
+class RegistrationForm extends Component {
   componentWillUnmount () {
     this.props.authClear();
   }
@@ -49,8 +49,10 @@ class RegistrationForm extends React.Component {
           />
         )}
         <div className={styles.headerFormContainer}>
-          <h2>CREATE AN ACCOUNT</h2>
-          <h4>We always keep your name and email address private.</h4>
+          <h2 className={styles.headerFormTitle}>CREATE AN ACCOUNT</h2>
+          <h4 className={styles.headerFormSubtitle}>
+            We always keep your name and email address private.
+          </h4>
         </div>
         <Formik
           initialValues={{
@@ -66,49 +68,43 @@ class RegistrationForm extends React.Component {
           onSubmit={this.clicked}
           validationSchema={Schems.RegistrationSchem}
         >
-          <Form>
-            <div className={styles.row}>
-              <FormInput
-                name='firstName'
-                classes={formInputClasses}
-                type='text'
-                label='First name'
-              />
-              <FormInput
-                name='lastName'
-                classes={formInputClasses}
-                type='text'
-                label='Last name'
-              />
-            </div>
-            <div className={styles.row}>
-              <FormInput
-                name='displayName'
-                classes={formInputClasses}
-                type='text'
-                label='Display Name'
-              />
-              <FormInput
-                name='email'
-                classes={formInputClasses}
-                type='text'
-                label='Email Address'
-              />
-            </div>
-            <div className={styles.row}>
-              <FormInput
-                name='password'
-                classes={formInputClasses}
-                type='password'
-                label='Password'
-              />
-              <FormInput
-                name='confirmPassword'
-                classes={formInputClasses}
-                type='password'
-                label='Password confirmation'
-              />
-            </div>
+          <Form className={styles.registrationForm}>
+            <FormInput
+              name='firstName'
+              classes={formInputClasses}
+              type='text'
+              label='First name'
+            />
+            <FormInput
+              name='lastName'
+              classes={formInputClasses}
+              type='text'
+              label='Last name'
+            />
+            <FormInput
+              name='displayName'
+              classes={formInputClasses}
+              type='text'
+              label='Display Name'
+            />
+            <FormInput
+              name='email'
+              classes={formInputClasses}
+              type='text'
+              label='Email Address'
+            />
+            <FormInput
+              name='password'
+              classes={formInputClasses}
+              type='password'
+              label='Password'
+            />
+            <FormInput
+              name='confirmPassword'
+              classes={formInputClasses}
+              type='password'
+              label='Password confirmation'
+            />
             <div className={styles.choseRoleContainer}>
               <Field
                 name='role'
@@ -127,6 +123,15 @@ class RegistrationForm extends React.Component {
                 infoRole='I plan to submit name ideas, Logo designs or sell names in Domain Marketplace.'
                 component={RoleInput}
                 id={CONSTANTS.CREATOR}
+              />
+              <Field
+                name='role'
+                type='radio'
+                value={CONSTANTS.MODERATOR}
+                strRole='Join As a Moderator'
+                infoRole='I review, approve or reject offers. Clients can only see approved proposals. I don`t see detailed information about the creators.'
+                component={RoleInput}
+                id={CONSTANTS.MODERATOR}
               />
             </div>
             <div className={styles.termsOfService}>

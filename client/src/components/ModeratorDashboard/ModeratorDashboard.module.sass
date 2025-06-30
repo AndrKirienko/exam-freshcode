@@ -1,0 +1,97 @@
+.offersContainer
+	box-sizing: border-box
+	max-width: 1170px
+	width: 100%
+	margin: 30px auto
+	padding: 0 15px
+
+.offersListContainer
+	display: flex
+	flex-direction: column
+	gap: 20px
+
+.offerItem
+	padding: 30px 40px
+	background-color: #f9fafb
+	border-radius: 10px
+	display: flex
+	gap: 10px
+	justify-content: space-between
+	@media(max-width: 630px)
+		flex-direction: column
+
+.offersItemDescriptions
+	color: #4e618d
+	display: flex
+	flex-direction: column
+	gap: 7px
+
+.offersDescriptionsItem
+	font-weight: 500
+	margin-right: 5px
+
+.offerText
+	font-size: 18px
+	color: #4b6091
+	font-weight: 500
+	margin-bottom: 7px
+
+.file
+	align-self: stretch
+	text-decoration: underline
+
+	&:hover
+		color: #6b89b0
+
+.btnsActionsContainer
+	display: flex
+	gap: 15px
+	align-items: start
+
+	@media(max-width: 630px)
+		margin-top: 10px
+		justify-content: space-between
+
+%btnsActions
+	width: 120px
+	cursor: pointer
+	text-align: center
+	padding: 10px
+	border-radius: 8px
+	color: white
+	border: none
+
+.resolveBtn
+	@extend %btnsActions
+	background-color: #8aca6b
+
+	&:hover
+		background-color: rgba(138, 202, 107, 0.7)
+
+.rejectBtn
+	@extend %btnsActions
+	background-color: #CD5C5C
+
+	&:hover
+		background-color: rgba(205, 92, 92, 0.7)
+
+.btnPaginationContainer
+	color: #4e618d
+	display: flex
+	justify-content: center
+	gap: 10px
+	align-items: center
+	margin-top: 30px
+
+.btnPagination
+	color: #4e618d
+	background: none
+	border: none
+	padding: 7px
+	cursor: pointer
+
+.noOffersContainer
+	font-size: 26px
+	font-weight: 500
+	color: #4e618d
+	text-align: center

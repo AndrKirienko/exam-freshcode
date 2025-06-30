@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
 import CONSTANTS from '../../../../constants';
@@ -11,12 +11,12 @@ import styles from './CatalogCreation.module.sass';
 import AddToCatalog from '../AddToCatalog/AddToCatalog';
 import CreateCatalog from '../CreateCatalog/CreateCatalog';
 
-class CatalogCreation extends React.Component {
-  componentDidMount() {
+class CatalogCreation extends Component {
+  componentDidMount () {
     this.props.getCatalogList();
   }
 
-  render() {
+  render () {
     const {
       changeTypeOfChatAdding,
       catalogCreationMode,
@@ -30,7 +30,7 @@ class CatalogCreation extends React.Component {
         {!isFetching && (
           <div className={styles.catalogCreationContainer}>
             <i
-              className="far fa-times-circle"
+              className='far fa-times-circle'
               onClick={() => changeShowAddChatToCatalogMenu()}
             />
             <div className={styles.buttonsContainer}>
@@ -67,10 +67,10 @@ class CatalogCreation extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => state.chatStore;
+const mapStateToProps = state => state.chatStore;
 
-const mapDispatchToProps = (dispatch) => ({
-  changeTypeOfChatAdding: (data) => dispatch(changeTypeOfChatAdding(data)),
+const mapDispatchToProps = dispatch => ({
+  changeTypeOfChatAdding: data => dispatch(changeTypeOfChatAdding(data)),
   changeShowAddChatToCatalogMenu: () =>
     dispatch(changeShowAddChatToCatalogMenu()),
   getCatalogList: () => dispatch(getCatalogList()),

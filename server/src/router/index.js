@@ -1,181 +1,39 @@
 const express = require('express');
-const basicMiddlewares = require('../middlewares/basicMiddlewares');
-const hashPass = require('../middlewares/hashPassMiddle');
-const userController = require('../controllers/userController');
-const contestController = require('../controllers/contestController');
-const checkToken = require('../middlewares/checkToken');
-const validators = require('../middlewares/validators');
-const chatController = require('../controllers/chatController');
-const upload = require('../utils/fileUpload');
 const router = express.Router();
+const { basic, checkToken, hashPass, validators } = require('../middlewares');
+const { contestController, usersController } = require('../controllers');
+const upload = require('../utils/fileUpload');
+const contestsRouter = require('./contestsRouter');
+const chatCatalogRoutes = require('./chatsCatalogsRouter');
+const offersRouter = require('./offersRouter');
+const chatsRouter = require('./chatsRouter');
 
 router.post(
   '/registration',
   validators.validateRegistrationData,
   hashPass,
-  userController.registration,
+  usersController.registration
 );
 
-router.post(
-  '/login',
-  validators.validateLogin,
-  userController.login,
-);
+router.post('/login', validators.validateLogin, usersController.login);
 
-router.post(
-  '/dataForContest',
-  checkToken.checkToken,
-  contestController.dataForContest,
-);
+router.post('/getUser', checkToken.checkAuth);
 
-router.post(
-  '/pay',
-  checkToken.checkToken,
-  basicMiddlewares.onlyForCustomer,
-  upload.uploadContestFiles,
-  basicMiddlewares.parseBody,
-  validators.validateContestCreation,
-  userController.payment,
-);
+router.use(checkToken.checkToken);
 
-router.post(
-  '/getCustomersContests',
-  checkToken.checkToken,
-  contestController.getCustomersContests,
-);
+router.use('/contests', contestsRouter);
+router.use('/catalogs', chatCatalogRoutes);
+router.use('/offers', offersRouter);
+router.use('/chats', chatsRouter);
 
-router.get(
-  '/getContestById',
-  checkToken.checkToken,
-  basicMiddlewares.canGetContest,
-  contestController.getContestById,
-);
+router.post('/dataForContest', contestController.dataForContest);
 
-router.post(
-  '/getAllContests',
-  checkToken.checkToken,
-  basicMiddlewares.onlyForCreative,
-  contestController.getContests,
-);
+router.get('/downloadFile/:fileName', contestController.downloadFile);
 
-router.post(
-  '/getUser',
-  checkToken.checkAuth,
-);
+router.post('/changeMark', basic.onlyForCustomer, usersController.changeMark);
 
-router.get(
-  '/downloadFile/:fileName',
-  checkToken.checkToken,
-  contestController.downloadFile,
-);
+router.post('/updateUser', upload.uploadAvatar, usersController.updateUser);
 
-router.post(
-  '/updateContest',
-  checkToken.checkToken,
-  upload.updateContestFile,
-  contestController.updateContest,
-);
-
-router.post(
-  '/setNewOffer',
-  checkToken.checkToken,
-  upload.uploadLogoFiles,
-  basicMiddlewares.canSendOffer,
-  contestController.setNewOffer,
-);
-
-router.post(
-  '/setOfferStatus',
-  checkToken.checkToken,
-  basicMiddlewares.onlyForCustomerWhoCreateContest,
-  contestController.setOfferStatus,
-);
-
-router.post(
-  '/changeMark',
-  checkToken.checkToken,
-  basicMiddlewares.onlyForCustomer,
-  userController.changeMark,
-);
-
-router.post(
-  '/updateUser',
-  checkToken.checkToken,
-  upload.uploadAvatar,
-  userController.updateUser,
-);
-
-router.post(
-  '/cashout',
-  checkToken.checkToken,
-  basicMiddlewares.onlyForCreative,
-  userController.cashout,
-);
-
-router.post(
-  '/newMessage',
-  checkToken.checkToken,
-  chatController.addMessage,
-);
-
-router.post(
-  '/getChat',
-  checkToken.checkToken,
-  chatController.getChat,
-);
-
-router.post(
-  '/getPreview',
-  checkToken.checkToken,
-  chatController.getPreview,
-);
-
-router.post(
-  '/blackList',
-  checkToken.checkToken,
-  chatController.blackList,
-);
-
-router.post(
-  '/favorite',
-  checkToken.checkToken,
-  chatController.favoriteChat,
-);
-
-router.post(
-  '/createCatalog',
-  checkToken.checkToken,
-  chatController.createCatalog,
-);
-
-router.post(
-  '/updateNameCatalog',
-  checkToken.checkToken,
-  chatController.updateNameCatalog,
-);
-
-router.post(
-  '/addNewChatToCatalog',
-  checkToken.checkToken,
-  chatController.addNewChatToCatalog,
-);
-
-router.post(
-  '/removeChatFromCatalog',
-  checkToken.checkToken,
-  chatController.removeChatFromCatalog,
-);
-
-router.post(
-  '/deleteCatalog',
-  checkToken.checkToken,
-  chatController.deleteCatalog,
-);
-
-router.post(
-  '/getCatalogs',
-  checkToken.checkToken,
-  chatController.getCatalogs,
-);
+router.post('/cashout', basic.onlyForCreative, usersController.cashout);
 
 module.exports = router;

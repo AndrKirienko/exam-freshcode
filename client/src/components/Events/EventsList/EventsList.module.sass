@@ -1,0 +1,81 @@
+.eventsContainer
+	max-width: 800px
+	width: 100%
+	margin: 0 auto
+
+.listTitle
+	color: #333333
+	font-weight: 700
+	text-transform: uppercase
+	line-height: 1.1
+	font-size: 28px
+	text-align: center
+	margin-bottom: 50px
+
+.listContainer
+
+.listItem
+	position: relative
+	display: flex
+	justify-content: space-between
+	gap: 15px
+	background-color: #f9fafb
+	border-radius: 4px
+	padding: 10px 15px
+	&:not(:last-child)
+		margin-bottom: 10px
+
+.listItemTitle
+	overflow: hidden
+	color: #556da5
+	font-weight: 500
+	line-height: 1.5
+
+.timers, .eventItem
+	display: flex
+	flex-wrap: nowrap
+	color: #6275a1
+
+.timers
+	display: flex
+	align-items: center
+	gap: 3px
+
+.notEvents
+	text-align: center
+
+.trash
+	cursor: pointer
+	background: none
+	border: none
+	display: inline-block
+	color: #556da5
+	font-size: 20px
+	margin-left: 7px
+	padding: 0
+	transition: all 0.2s linear
+	&:hover
+		color: red
+
+.markerContainer
+	display: inline-block
+	display: flex
+	justify-content: center
+	align-items: center
+	position: absolute
+	top: 0
+	right: 0
+	padding: 5px
+	transform: translate(50%, -50%)
+	cursor: pointer
+	&:hover
+		.marker
+			background-color: #c40000
+
+.marker
+	border-radius: 50%
+	display: inline-block
+	width: 7px
+	height: 7px
+	background-color: red
+	transition: all 0.2s linear

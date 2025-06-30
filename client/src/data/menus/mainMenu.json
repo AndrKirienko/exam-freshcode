@@ -1,0 +1,58 @@
+{
+  "menu": [
+    {
+      "title": "Name Ideas",
+      "items": [
+        { "name": "Beauty", "link": "/" },
+        { "name": "Consulting", "link": "/" },
+        { "name": "E-Commerce", "link": "/" },
+        { "name": "Fashion & Clothing", "link": "/" },
+        { "name": "Finance", "link": "/" },
+        { "name": "Real Estate", "link": "/" },
+        { "name": "Tech", "link": "/" },
+        { "name": "More Categories", "link": "/" }
+      ]
+    },
+    {
+      "title": "Contests",
+      "items": [
+        { "name": "How It Works", "link": "/howItWorks" },
+        { "name": "Pricing", "link": "/" },
+        { "name": "Agency Service", "link": "/" },
+        { "name": "Active Contests", "link": "/" },
+        { "name": "Winners", "link": "/" },
+        { "name": "Leaderboard", "link": "/" },
+        { "name": "Become A Creative", "link": "/"}
+      ]
+    },
+    {
+      "title": "Our Work",
+      "items": [
+        { "name": "Names", "link": "/" },
+        { "name": "Taglines", "link": "/" },
+        { "name": "Logos", "link": "/" },
+        { "name": "Testimonials", "link": "/" }
+      ]
+    },
+		{
+      "title": "Names For Sale",
+      "items": [
+        { "name": "Popular Names", "link": "/" },
+        { "name": "Short Names", "link": "/" },
+        { "name": "Intriguing Names", "link": "/" },
+        { "name": "Names By Category", "link": "/"},
+        { "name": "Visual Name Search", "link": "/"},
+        { "name": "Sell Your Domains", "link": "/"}
+      ]
+    },
+		{
+      "title": "Blog",
+      "items": [
+        { "name": "Ultimate Naming Guide", "link": "/" },
+        { "name": "Poetic Devices In Business Naming", "link": "/" },
+        { "name": "Crowded Bar Theory", "link": "/" },
+        { "name": "All Articles", "link": "/"}
+      ]
+    }
+  ]
+}

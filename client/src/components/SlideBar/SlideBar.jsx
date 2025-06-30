@@ -1,10 +1,10 @@
 import React from 'react';
 import Flickity from 'react-flickity-component';
-import style from './SlideBar.module.sass';
-import carouselConstants from '../../carouselConstants';
-import './flickity.css';
+import styles from './SlideBar.module.sass';
+import carouselConstants from '../../data/carouselConstants';
+import './flickity.sass';
 
-const SliderBar = props => {
+const SlideBar = props => {
   const options = {
     draggable: true,
     wrapAround: true,
@@ -19,11 +19,11 @@ const SliderBar = props => {
     const { carouselType } = props;
     switch (carouselType) {
       case carouselConstants.MAIN_SLIDER:
-        return style.mainCarousel;
+        return styles.mainCarousel;
       case carouselConstants.EXAMPLE_SLIDER:
-        return style.exampleCarousel;
+        return styles.exampleCarousel;
       case carouselConstants.FEEDBACK_SLIDER:
-        return style.feedbackCarousel;
+        return styles.feedbackCarousel;
     }
   };
 
@@ -33,27 +33,44 @@ const SliderBar = props => {
       case carouselConstants.MAIN_SLIDER: {
         return Object.keys(props.images).map((key, index) => (
           <img
-            src={props.images[key]}
+            src={props.images[index]}
             alt='slide'
             key={index}
-            className={style['carousel-cell']}
+            className={styles.carouselCell}
           />
         ));
       }
       case carouselConstants.EXAMPLE_SLIDER: {
-        return Object.keys(props.images).map((key, index) => (
-          <div className={style['example-cell']} key={index}>
-            <img src={props.images[key]} alt='slide' />
-            <p>{carouselConstants.EXAMPLE_SLIDER_TEXT[index]}</p>
-          </div>
+        return Object.keys(props.data).map((key, index) => (
+          <a
+            href={`https://${props.data[index].text}`}
+            target='_blank'
+            className={styles.exampleCell}
+            key={index}
+          >
+            <img
+              className={styles.exampleImg}
+              src={props.data[index].image}
+              alt='slide'
+            />
+            <p className={styles.exampleText}>{props.data[index].text}</p>
+          </a>
         ));
       }
       case carouselConstants.FEEDBACK_SLIDER: {
-        return Object.keys(props.images).map((key, index) => (
-          <div className={style['feedback-cell']} key={index}>
-            <img src={props.images[key]} alt='slide' />
-            <p>{carouselConstants.FEEDBACK_SLIDER_TEXT[index].feedback}</p>
-            <span>{carouselConstants.FEEDBACK_SLIDER_TEXT[index].name}</span>
+        return Object.keys(props.data).map((key, index) => (
+          <div className={styles.feedbackCell} key={index}>
+            <img
+              className={styles.feedbackImg}
+              src={props.data[index].image}
+              alt='slide'
+            />
+            <p className={styles.feedbackMessage}>
+              {props.data[index].feedback}
+            </p>
+            <span className={styles.feedbackName}>
+              {props.data[index].name}
+            </span>
           </div>
         ));
       }
@@ -66,4 +83,4 @@ const SliderBar = props => {
   );
 };
 
-export default SliderBar;
+export default SlideBar;

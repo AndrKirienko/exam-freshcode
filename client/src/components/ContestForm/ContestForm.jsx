@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Form, Formik } from 'formik';
 import { connect } from 'react-redux';
 import CONSTANTS from '../../constants';
@@ -13,55 +13,68 @@ import FormTextArea from '../InputComponents/FormTextArea/FormTextArea';
 import TryAgain from '../TryAgain/TryAgain';
 import Schems from '../../utils/validators/validationSchems';
 import OptionalSelects from '../OptionalSelects/OptionalSelects';
+import DomainOptions from './DomainOptions/DomainOptions';
+
+const { NAME_CONTEST, LOGO_CONTEST, TAGLINE_CONTEST } = CONSTANTS;
 
 const variableOptions = {
-  [CONSTANTS.NAME_CONTEST]: {
+  [NAME_CONTEST]: {
     styleName: '',
     typeOfName: '',
   },
-  [CONSTANTS.LOGO_CONTEST]: {
+  [LOGO_CONTEST]: {
     nameVenture: '',
     brandStyle: '',
   },
-  [CONSTANTS.TAGLINE_CONTEST]: {
+  [TAGLINE_CONTEST]: {
     nameVenture: '',
     typeOfTagline: '',
   },
 };
 
-class ContestForm extends React.Component {
+class ContestForm extends Component {
   getPreference = () => {
     const { contestType } = this.props;
     switch (contestType) {
-      case CONSTANTS.NAME_CONTEST: {
+      case NAME_CONTEST: {
         this.props.getData({
           characteristic1: 'nameStyle',
           characteristic2: 'typeOfName',
         });
         break;
       }
-      case CONSTANTS.TAGLINE_CONTEST: {
+      case TAGLINE_CONTEST: {
         this.props.getData({ characteristic1: 'typeOfTagline' });
         break;
       }
-      case CONSTANTS.LOGO_CONTEST: {
+      case LOGO_CONTEST: {
         this.props.getData({ characteristic1: 'brandStyle' });
         break;
       }
     }
   };
 
-  componentDidMount() {
+  componentDidMount () {
     this.getPreference();
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate (prevProps) {
     if (prevProps.contestType !== this.props.contestType) {
       this.getPreference();
     }
   }
 
-  render() {
+  render () {
+    const initialValues = {
+      title: '',
+      industry: '',
+      focusOfWork: '',
+      targetCustomer: '',
+      file: '',
+      ...variableOptions[this.props.contestType],
+      ...this.props.initialValues,
+    };
+
     const { isFetching, error } = this.props.dataForContest;
     if (error) {
       return <TryAgain getData={this.getPreference} />;
@@ -73,15 +86,7 @@ class ContestForm extends React.Component {
       <>
         <div className={styles.formContainer}>
           <Formik
-            initialValues={{
-              title: '',
-              industry: '',
-              focusOfWork: '',
-              targetCustomer: '',
-              file: '',
-              ...variableOptions[this.props.contestType],
-              ...this.props.initialValues,
-            }}
+            initialValues={initialValues}
             onSubmit={this.props.handleSubmit}
             validationSchema={Schems.ContestSchem}
             innerRef={this.props.formRef}
@@ -91,9 +96,9 @@ class ContestForm extends React.Component {
               <div className={styles.inputContainer}>
                 <span className={styles.inputHeader}>Title of contest</span>
                 <FormInput
-                  name="title"
-                  type="text"
-                  label="Title"
+                  name='title'
+                  type='text'
+                  label='Title'
                   classes={{
                     container: styles.componentInputContainer,
                     input: styles.input,
@@ -103,14 +108,14 @@ class ContestForm extends React.Component {
               </div>
               <div className={styles.inputContainer}>
                 <SelectInput
-                  name="industry"
+                  name='industry'
                   classes={{
                     inputContainer: styles.selectInputContainer,
                     inputHeader: styles.selectHeader,
                     selectInput: styles.select,
                     warning: styles.warning,
                   }}
-                  header="Describe industry associated with your venture"
+                  header='Describe industry associated with your venture'
                   optionsArray={this.props.dataForContest.data.industry}
                 />
               </div>
@@ -119,9 +124,9 @@ class ContestForm extends React.Component {
                   What does your company / business do?
                 </span>
                 <FormTextArea
-                  name="focusOfWork"
-                  type="text"
-                  label="e.g. We`re an online lifestyle brand that provides stylish and high quality apparel to the expert eco-conscious shopper"
+                  name='focusOfWork'
+                  type='text'
+                  label='e.g. We`re an online lifestyle brand that provides stylish and high quality apparel to the expert eco-conscious shopper'
                   classes={{
                     container: styles.componentInputContainer,
                     inputStyle: styles.textArea,
@@ -134,9 +139,9 @@ class ContestForm extends React.Component {
                   Tell us about your customers
                 </span>
                 <FormTextArea
-                  name="targetCustomer"
-                  type="text"
-                  label="customers"
+                  name='targetCustomer'
+                  type='text'
+                  label='customers'
                   classes={{
                     container: styles.componentInputContainer,
                     inputStyle: styles.textArea,
@@ -145,8 +150,9 @@ class ContestForm extends React.Component {
                 />
               </div>
               <OptionalSelects {...this.props} />
+              <DomainOptions />
               <FieldFileInput
-                name="file"
+                name='file'
                 classes={{
                   fileUploadContainer: styles.fileUploadContainer,
                   labelClass: styles.label,
@@ -154,10 +160,10 @@ class ContestForm extends React.Component {
                   fileInput: styles.fileInput,
                   warning: styles.warning,
                 }}
-                type="file"
+                type='file'
               />
               {this.props.isEditContest ? (
-                <button type="submit" className={styles.changeData}>
+                <button type='submit' className={styles.changeData}>
                   Set Data
                 </button>
               ) : null}
@@ -178,8 +184,8 @@ const mapStateToProps = (state, ownProps) => {
     initialValues: ownProps.defaultData,
   };
 };
-const mapDispatchToProps = (dispatch) => ({
-  getData: (data) => dispatch(getDataForContest(data)),
+const mapDispatchToProps = dispatch => ({
+  getData: data => dispatch(getDataForContest(data)),
 });
 
 export default withRouter(

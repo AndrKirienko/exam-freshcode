@@ -1,0 +1,48 @@
+{
+  "FooterItems": [
+    {
+      "title": "SQUADHELP",
+      "items": [
+        { "name": "About", "link": "#" },
+        { "name": "Contact", "link": "#" },
+        { "name": "How It Works?", "link": "#" },
+        { "name": "Testimonials", "link": "#" },
+        { "name": "Our Work", "link": "#" }
+      ]
+    },
+    {
+      "title": "RESOURCES",
+      "items": [
+        { "name": "How It Works", "link": "/howItWorks" },
+        { "name": "Become a Creative", "link": "#" },
+        { "name": "Business Name Generator", "link": "#" },
+        { "name": "Discussion Forum", "link": "#" },
+        { "name": "Blog", "link": "#" },
+        { "name": "Download eBook", "link": "#" },
+        { "name": "Pricing", "link": "#" },
+        { "name": "Help & FAQs", "link": "#" }
+      ]
+    },
+    {
+      "title": "OUR SERVICES",
+      "items": [
+        { "name": "Naming", "link": "#" },
+        { "name": "Logo Design", "link": "#" },
+        { "name": "Taglines", "link": "#" },
+        { "name": "Premium Names For Sale", "link": "#" },
+        { "name": "Creative Owned Names For Sale", "link": "#" },
+        { "name": "Audience Testing", "link": "#" },
+        { "name": "Trademark Research & Filling", "link": "#" },
+        { "name": "Managed Agency Service", "link": "#" }
+      ]
+    },
+    {
+      "title": "LEGAL",
+      "items": [
+        { "name": "Terms of Service", "link": "#" },
+        { "name": "Privacy Policy", "link": "#" },
+        { "name": "Cookie Policy", "link": "#" }
+      ]
+    }
+  ]
+}

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
   getCatalogList,
@@ -7,14 +7,15 @@ import {
 import CatalogList from '../CatalogList/CatalogList';
 import DialogList from '../../DialogComponents/DialogList/DialogList';
 
-class CatalogListContainer extends React.Component {
-  componentDidMount() {
+class CatalogListContainer extends Component {
+  componentDidMount () {
     this.props.getCatalogList();
   }
 
-  removeChatFromCatalog = (event, chatId) => {
-    const { _id } = this.props.chatStore.currentCatalog;
-    this.props.removeChatFromCatalog({ chatId, catalogId: _id });
+  removeChatFromCatalog = (chatId, event) => {
+    const { id } = this.props.chatStore.currentCatalog;
+    this.props.removeChatFromCatalog({ chatId, catalogId: id });
+    window.location.reload();
     event.stopPropagation();
   };
 
@@ -24,7 +25,7 @@ class CatalogListContainer extends React.Component {
     const dialogsInCatalog = [];
     for (let i = 0; i < messagesPreview.length; i++) {
       for (let j = 0; j < chats.length; j++) {
-        if (chats[j] === messagesPreview[i]._id) {
+        if (chats[j] === messagesPreview[i].id) {
           dialogsInCatalog.push(messagesPreview[i]);
         }
       }
@@ -32,7 +33,7 @@ class CatalogListContainer extends React.Component {
     return dialogsInCatalog;
   };
 
-  render() {
+  render () {
     const { catalogList, isShowChatsInCatalog } = this.props.chatStore;
     const { id } = this.props.userStore.data;
     return (
@@ -51,14 +52,14 @@ class CatalogListContainer extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   const { chatStore, userStore } = state;
   return { chatStore, userStore };
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  getCatalogList: (data) => dispatch(getCatalogList(data)),
-  removeChatFromCatalog: (data) => dispatch(removeChatFromCatalog(data)),
+const mapDispatchToProps = dispatch => ({
+  getCatalogList: data => dispatch(getCatalogList(data)),
+  removeChatFromCatalog: data => dispatch(removeChatFromCatalog(data)),
 });
 
 export default connect(

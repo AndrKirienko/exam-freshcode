@@ -6,8 +6,11 @@ module.exports = {
   SQUADHELP_BANK_NAME: 'SquadHelp',
   SQUADHELP_BANK_CVC: '453',
   SQUADHELP_BANK_EXPIRY: '11/26',
-  CUSTOMER: 'customer',
-  CREATOR: 'creator',
+  ROLE: {
+    CUSTOMER: 'customer',
+    CREATOR: 'creator',
+    MODERATOR: 'moderator',
+  },
   CREATOR_ENTRIES: 'creator_entries',
   CONTEST_STATUS_ACTIVE: 'active',
   CONTEST_STATUS_FINISHED: 'finished',
@@ -28,4 +31,14 @@ module.exports = {
   NOTIFICATION_CHANGE_OFFER_STATUS: 'changeOfferStatus',
   NEW_MESSAGE: 'newMessage',
   CHANGE_BLOCK_STATUS: 'CHANGE_BLOCK_STATUS',
+  PAGINATION_OFFERS: {
+    DEFAULT_PAGE: 1,
+    DEFAULT_RESULTS: 14,
+    DEFAULT_MAX_RESULTS: 50,
+  },
+  OFFER_MODERATOR_STATUS: {
+    REJECT: 'reject',
+    RESOLVE: 'resolve',
+    PENDING: 'pending',
+  },
 };
