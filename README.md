@@ -8,15 +8,9 @@ Commands are run in the main project folder:
 
 #### 1. Command for creating images and running containers:
 ```shell
-$ docker compose -f docker-compose-dev.yaml up
+$ docker compose -f docker-compose-dev.yaml up --build
 ```
 
-
-#### 2. Command for running database migrations and seeds using Sequelize:
-
-```shell
-$ docker exec -it exam-freshcode-server-dev-1 sh -c "npx sequelize db:migrate && npx sequelize db:seed:all"
-```
 The client part of the application was launched at [http://localhost:5000](http://localhost:5000). </br> The server side was launched at [http://localhost:3000](http://localhost:3000).
 
 To connect PostgresSQL databases in development mode, the necessary configurations are available in the file located at `server/src/config/postgresConfig.json`.
