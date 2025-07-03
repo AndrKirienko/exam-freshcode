@@ -5,7 +5,7 @@ FROM node:$VERSION
 ARG NODE_ENV="development"
 
 RUN mkdir /server \
-    && mkdir -p /public/images
+	&& mkdir -p /public/images
 
 RUN mkdir -p /var/www/html/images 
 
@@ -20,9 +20,14 @@ RUN npm install
 
 RUN chown -R node:node /server/node_modules
 
+# COPY entrypoint.sh /server/entrypoint.sh
+
 COPY . .
+
+COPY entrypoint.sh /server/entrypoint.sh
+RUN chown node:node /server/entrypoint.sh && chmod +x /server/entrypoint.sh
 
 EXPOSE 3000
 
 # CMD sequelize db:migrate && sequelize db:seed:all && npm start
-CMD npm start
+ENTRYPOINT ["/server/entrypoint.sh"]
