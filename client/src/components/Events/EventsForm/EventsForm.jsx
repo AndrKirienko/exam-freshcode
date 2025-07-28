@@ -17,7 +17,7 @@ class EventsForm extends Component {
     const initialValues = {
       eventName: '',
       datetime: '',
-      notificationDatatime: '',
+      notificationDatetime: '',
       notificationAlerts: false,
     };
 
@@ -71,7 +71,7 @@ class EventsForm extends Component {
                   </label>
                   <div className={styles.inputErrorContainer}>
                     <FormInput
-                      name='notificationDatatime'
+                      name='notificationDatetime'
                       type='datetime-local'
                       classes={formInputClasses}
                     />

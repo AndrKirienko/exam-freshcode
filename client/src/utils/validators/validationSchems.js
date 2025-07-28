@@ -223,7 +223,7 @@ export default {
       .date()
       .min(new Date(), 'The date cannot be in the past')
       .required('Event date is required'),
-    notificationDatatime: yup
+    notificationDatetime: yup
       .date()
       .min(new Date(), 'Notification should not be in the past')
       .test(
