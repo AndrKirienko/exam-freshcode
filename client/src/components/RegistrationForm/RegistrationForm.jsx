@@ -124,15 +124,6 @@ class RegistrationForm extends Component {
                 component={RoleInput}
                 id={CONSTANTS.CREATOR}
               />
-              <Field
-                name='role'
-                type='radio'
-                value={CONSTANTS.MODERATOR}
-                strRole='Join As a Moderator'
-                infoRole='I review, approve or reject offers. Clients can only see approved proposals. I don`t see detailed information about the creators.'
-                component={RoleInput}
-                id={CONSTANTS.MODERATOR}
-              />
             </div>
             <div className={styles.termsOfService}>
               <AgreeTermOfServiceInput
