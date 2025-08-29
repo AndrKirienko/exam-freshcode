@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
 import classNames from 'classnames';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import withRouter from '../../hocs/withRouter';
+import NotFound from '../NotFound/NotFound';
+import CONSTANTS from './../../constants';
 import styles from './Events.module.sass';
 import EventsForm from './EventsForm/EventsForm';
 import EventsList from './EventsList/EventsList';
-import withRouter from '../../hocs/withRouter';
-import CONSTANTS from './../../constants';
-import NotFound from '../NotFound/NotFound';
 
 const { CUSTOMER } = CONSTANTS;
 

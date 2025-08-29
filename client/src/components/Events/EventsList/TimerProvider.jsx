@@ -1,4 +1,4 @@
-import React, { createContext, Component } from 'react';
+import React, { Component, createContext } from 'react';
 import { calculateTimers } from '../../../utils/calculateTimers';
 import { updateNotification } from '../../../utils/updateNotification';
 

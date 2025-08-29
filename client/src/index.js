@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
+import App from './App';
+import { TimerProvider } from './components/Events/EventsList/TimerProvider';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
 import store from './store';
-import App from './App';
-import { TimerProvider } from './components/Events/EventsList/TimerProvider';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 

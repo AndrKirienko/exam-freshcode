@@ -1,17 +1,17 @@
-import React, { Component } from 'react';
 import classNames from 'classnames';
-import { connect } from 'react-redux';
+import React, { Component } from 'react';
 import { confirmAlert } from 'react-confirm-alert';
-import styles from './ModeratorDashboard.module.sass';
-import CONSTANTS from './../../constants';
+import { connect } from 'react-redux';
 import {
   getOffers,
   setOfferModeratorStatus,
   setPage,
 } from '../../store/slices/offersSlices';
+import SpinnerLoader from '../Spinner/Spinner';
+import CONSTANTS from './../../constants';
 import withRouter from './../../hocs/withRouter';
 import NotFound from './../NotFound/NotFound';
-import SpinnerLoader from '../Spinner/Spinner';
+import styles from './ModeratorDashboard.module.sass';
 
 const {
   PAGINATION_OFFERS: { DEFAULT_RESULTS, DEFAULT_PAGE },

@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import styles from './HowItWorks.module.sass';
-import ServicesCards from './ServicesCards/ServicesCards';
 import stepIcon from '../../../public/staticImages/how_it_works_img/steps_icon/icon-27.svg';
-import StepsCards from './StepsCards/StepsCards';
+import styles from './HowItWorks.module.sass';
 import QuestionsCards from './QuestionsCards/QuestionsCards';
 import SearchForm from './SearchForm/SearchForm';
+import ServicesCards from './ServicesCards/ServicesCards';
+import StepsCards from './StepsCards/StepsCards';
 
 class HowItWorks extends Component {
   render () {

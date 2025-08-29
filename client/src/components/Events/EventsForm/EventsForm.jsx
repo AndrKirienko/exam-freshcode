@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
 import { Form, Formik } from 'formik';
+import React, { Component } from 'react';
+import FormInput from '../../FormInput/FormInput';
 import Schems from './../../../utils/validators/validationSchems';
 import styles from './EventsForm.module.sass';
-import FormInput from '../../FormInput/FormInput';
 
 class EventsForm extends Component {
   clicked = (values, { resetForm }) => {

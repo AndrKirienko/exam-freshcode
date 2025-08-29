@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
-import rootReducer from './reducer';
 import { initSocket } from '../api/ws/socketController';
+import rootReducer from './reducer';
 
 const store = configureStore({
   reducer: rootReducer,

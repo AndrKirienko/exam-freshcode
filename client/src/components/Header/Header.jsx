@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import styles from './Header.module.sass';
 import CONSTANTS from '../../constants';
-import { clearUserStore, getUser } from '../../store/slices/userSlice';
 import withRouter from '../../hocs/withRouter';
+import { clearUserStore, getUser } from '../../store/slices/userSlice';
 import Logo from '../Logo/Logo';
+import styles from './Header.module.sass';
 import MainMenu from './MainMenu/MainMenu';
 
 import RenderLoginButtons from './UserMenu/RenderLoginButtons/RenderLoginButtons';

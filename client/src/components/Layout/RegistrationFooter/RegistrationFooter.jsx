@@ -1,6 +1,6 @@
 import React from 'react';
-import styles from './RegistrationFooter.module.sass';
 import CONSTANTS from '../../../constants';
+import styles from './RegistrationFooter.module.sass';
 
 const {
   CONTACTS: { TEL },

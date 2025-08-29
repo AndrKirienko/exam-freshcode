@@ -1,12 +1,12 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
-import CONSTANTS from '../../constants';
-import CustomerDashboard from '../../components/CustomerDashboard/CustomerDashboard';
 import CreatorDashboard from '../../components/CreatorDashboard/CreatorDashboard';
+import CustomerDashboard from '../../components/CustomerDashboard/CustomerDashboard';
 import NotFound from '../../components/NotFound/NotFound';
+import CONSTANTS from '../../constants';
 
-const { CUSTOMER, CREATOR, MODERATOR } = CONSTANTS;
+const { CUSTOMER, CREATOR } = CONSTANTS;
 
 const Dashboard = () => {
   const navigate = useNavigate();

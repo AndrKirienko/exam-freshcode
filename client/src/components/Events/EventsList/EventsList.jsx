@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
 import classNames from 'classnames';
-import { TimerContext } from './TimerProvider';
+import React, { Component } from 'react';
 import styles from './EventsList.module.sass';
+import { TimerContext } from './TimerProvider';
 
 class EventsList extends Component {
   static contextType = TimerContext;

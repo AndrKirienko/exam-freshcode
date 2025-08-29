@@ -1,13 +1,13 @@
+import classNames from 'classnames';
 import React from 'react';
 import { connect } from 'react-redux';
-import classNames from 'classnames';
-import styles from './UserProfile.module.sass';
-import CONSTANTS from '../../constants';
-import UserInfo from '../../components/UserInfo/UserInfo';
+import Error from '../../components/Error/Error';
 import PayForm from '../../components/PayForm/PayForm';
+import UserInfo from '../../components/UserInfo/UserInfo';
+import CONSTANTS from '../../constants';
 import { cashOut, clearPaymentStore } from '../../store/slices/paymentSlice';
 import { changeProfileViewMode } from '../../store/slices/userProfileSlice';
-import Error from '../../components/Error/Error';
+import styles from './UserProfile.module.sass';
 
 const UserProfile = props => {
   const pay = values => {

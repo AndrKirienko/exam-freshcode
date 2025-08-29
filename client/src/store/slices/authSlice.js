@@ -1,10 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
-import CONSTANTS from '../../constants';
 import * as restController from '../../api/rest/restController';
+import CONSTANTS from '../../constants';
 import {
   decorateAsyncThunk,
-  pendingReducer,
   fulfilledReducer,
+  pendingReducer,
   rejectedReducer,
 } from '../../utils/store';
 

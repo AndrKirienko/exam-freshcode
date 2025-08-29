@@ -1,6 +1,6 @@
-import React from 'react';
-import { Field, ErrorMessage } from 'formik';
 import classNames from 'classnames';
+import { ErrorMessage, Field } from 'formik';
+import React from 'react';
 
 const FormInput = ({ classes, label, name, ...rest }) => (
   <Field name={name}>

@@ -1,9 +1,9 @@
 import React from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
-import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
-import RegistrationFooter from '../../components/Layout/RegistrationFooter/RegistrationFooter';
+import Header from '../../components/Header/Header';
 import AuthHeader from '../../components/Layout/AuthHeader/AuthHeader';
+import RegistrationFooter from '../../components/Layout/RegistrationFooter/RegistrationFooter';
 import styles from './Layout.module.sass';
 
 const Layout = () => {

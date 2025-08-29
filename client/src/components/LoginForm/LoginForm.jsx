@@ -1,12 +1,12 @@
+import { Form, Formik } from 'formik';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Form, Formik } from 'formik';
+import CONSTANTS from '../../constants';
 import { checkAuth, clearAuth } from '../../store/slices/authSlice';
-import styles from './LoginForm.module.sass';
-import FormInput from '../FormInput/FormInput';
 import Schems from '../../utils/validators/validationSchems';
 import Error from '../Error/Error';
-import CONSTANTS from '../../constants';
+import FormInput from '../FormInput/FormInput';
+import styles from './LoginForm.module.sass';
 
 class LoginForm extends Component {
   componentWillUnmount () {

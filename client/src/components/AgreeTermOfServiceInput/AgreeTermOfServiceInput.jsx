@@ -1,5 +1,5 @@
-import React from 'react';
 import { Field } from 'formik';
+import React from 'react';
 import styles from './AgreeTermOfServiceInput.module.sass';
 
 const AgreeTermOfServiceInput = ({ id, type, classes, label, ...rest }) => (
