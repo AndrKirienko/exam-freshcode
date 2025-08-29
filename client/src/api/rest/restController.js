@@ -48,8 +48,3 @@ export const getPreviewChat = () => http.get('chats/getPreview');
 export const changeChatBlock = data => http.patch('chats/blackList', data);
 export const changeChatFavorite = data =>
   http.patch('chats/favoriteList', data);
-// export const changeChatBlock = data => http.post('blackList', data);
-// export const getPreviewChat = () => http.post('getPreview');
-// export const newMessage = data => http.post('newMessage', data);
-// export const getDialog = data => http.post('getChat', data);
-//export const changeChatFavorite = data => http.post('favorite', data);
