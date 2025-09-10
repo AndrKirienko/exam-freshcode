@@ -4,12 +4,7 @@ const Sequelize = require('sequelize');
 const { logError } = require('../utils/logger');
 const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || 'development';
-const configPath = path.resolve(
-  __dirname,
-  '..',
-  'config',
-  'postgresConfig.json'
-);
+const configPath = path.resolve(__dirname, '..', 'config', 'postgresConfig.js');
 const config = require(configPath)[env];
 const db = {};
 
