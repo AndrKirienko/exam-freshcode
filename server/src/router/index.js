@@ -17,7 +17,7 @@ router.post(
 
 router.post('/login', validators.validateLogin, usersController.login);
 
-router.post('/getUser', checkToken.checkAuth);
+router.get('/getUser', checkToken.checkAuth);
 
 router.use(checkToken.checkToken);
 
@@ -32,7 +32,7 @@ router.get('/downloadFile/:fileName', contestController.downloadFile);
 
 router.post('/changeMark', basic.onlyForCustomer, usersController.changeMark);
 
-router.post('/updateUser', upload.uploadAvatar, usersController.updateUser);
+router.patch('/updateUser', upload.uploadAvatar, usersController.updateUser);
 
 router.post('/cashout', basic.onlyForCreative, usersController.cashout);
 

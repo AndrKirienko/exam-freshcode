@@ -1,11 +1,17 @@
 import { stringify } from 'query-string';
 import http from '../interceptor';
 
+// ----- AUTH -----
+
 export const registerRequest = data => http.post('registration', data);
 export const loginRequest = data => http.post('login', data);
 
-export const getUser = () => http.post('getUser');
-export const updateUser = data => http.post('updateUser', data);
+// ----- USERS -----
+
+export const getUser = () => http.get('getUser');
+export const updateUser = data => http.patch('updateUser', data);
+
+// ----- CONTESTS -----
 
 export const updateContest = data =>
   http.patch(`contests/${data.get('contestId')}`, data);
@@ -18,6 +24,8 @@ export const getContestById = ({ contestId }) =>
 export const payMent = data => http.post('contests', data.formData);
 export const dataForContest = data => http.post('dataForContest', data);
 
+// ----- CATALOGS -----
+
 export const addChatToCatalog = data => http.post('catalogs/chats', data);
 export const removeChatFromCatalog = ({ catalogId, chatId }) =>
   http.delete(`catalogs/chats/${catalogId}/${chatId}`);
@@ -28,6 +36,8 @@ export const deleteCatalog = ({ catalogId }) =>
 export const changeCatalogName = ({ catalogId, catalogName }) =>
   http.patch(`catalogs/${catalogId}`, { catalogName });
 
+// ----- OFFERS -----
+
 export const setNewOffer = data => http.post('offers/setNewOffer', data);
 export const setOfferStatus = data => http.post('offers/setOfferStatus', data);
 export const getOffersForModerator = data =>
@@ -35,12 +45,20 @@ export const getOffersForModerator = data =>
 export const setOfferModeratorStatus = ({ offerId, moderatorStatus }) =>
   http.patch(`offers/${offerId}`, { moderatorStatus });
 
+// ----- FILES -----
+
 export const downloadContestFile = data =>
   http.get(`downloadFile/${data.fileName}`);
 
+// ----- MARKS -----
+
 export const changeMark = data => http.post('changeMark', data);
 
+// ----- PAYMENT -----
+
 export const cashOut = data => http.post('cashout', data);
+
+// ----- CHATS -----
 
 export const getDialog = data => http.get(`chats/${data}`);
 export const newMessage = data => http.post('chats/newMessage', data);
