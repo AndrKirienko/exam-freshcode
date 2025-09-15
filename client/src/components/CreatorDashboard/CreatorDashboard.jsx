@@ -1,21 +1,21 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import queryString from 'query-string';
 import classNames from 'classnames';
 import isEqual from 'lodash/isEqual';
+import queryString from 'query-string';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
+import CONSTANTS from '../../constants';
+import withRouter from '../../hocs/withRouter';
 import {
-  getContests,
   clearContestsList,
+  getContests,
   setNewCreatorFilter,
 } from '../../store/slices/contestsSlice';
 import { getDataForContest } from '../../store/slices/dataForContestSlice';
-import withRouter from '../../hocs/withRouter';
-import ContestsContainer from '../ContestsContainer/ContestsContainer';
 import ContestBox from '../ContestBox/ContestBox';
-import styles from './CreatorDashboard.module.sass';
+import ContestsContainer from '../ContestsContainer/ContestsContainer';
 import TryAgain from '../TryAgain/TryAgain';
-import CONSTANTS from '../../constants';
+import styles from './CreatorDashboard.module.sass';
 
 const types = [
   '',

@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
 import classNames from 'classnames';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import withRouter from '../../hocs/withRouter';
+import NotFound from '../NotFound/NotFound';
+import CONSTANTS from './../../constants';
 import styles from './Events.module.sass';
 import EventsForm from './EventsForm/EventsForm';
 import EventsList from './EventsList/EventsList';
-import withRouter from '../../hocs/withRouter';
-import CONSTANTS from './../../constants';
-import NotFound from '../NotFound/NotFound';
 
 const { CUSTOMER } = CONSTANTS;
 
@@ -15,6 +15,8 @@ class Events extends Component {
     super(props);
     this.state = {
       isCreate: false,
+      editingEvent: null,
+      editingIndex: null,
     };
   }
 
@@ -23,6 +25,15 @@ class Events extends Component {
       isCreate: !prevState.isCreate,
     }));
   };
+
+  editEvent = (event, index) => {
+    this.setState({
+      isCreate: true,
+      editingEvent: event,
+      editingIndex: index,
+    });
+  };
+
   render () {
     const { role } = this.props.userStore.data;
     return role === CUSTOMER ? (
@@ -37,7 +48,15 @@ class Events extends Component {
             this.state.isCreate ? 'Return to the events' : 'Create an event'
           }
         ></button>
-        {this.state.isCreate ? <EventsForm /> : <EventsList />}
+        {this.state.isCreate ? (
+          <EventsForm
+            event={this.state.editingEvent}
+            index={this.state.editingIndex}
+            onBack={this.toggleCreate}
+          />
+        ) : (
+          <EventsList onEdit={this.editEvent} />
+        )}
       </div>
     ) : (
       <NotFound />

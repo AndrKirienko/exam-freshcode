@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import mainMenu from './../../../data/menus/mainMenu.json';
 import CONSTANTS from './../../../constants';
+import mainMenu from './../../../data/menus/mainMenu.json';
 import styles from './MainMenu.module.sass';
 
 const { STATIC_IMAGES_PATH } = CONSTANTS;

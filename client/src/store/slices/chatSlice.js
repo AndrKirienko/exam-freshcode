@@ -3,8 +3,8 @@ import { isEqual, remove } from 'lodash';
 import * as restController from '../../api/rest/restController';
 import CONSTANTS from '../../constants';
 import {
-  decorateAsyncThunk,
   createExtraReducers,
+  decorateAsyncThunk,
   rejectedReducer,
 } from '../../utils/store';
 

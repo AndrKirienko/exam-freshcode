@@ -1,20 +1,30 @@
-import React, { Component } from 'react';
 import { Form, Formik } from 'formik';
+import React, { Component } from 'react';
+import FormInput from '../../FormInput/FormInput';
 import Schems from './../../../utils/validators/validationSchems';
 import styles from './EventsForm.module.sass';
-import FormInput from '../../FormInput/FormInput';
 
 class EventsForm extends Component {
   clicked = (values, { resetForm }) => {
     const existingEvents = JSON.parse(localStorage.getItem('events')) || [];
-    const updatedEvents = [...existingEvents, values];
+
+    let updatedEvents;
+
+    if (this.props.index !== null && this.props.index !== undefined) {
+      updatedEvents = existingEvents.map((event, i) =>
+        i === this.props.index ? values : event
+      );
+    } else {
+      updatedEvents = [...existingEvents, values];
+    }
+
     localStorage.setItem('events', JSON.stringify(updatedEvents));
     resetForm();
     window.location.reload();
   };
 
   render () {
-    const initialValues = {
+    const initialValues = this.props.event || {
       eventName: '',
       datetime: '',
       notificationDatetime: '',
@@ -83,7 +93,7 @@ class EventsForm extends Component {
                 className={styles.submitButton}
                 disabled={isSubmitting}
               >
-                Create
+                {this.props.index !== null ? 'Save changes' : 'Create'}
               </button>
             </Form>
           )}

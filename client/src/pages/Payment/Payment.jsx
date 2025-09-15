@@ -1,11 +1,11 @@
+import isEmpty from 'lodash/isEmpty';
 import React from 'react';
 import { connect } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import isEmpty from 'lodash/isEmpty';
-import { pay, clearPaymentStore } from '../../store/slices/paymentSlice';
-import PayForm from '../../components/PayForm/PayForm';
-import styles from './Payment.module.sass';
 import Error from '../../components/Error/Error';
+import PayForm from '../../components/PayForm/PayForm';
+import { clearPaymentStore, pay } from '../../store/slices/paymentSlice';
+import styles from './Payment.module.sass';
 
 const Payment = props => {
   const navigate = useNavigate();

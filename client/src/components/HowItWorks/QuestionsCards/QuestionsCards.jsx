@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-scroll';
-import styles from './QuestionsCards.module.sass';
-import faqData from '../../../data/howItWorksData/faqData';
 import iconPlus from '../../../../public/staticImages/how_it_works_img/questions_icon/icon-plus';
+import faqData from '../../../data/howItWorksData/faqData';
+import styles from './QuestionsCards.module.sass';
 
 class QuestionsCards extends Component {
   constructor (props) {

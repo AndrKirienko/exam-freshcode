@@ -1,5 +1,5 @@
+import { ErrorMessage, Field } from 'formik';
 import React, { useLayoutEffect } from 'react';
-import { Field, ErrorMessage } from 'formik';
 
 const SelectInput = ({
   header,

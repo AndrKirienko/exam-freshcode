@@ -1,18 +1,18 @@
-import React, { Component } from 'react';
 import { Form, Formik } from 'formik';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import CONSTANTS from '../../constants';
-import { getDataForContest } from '../../store/slices/dataForContestSlice';
-import styles from './ContestForm.module.sass';
 import withRouter from '../../hocs/withRouter';
-import Spinner from '../Spinner/Spinner';
+import { getDataForContest } from '../../store/slices/dataForContestSlice';
+import Schems from '../../utils/validators/validationSchems';
 import FormInput from '../FormInput/FormInput';
-import SelectInput from '../SelectInput/SelectInput';
 import FieldFileInput from '../InputComponents/FieldFileInput/FieldFileInput';
 import FormTextArea from '../InputComponents/FormTextArea/FormTextArea';
-import TryAgain from '../TryAgain/TryAgain';
-import Schems from '../../utils/validators/validationSchems';
 import OptionalSelects from '../OptionalSelects/OptionalSelects';
+import SelectInput from '../SelectInput/SelectInput';
+import Spinner from '../Spinner/Spinner';
+import TryAgain from '../TryAgain/TryAgain';
+import styles from './ContestForm.module.sass';
 import DomainOptions from './DomainOptions/DomainOptions';
 
 const { NAME_CONTEST, LOGO_CONTEST, TAGLINE_CONTEST } = CONSTANTS;

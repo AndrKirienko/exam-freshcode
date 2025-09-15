@@ -1,20 +1,20 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import Rating from 'react-rating';
-import isEqual from 'lodash/isEqual';
 import classNames from 'classnames';
+import isEqual from 'lodash/isEqual';
+import React from 'react';
 import { confirmAlert } from 'react-confirm-alert';
+import Rating from 'react-rating';
+import { connect } from 'react-redux';
+import CONSTANTS from '../../constants';
 import withRouter from '../../hocs/withRouter';
 import { goToExpandedDialog } from '../../store/slices/chatSlice';
 import {
   changeMark,
-  clearChangeMarkError,
   changeShowImage,
+  clearChangeMarkError,
 } from '../../store/slices/contestByIdSlice';
-import CONSTANTS from '../../constants';
-import styles from './OfferBox.module.sass';
-import 'react-confirm-alert/src/react-confirm-alert.css';
 import './confirmStyle.css';
+import 'react-confirm-alert/src/react-confirm-alert.css';
+import styles from './OfferBox.module.sass';
 
 const OfferBox = props => {
   const findConversationInfo = () => {

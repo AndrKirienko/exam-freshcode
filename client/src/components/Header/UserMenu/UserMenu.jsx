@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import userMenu from './../../../data/menus/userMenu.json';
-import styles from './UserMenu.module.sass';
+import { Link } from 'react-router-dom';
+import withRouter from '../../../hocs/withRouter';
 import CountNotification from '../../Events/CountNotification/CountNotification';
 import { TimerContext } from '../../Events/EventsList/TimerProvider';
 import CONSTANTS from './../../../constants';
-import withRouter from '../../../hocs/withRouter';
+import userMenu from './../../../data/menus/userMenu.json';
+import styles from './UserMenu.module.sass';
 
 const { MODERATOR, CUSTOMER } = CONSTANTS;
 

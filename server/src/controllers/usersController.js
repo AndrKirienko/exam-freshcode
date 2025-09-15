@@ -9,13 +9,10 @@ const bankQueries = require('./queries/bankQueries');
 const ratingQueries = require('./queries/ratingQueries');
 const CONSTANTS = require('../constants');
 
-const {
-  JWT_SECRET,
-  ACCESS_TOKEN_TIME,
-  SQUADHELP_BANK_NUMBER,
-  SQUADHELP_BANK_CVC,
-  SQUADHELP_BANK_EXPIRY,
-} = CONSTANTS;
+const { SQUADHELP_BANK_NUMBER, SQUADHELP_BANK_CVC, SQUADHELP_BANK_EXPIRY } =
+  CONSTANTS;
+
+const { ACCESS_TOKEN_SECRET, ACCESS_TOKEN_TIME } = process.env;
 
 module.exports.login = async (req, res, next) => {
   try {
@@ -33,7 +30,7 @@ module.exports.login = async (req, res, next) => {
         email: foundUser.email,
         rating: foundUser.rating,
       },
-      JWT_SECRET,
+      ACCESS_TOKEN_SECRET,
       { expiresIn: ACCESS_TOKEN_TIME }
     );
     await userQueries.updateUser({ accessToken }, foundUser.id);
@@ -42,6 +39,7 @@ module.exports.login = async (req, res, next) => {
     next(err);
   }
 };
+
 module.exports.registration = async (req, res, next) => {
   try {
     const newUser = await userQueries.userCreation(
@@ -59,7 +57,7 @@ module.exports.registration = async (req, res, next) => {
         email: newUser.email,
         rating: newUser.rating,
       },
-      JWT_SECRET,
+      ACCESS_TOKEN_SECRET,
       { expiresIn: ACCESS_TOKEN_TIME }
     );
     await userQueries.updateUser({ accessToken }, newUser.id);

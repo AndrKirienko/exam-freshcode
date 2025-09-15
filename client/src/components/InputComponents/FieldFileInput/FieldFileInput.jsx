@@ -1,5 +1,5 @@
-import React from 'react';
 import { useField, useFormikContext } from 'formik';
+import React from 'react';
 
 const FieldFileInput = ({ classes, ...rest }) => {
   const { fileUploadContainer, labelClass, fileNameClass, fileInput } = classes;

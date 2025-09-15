@@ -1,12 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
-import * as restController from './../../api/rest/restController';
-import CONSTANTS from './../../constants';
 import {
   createExtraReducers,
   decorateAsyncThunk,
   pendingReducer,
   rejectedReducer,
 } from '../../utils/store';
+import * as restController from './../../api/rest/restController';
+import CONSTANTS from './../../constants';
 
 const {
   PAGINATION_OFFERS: { DEFAULT_PAGE, DEFAULT_RESULTS },

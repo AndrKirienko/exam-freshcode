@@ -1,14 +1,14 @@
+import { Field, Form, Formik } from 'formik';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Field, Form, Formik } from 'formik';
-import Error from '../Error/Error';
+import CONSTANTS from '../../constants';
 import { checkAuth, clearAuth } from '../../store/slices/authSlice';
-import styles from './RegistrationForm.module.sass';
+import Schems from '../../utils/validators/validationSchems';
+import AgreeTermOfServiceInput from '../AgreeTermOfServiceInput/AgreeTermOfServiceInput';
+import Error from '../Error/Error';
 import FormInput from '../FormInput/FormInput';
 import RoleInput from '../RoleInput/RoleInput';
-import AgreeTermOfServiceInput from '../AgreeTermOfServiceInput/AgreeTermOfServiceInput';
-import CONSTANTS from '../../constants';
-import Schems from '../../utils/validators/validationSchems';
+import styles from './RegistrationForm.module.sass';
 
 class RegistrationForm extends Component {
   componentWillUnmount () {
@@ -123,15 +123,6 @@ class RegistrationForm extends Component {
                 infoRole='I plan to submit name ideas, Logo designs or sell names in Domain Marketplace.'
                 component={RoleInput}
                 id={CONSTANTS.CREATOR}
-              />
-              <Field
-                name='role'
-                type='radio'
-                value={CONSTANTS.MODERATOR}
-                strRole='Join As a Moderator'
-                infoRole='I review, approve or reject offers. Clients can only see approved proposals. I don`t see detailed information about the creators.'
-                component={RoleInput}
-                id={CONSTANTS.MODERATOR}
               />
             </div>
             <div className={styles.termsOfService}>

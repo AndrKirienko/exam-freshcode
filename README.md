@@ -13,7 +13,13 @@ $ docker compose -f docker-compose-dev.yaml up --build
 
 The client part of the application was launched at [http://localhost:5000](http://localhost:5000). </br> The server side was launched at [http://localhost:3000](http://localhost:3000).
 
-To connect PostgresSQL databases in development mode, the necessary configurations are available in the file located at `server/src/config/postgresConfig.json`.
+To connect PostgresSQL databases in development mode, you need to write configuration data in .env. An example can be found in the file at `/server/.env-example`.
+
+|Variable|Value|
+|-----|:----:|
+|DB_PASSWORD_DEV|password|
+|DB_PASSWORD_TEST|admin|
+|DB_PASSWORD_PROD|admin|
 
 To connect MongoDB databases in development mode, the necessary configurations are available in the file located at `server/src/config/mongoConfig.json`.
 
@@ -24,6 +30,11 @@ All tasks should be checked in the main branch, except for the Db No-SQL task.
 </br>
 
 ### User Authorization
+To authorize users, you need to set the file .env
+|Variable|Value|
+|-----|:----:|
+|ACCESS_TOKEN_SECRET|asdasdasd4as5d4as8d7a8sd4as65d4a8sd7asd4as56d4|
+
 
 |Role|Email Address|Password|
 |-----|:----:|:----:|

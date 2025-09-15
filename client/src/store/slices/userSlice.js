@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import * as restController from '../../api/rest/restController';
 import { controller } from '../../api/ws/socketController';
 import { rejectedReducer } from '../../utils/store';

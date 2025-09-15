@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import styles from './DomainOptions.module.sass';
-import domainData from './../../../data/domainData.json';
 import checkIcon from './../../../../public/staticImages/icon-check';
+import domainData from './../../../data/domainData.json';
+import styles from './DomainOptions.module.sass';
 
 class DomainOptions extends Component {
   constructor (props) {

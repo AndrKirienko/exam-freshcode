@@ -1,17 +1,17 @@
+import classNames from 'classnames';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import classNames from 'classnames';
 import { v4 as uuidv4 } from 'uuid';
+import CONSTANTS from '../../constants';
 import {
-  getContests,
   clearContestsList,
+  getContests,
   setNewCustomerFilter,
 } from '../../store/slices/contestsSlice';
-import CONSTANTS from '../../constants';
-import ContestsContainer from '../ContestsContainer/ContestsContainer';
 import ContestBox from '../ContestBox/ContestBox';
-import styles from './CustomerDashboard.module.sass';
+import ContestsContainer from '../ContestsContainer/ContestsContainer';
 import TryAgain from '../TryAgain/TryAgain';
+import styles from './CustomerDashboard.module.sass';
 
 class CustomerDashboard extends Component {
   loadMore = startFrom => {

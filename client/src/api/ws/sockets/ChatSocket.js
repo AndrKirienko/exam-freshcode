@@ -1,9 +1,9 @@
-import WebSocket from './WebSocket';
 import CONTANTS from '../../../constants';
 import {
   addMessage,
   changeBlockStatusInStore,
 } from '../../../store/slices/chatSlice';
+import WebSocket from './WebSocket';
 
 class ChatSocket extends WebSocket {
   constructor (dispatch, getState, room) {

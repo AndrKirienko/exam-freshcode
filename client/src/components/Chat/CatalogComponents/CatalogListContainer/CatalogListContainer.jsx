@@ -4,8 +4,8 @@ import {
   getCatalogList,
   removeChatFromCatalog,
 } from '../../../../store/slices/chatSlice';
-import CatalogList from '../CatalogList/CatalogList';
 import DialogList from '../../DialogComponents/DialogList/DialogList';
+import CatalogList from '../CatalogList/CatalogList';
 
 class CatalogListContainer extends Component {
   componentDidMount () {

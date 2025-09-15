@@ -1,5 +1,5 @@
-import * as yup from 'yup';
 import valid from 'card-validator';
+import * as yup from 'yup';
 
 export default {
   LoginSchem: yup.object().shape({
@@ -53,7 +53,7 @@ export default {
       .required('Display Name is required'),
     role: yup
       .string()
-      .matches(/(customer|creator|moderator)/)
+      .matches(/(customer|creator)/)
       .required('Role is required'),
     agreeOfTerms: yup
       .boolean()

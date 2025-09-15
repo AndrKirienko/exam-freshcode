@@ -1,28 +1,28 @@
 import React, { Component } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
-import './App.css';
-import Router from './router';
-import LoginPage from './pages/LoginPage/LoginPage';
-import RegistrationPage from './pages/RegistrationPage/RegistrationPage';
-import Payment from './pages/Payment/Payment';
-import StartContestPage from './pages/StartContestPage/StartContestPage';
-import Dashboard from './pages/Dashboard/Dashboard';
-import NotFound from './components/NotFound/NotFound';
-import Home from './pages/Home/Home';
-import ContestPage from './pages/ContestPage/ContestPage';
-import UserProfile from './pages/UserProfile/UserProfile';
 import 'react-toastify/dist/ReactToastify.css';
-import ContestCreationPage from './pages/ContestCreation/ContestCreationPage';
-import CONSTANTS from './constants';
+import './App.css';
 import browserHistory from './browserHistory';
 import ChatContainer from './components/Chat/ChatComponents/ChatContainer/ChatContainer';
-import Layout from './pages/Layout/Layout';
+import ModeratorDashboard from './components/ModeratorDashboard/ModeratorDashboard';
+import NotFound from './components/NotFound/NotFound';
 import OnlyNotAuthorizedUserRoute from './components/Routes/OnlyNotAuthorizedUserRoute/OnlyNotAuthorizedUserRoute';
 import PrivateRoute from './components/Routes/PrivateRoute/PrivateRoute';
-import HowItWorksPage from './pages/HowItWorksPage/HowItWorksPage';
+import CONSTANTS from './constants';
+import ContestCreationPage from './pages/ContestCreation/ContestCreationPage';
+import ContestPage from './pages/ContestPage/ContestPage';
+import Dashboard from './pages/Dashboard/Dashboard';
 import EventsPage from './pages/EventsPage/EventsPage';
-import ModeratorDashboard from './components/ModeratorDashboard/ModeratorDashboard';
+import Home from './pages/Home/Home';
+import HowItWorksPage from './pages/HowItWorksPage/HowItWorksPage';
+import Layout from './pages/Layout/Layout';
+import LoginPage from './pages/LoginPage/LoginPage';
+import Payment from './pages/Payment/Payment';
+import RegistrationPage from './pages/RegistrationPage/RegistrationPage';
+import StartContestPage from './pages/StartContestPage/StartContestPage';
+import UserProfile from './pages/UserProfile/UserProfile';
+import Router from './router';
 
 class App extends Component {
   render () {

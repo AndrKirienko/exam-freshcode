@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import CONSTANTS from '../../constants';
+import { Link } from 'react-router-dom';
 import SlideBar from '../../components/SlideBar/SlideBar';
-import styles from './Home.module.sass';
-import carouselConstants from '../../data/carouselConstants';
 import Spinner from '../../components/Spinner/Spinner';
+import CONSTANTS from '../../constants';
+import carouselConstants from '../../data/carouselConstants';
+import styles from './Home.module.sass';
 
 const Home = props => {
   const [index, setIndex] = useState(0);

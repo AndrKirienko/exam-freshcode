@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import UserMenu from './../UserMenu';
-import styles from './RenderLoginButtons.module.sass';
 import CONSTANTS from '../../../../constants';
 import CountNotification from '../../../Events/CountNotification/CountNotification';
+import UserMenu from './../UserMenu';
+import styles from './RenderLoginButtons.module.sass';
 
 class RenderLoginButtons extends Component {
   renderLoginButtons = () => {

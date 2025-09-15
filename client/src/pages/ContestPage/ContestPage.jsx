@@ -1,28 +1,28 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import classNames from 'classnames';
 import isEqual from 'lodash/isEqual';
+import React, { Component } from 'react';
 import LightBox from 'react-18-image-lightbox';
+import 'react-18-image-lightbox/style.css';
+import { connect } from 'react-redux';
+import Brief from '../../components/Brief/Brief';
+import ContestSideBar from '../../components/ContestSideBar/ContestSideBar';
+import Error from '../../components/Error/Error';
+import OfferBox from '../../components/OfferBox/OfferBox';
+import OfferForm from '../../components/OfferForm/OfferForm';
+import Spinner from '../../components/Spinner/Spinner';
+import TryAgain from '../../components/TryAgain/TryAgain';
+import CONSTANTS from '../../constants';
 import withRouter from '../../hocs/withRouter';
 import { goToExpandedDialog } from '../../store/slices/chatSlice';
 import {
+  changeContestViewMode,
+  changeEditContest,
+  changeShowImage,
+  clearSetOfferStatusError,
   getContestById,
   setOfferStatus,
-  clearSetOfferStatusError,
-  changeEditContest,
-  changeContestViewMode,
-  changeShowImage,
 } from '../../store/slices/contestByIdSlice';
-import ContestSideBar from '../../components/ContestSideBar/ContestSideBar';
 import styles from './ContestPage.module.sass';
-import OfferBox from '../../components/OfferBox/OfferBox';
-import OfferForm from '../../components/OfferForm/OfferForm';
-import CONSTANTS from '../../constants';
-import Brief from '../../components/Brief/Brief';
-import Spinner from '../../components/Spinner/Spinner';
-import TryAgain from '../../components/TryAgain/TryAgain';
-import 'react-18-image-lightbox/style.css';
-import Error from '../../components/Error/Error';
 
 class ContestPage extends Component {
   componentWillUnmount () {

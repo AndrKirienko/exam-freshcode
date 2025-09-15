@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import UpdateUserInfoForm from '../UpdateUserInfoForm/UpdateUserInfoForm';
-import { updateUser } from '../../store/slices/userSlice';
-import { changeEditModeOnUserProfile } from '../../store/slices/userProfileSlice';
 import CONSTANTS from '../../constants';
+import { changeEditModeOnUserProfile } from '../../store/slices/userProfileSlice';
+import { updateUser } from '../../store/slices/userSlice';
+import UpdateUserInfoForm from '../UpdateUserInfoForm/UpdateUserInfoForm';
 import styles from './UserInfo.module.sass';
 
 const UserInfo = props => {
@@ -17,15 +17,8 @@ const UserInfo = props => {
   };
 
   const { isEdit, changeEditMode, data } = props;
-  const {
-    avatar,
-    firstName,
-    lastName,
-    displayName,
-    email,
-    role,
-    balance,
-  } = data;
+  const { avatar, firstName, lastName, displayName, email, role, balance } =
+    data;
   return (
     <div className={styles.mainContainer}>
       {isEdit ? (

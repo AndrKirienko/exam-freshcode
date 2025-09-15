@@ -1,13 +1,14 @@
-import React, { Component } from 'react';
 import classNames from 'classnames';
-import { TimerContext } from './TimerProvider';
+import React, { Component } from 'react';
 import styles from './EventsList.module.sass';
+import { TimerContext } from './TimerProvider';
 
 class EventsList extends Component {
   static contextType = TimerContext;
 
   render () {
     const { events, timers, deleteEvent, clearNotification } = this.context;
+    const { onEdit } = this.props;
 
     return (
       <div className={styles.eventsContainer}>
@@ -17,7 +18,12 @@ class EventsList extends Component {
             {events.map((event, index) => (
               <li key={index} className={styles.listItem}>
                 <h3 className={styles.listItemTitle}>
-                  {event.eventName}
+                  {event.eventName}{' '}
+                  <button
+                    title='Edit'
+                    className={classNames(styles.edit, 'fas fa-edit')}
+                    onClick={() => onEdit(event, index)}
+                  ></button>
                   {event.notificationAlerts && (
                     <span
                       className={styles.markerContainer}
