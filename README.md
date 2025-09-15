@@ -30,6 +30,11 @@ All tasks should be checked in the main branch, except for the Db No-SQL task.
 </br>
 
 ### User Authorization
+To authorize users, you need to set the file .env
+|Variable|Value|
+|-----|:----:|
+|ACCESS_TOKEN_SECRET|asdasdasd4as5d4as8d7a8sd4as65d4a8sd7asd4as56d4|
+
 
 |Role|Email Address|Password|
 |-----|:----:|:----:|
