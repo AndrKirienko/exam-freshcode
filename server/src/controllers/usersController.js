@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 const moment = require('moment');
+const path = require('path');
 const { v4: uuid } = require('uuid');
 const bd = require('../models');
 const NotUniqueEmail = require('../errors/NotUniqueEmail');
@@ -9,8 +10,12 @@ const bankQueries = require('./queries/bankQueries');
 const ratingQueries = require('./queries/ratingQueries');
 const CONSTANTS = require('../constants');
 
-const { SQUADHELP_BANK_NUMBER, SQUADHELP_BANK_CVC, SQUADHELP_BANK_EXPIRY } =
-  CONSTANTS;
+const {
+  SQUADHELP_BANK_NUMBER,
+  SQUADHELP_BANK_CVC,
+  SQUADHELP_BANK_EXPIRY,
+  STATIC_FOLDER: { AVATARS },
+} = CONSTANTS;
 
 const { ACCESS_TOKEN_SECRET, ACCESS_TOKEN_TIME } = process.env;
 
@@ -182,39 +187,10 @@ module.exports.payment = async (req, res, next) => {
   }
 };
 
-module.exports.updateAvatar = async (req, res, next) => {
-  const {
-    file,
-    // tokenData: { userId },
-  } = req;
-
-  try {
-    if (!file) {
-      return next();
-    }
-    // console.log(req.tokenData);
-    const [, [updatedUser]] = await userQueries.updateUser(
-      {
-        avatar: 'images/' + file.filename,
-      }
-      //{ where: { userId }, returning: true, raw: true }
-    );
-    if (!updatedUser) {
-      return next();
-    }
-    res.status(200).send({ updatedUser });
-  } catch (err) {
-    next(err);
-  }
-};
-
 module.exports.updateUser = async (req, res, next) => {
   try {
-    console.log('me2 ----');
-    // console.log(req.file);
     if (req.file) {
-      //const [, [updatedUser]] = await userQueries.updateUser();
-      //req.body.avatar = req.file.filename;
+      req.body.avatar = path.join(AVATARS, req.file.filename);
     }
 
     const updatedUser = await userQueries.updateUser(

@@ -32,12 +32,7 @@ router.get('/downloadFile/:fileName', contestController.downloadFile);
 
 router.post('/changeMark', basic.onlyForCustomer, usersController.changeMark);
 
-router.patch(
-  '/updateUser',
-  upload.uploadAvatar,
-  usersController.updateAvatar
-  //usersController.updateUser
-);
+router.patch('/updateUser', upload.uploadAvatar, usersController.updateUser);
 
 router.post('/cashout', basic.onlyForCreative, usersController.cashout);
 

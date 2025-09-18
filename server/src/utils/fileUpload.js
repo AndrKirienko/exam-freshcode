@@ -35,7 +35,9 @@ const storageContestFiles = dir =>
     },
   });
 
-const uploadAvatars = multer({ storage: storageContestFiles }).single('file');
+const uploadAvatars = multer({
+  storage: storageContestFiles(AVATARS),
+}).single('file');
 const uploadContestFiles = multer({ storage: storageContestFiles }).array(
   'files',
   3
@@ -47,19 +49,16 @@ const uploadLogoFiles = multer({ storage: storageContestFiles }).single(
   'offerData'
 );
 
-const upload = multer({ storage: storageContestFiles('avatars') });
-module.exports.uploadAvatar = upload.single('file');
-//(req, res, next) => {
-//   console.log('ssss');
-//   uploadAvatars(req, res, err => {
-//     if (err instanceof multer.MulterError) {
-//       next(new ServerError());
-//     } else if (err) {
-//       next(new ServerError());
-//     }
-//     return next();
-//   });
-// };
+module.exports.uploadAvatar = (req, res, next) => {
+  uploadAvatars(req, res, err => {
+    if (err instanceof multer.MulterError) {
+      next(new ServerError());
+    } else if (err) {
+      next(new ServerError());
+    }
+    return next();
+  });
+};
 
 module.exports.uploadContestFiles = (req, res, next) => {
   uploadContestFiles(req, res, err => {
