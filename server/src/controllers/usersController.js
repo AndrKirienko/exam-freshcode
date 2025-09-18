@@ -182,11 +182,41 @@ module.exports.payment = async (req, res, next) => {
   }
 };
 
+module.exports.updateAvatar = async (req, res, next) => {
+  const {
+    file,
+    // tokenData: { userId },
+  } = req;
+
+  try {
+    if (!file) {
+      return next();
+    }
+    // console.log(req.tokenData);
+    const [, [updatedUser]] = await userQueries.updateUser(
+      {
+        avatar: 'images/' + file.filename,
+      }
+      //{ where: { userId }, returning: true, raw: true }
+    );
+    if (!updatedUser) {
+      return next();
+    }
+    res.status(200).send({ updatedUser });
+  } catch (err) {
+    next(err);
+  }
+};
+
 module.exports.updateUser = async (req, res, next) => {
   try {
+    console.log('me2 ----');
+    // console.log(req.file);
     if (req.file) {
-      req.body.avatar = req.file.filename;
+      //const [, [updatedUser]] = await userQueries.updateUser();
+      //req.body.avatar = req.file.filename;
     }
+
     const updatedUser = await userQueries.updateUser(
       req.body,
       req.tokenData.userId

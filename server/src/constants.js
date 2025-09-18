@@ -1,7 +1,7 @@
 const path = require('path');
 
 const STATIC_FOLDER = path.resolve(process.env.STATIC_FOLDER);
-
+const STATIC_IMAGES_FOLDER = 'images';
 module.exports = {
   SALT_ROUNDS: 5,
   SQUADHELP_BANK_NUMBER: '4564654564564564',
@@ -25,6 +25,11 @@ module.exports = {
   OFFER_STATUS_REJECTED: 'rejected',
   OFFER_STATUS_WON: 'won',
   STATIC_PATH: path.resolve(STATIC_FOLDER),
+  STATIC_IMAGES_PATH: path.resolve(STATIC_FOLDER, STATIC_IMAGES_FOLDER),
+  STATIC_FOLDER: {
+    AVATARS: 'avatars',
+    CONTESTS: 'contests',
+  },
   SOCKET_CONNECTION: 'connection',
   SOCKET_SUBSCRIBE: 'subscribe',
   SOCKET_UNSUBSCRIBE: 'unsubscribe',
