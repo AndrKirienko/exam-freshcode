@@ -3,6 +3,7 @@ const express = require('express');
 const queryParser = require('query-parser-express');
 const router = require('./router');
 const handlerError = require('./handlerError/handler');
+const { STATIC_PATH } = require('./constants');
 
 const app = express();
 
@@ -13,7 +14,7 @@ app.use(
     parseNumber: true,
   })
 );
-app.use('/public', express.static('public'));
+app.use('/public', express.static(STATIC_PATH));
 app.use(router);
 
 app.use(handlerError);
