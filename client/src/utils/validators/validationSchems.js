@@ -61,7 +61,7 @@ export default {
       .required('Must Accept Terms and Conditions'),
   }),
   ContestSchem: yup.object({
-    nameVenture: yup.string().min(3),
+    nameVenture: yup.string().min(1).required(),
     contestType: yup
       .string()
       .matches(/(name|tagline|logo)/)
@@ -91,9 +91,9 @@ export default {
         value => value && value.trim().length >= 1
       )
       .required('target customers required'),
-    styleName: yup.string().min(1),
-    typeOfName: yup.string().min(1),
-    typeOfTagline: yup.string().min(1),
+    styleName: yup.string().min(1).notRequired(),
+    typeOfName: yup.string().min(1).notRequired(),
+    typeOfTagline: yup.string().min(1).notRequired(),
     brandStyle: yup.string().min(1),
     file: yup.mixed(),
   }),

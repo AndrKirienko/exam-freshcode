@@ -32,7 +32,7 @@ module.exports.validateContestCreation = (req, res, next) => {
     .then(results => {
       results.forEach(result => {
         if (!result) {
-          return next(new BadRequestError());
+          return next(new BadRequestError('Invalid contest data'));
         }
       });
       next();

@@ -1,3 +1,4 @@
+const path = require('path');
 const db = require('../models');
 const CONSTANTS = require('../constants');
 const contestQueries = require('./queries/contestQueries');
@@ -15,6 +16,7 @@ const {
   CONTEST_STATUS_ACTIVE,
   CONTEST_STATUS_PENDING,
   OFFER_STATUS_WON,
+  STATIC_FOLDER: { LOGOS },
   OFFER_MODERATOR_STATUS: { PENDING },
 } = CONSTANTS;
 
@@ -26,11 +28,11 @@ module.exports.getOffersForModerator = async (req, res, next) => {
 
     const foundOffers = await Offers.findAll({
       where: { moderatorStatus: PENDING },
-      attributes: ['id', 'text'],
+      attributes: ['id', 'text', 'fileName', 'originalFileName'],
       include: [
         {
           model: Contests,
-          attributes: ['title', 'originalFileName'],
+          attributes: ['contestType', 'title', 'fileName', 'originalFileName'],
           where: { status: CONTEST_STATUS_ACTIVE },
           include: [
             {
@@ -121,7 +123,7 @@ module.exports.sendMessageOfferStatus = async (req, res, next) => {
 module.exports.setNewOffer = async (req, res, next) => {
   const obj = {};
   if (req.body.contestType === LOGO_CONTEST) {
-    obj.fileName = req.file.filename;
+    obj.fileName = path.join(LOGOS, req.file.filename);
     obj.originalFileName = req.file.originalname;
   } else {
     obj.text = req.body.offerData;

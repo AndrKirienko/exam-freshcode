@@ -5,7 +5,7 @@ const ServerError = require('../errors/ServerError');
 const env = process.env.NODE_ENV || 'development';
 const {
   STATIC_IMAGES_PATH,
-  STATIC_FOLDER: { AVATARS, CONTESTS },
+  STATIC_FOLDER: { AVATARS, CONTESTS, LOGOS },
 } = require('./../constants');
 const devFilePath = STATIC_IMAGES_PATH;
 
@@ -14,6 +14,7 @@ const filePath = env === 'production' ? '/var/www/html/images/' : devFilePath;
 const folders = {
   avatars: AVATARS,
   contests: CONTESTS,
+  logos: LOGOS,
 };
 
 Object.values(folders).forEach(dir => {
@@ -38,16 +39,15 @@ const storageContestFiles = dir =>
 const uploadAvatars = multer({
   storage: storageContestFiles(AVATARS),
 }).single('file');
-const uploadContestFiles = multer({ storage: storageContestFiles }).array(
-  'files',
-  3
-);
-const updateContestFile = multer({ storage: storageContestFiles }).single(
-  'file'
-);
-const uploadLogoFiles = multer({ storage: storageContestFiles }).single(
-  'offerData'
-);
+const uploadContestFiles = multer({
+  storage: storageContestFiles(CONTESTS),
+}).array('files', 3);
+const updateContestFile = multer({
+  storage: storageContestFiles(CONTESTS),
+}).single('file');
+const uploadLogoFiles = multer({
+  storage: storageContestFiles(LOGOS),
+}).single('offerData');
 
 module.exports.uploadAvatar = (req, res, next) => {
   uploadAvatars(req, res, err => {

@@ -29,6 +29,7 @@ module.exports = {
   STATIC_FOLDER: {
     AVATARS: 'avatars',
     CONTESTS: 'contests',
+    LOGOS: 'logos',
   },
   SOCKET_CONNECTION: 'connection',
   SOCKET_SUBSCRIBE: 'subscribe',
