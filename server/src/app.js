@@ -1,5 +1,6 @@
 const cors = require('cors');
 const express = require('express');
+const cookieParser = require('cookie-parser');
 const queryParser = require('query-parser-express');
 const router = require('./router');
 const handlerError = require('./handlerError/handler');
@@ -9,6 +10,7 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
+app.use(cookieParser());
 app.use(
   queryParser({
     parseNumber: true,

@@ -17,7 +17,12 @@ const {
   STATIC_FOLDER: { AVATARS },
 } = CONSTANTS;
 
-const { ACCESS_TOKEN_SECRET, ACCESS_TOKEN_TIME } = process.env;
+const {
+  ACCESS_TOKEN_SECRET,
+  ACCESS_TOKEN_TIME,
+  REFRESH_TOKEN_SECRET,
+  REFRESH_TOKEN_TIME,
+} = process.env;
 
 module.exports.login = async (req, res, next) => {
   try {
@@ -50,22 +55,42 @@ module.exports.registration = async (req, res, next) => {
     const newUser = await userQueries.userCreation(
       Object.assign(req.body, { password: req.hashPass })
     );
-    const accessToken = jwt.sign(
-      {
-        firstName: newUser.firstName,
-        userId: newUser.id,
-        role: newUser.role,
-        lastName: newUser.lastName,
-        avatar: newUser.avatar,
-        displayName: newUser.displayName,
-        balance: newUser.balance,
-        email: newUser.email,
-        rating: newUser.rating,
-      },
-      ACCESS_TOKEN_SECRET,
-      { expiresIn: ACCESS_TOKEN_TIME }
-    );
+    const user = {
+      firstName: newUser.firstName,
+      userId: newUser.id,
+      role: newUser.role,
+      lastName: newUser.lastName,
+      avatar: newUser.avatar,
+      displayName: newUser.displayName,
+      balance: newUser.balance,
+      email: newUser.email,
+      rating: newUser.rating,
+    };
+
+    const accessToken = jwt.sign(user, ACCESS_TOKEN_SECRET, {
+      expiresIn: ACCESS_TOKEN_TIME,
+    });
+    const refreshToken = jwt.sign(user, REFRESH_TOKEN_SECRET, {
+      expiresIn: REFRESH_TOKEN_TIME,
+    });
+
+    const tokenData = await bd.Tokens.findOne({
+      where: { userId: newUser.id },
+    });
+
+    if (tokenData) {
+      tokenData.refreshToken = refreshToken;
+      await tokenData.save();
+      return tokenData;
+    }
+
+    await bd.Tokens.create({ userId: newUser.id, refreshToken });
     await userQueries.updateUser({ accessToken }, newUser.id);
+
+    res.cookie('refreshToken', refreshToken, {
+      maxAge: 30 * 24 * 60 * 60 * 1000,
+      httpOnly: true,
+    });
     res.send({ token: accessToken });
   } catch (err) {
     if (err.name === 'SequelizeUniqueConstraintError') {
