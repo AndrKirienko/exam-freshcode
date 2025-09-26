@@ -75,6 +75,8 @@ module.exports.login = async (req, res, next) => {
     res.cookie('refreshToken', refreshToken, {
       maxAge: 30 * 24 * 60 * 60 * 1000,
       httpOnly: true,
+      secure: true,
+      sameSite: 'None',
     });
     res.send({ token: accessToken });
   } catch (err) {
@@ -133,6 +135,8 @@ module.exports.registration = async (req, res, next) => {
     res.cookie('refreshToken', refreshToken, {
       maxAge: 30 * 24 * 60 * 60 * 1000,
       httpOnly: true,
+      secure: true,
+      sameSite: 'None',
     });
     res.send({ token: accessToken });
   } catch (err) {
@@ -145,9 +149,14 @@ module.exports.registration = async (req, res, next) => {
 };
 
 module.exports.logout = async (req, res, next) => {
-  const { id: userId } = req.body;
+  const {
+    body: { id: userId },
+    cookies: { refreshToken },
+  } = req;
   try {
-    const deleteToken = await bd.Tokens.destroy({ where: { userId } });
+    const deleteToken = await bd.Tokens.destroy({
+      where: { userId, refreshToken },
+    });
 
     if (!deleteToken) {
       return next(new ServerError());

@@ -4,6 +4,7 @@ import CONTANTS from '../constants';
 
 const instance = axios.create({
   baseURL: CONTANTS.BASE_URL,
+  withCredentials: true,
 });
 
 instance.interceptors.request.use(
