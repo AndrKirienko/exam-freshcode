@@ -9,6 +9,7 @@ const userQueries = require('./queries/userQueries');
 const bankQueries = require('./queries/bankQueries');
 const ratingQueries = require('./queries/ratingQueries');
 const CONSTANTS = require('../constants');
+const ServerError = require('../errors/ServerError');
 
 const {
   SQUADHELP_BANK_NUMBER,
@@ -28,22 +29,53 @@ module.exports.login = async (req, res, next) => {
   try {
     const foundUser = await userQueries.findUser({ email: req.body.email });
     await userQueries.passwordCompare(req.body.password, foundUser.password);
-    const accessToken = jwt.sign(
-      {
-        firstName: foundUser.firstName,
-        userId: foundUser.id,
-        role: foundUser.role,
-        lastName: foundUser.lastName,
-        avatar: foundUser.avatar,
-        displayName: foundUser.displayName,
-        balance: foundUser.balance,
-        email: foundUser.email,
-        rating: foundUser.rating,
-      },
-      ACCESS_TOKEN_SECRET,
-      { expiresIn: ACCESS_TOKEN_TIME }
+    const user = {
+      firstName: foundUser.firstName,
+      userId: foundUser.id,
+      role: foundUser.role,
+      lastName: foundUser.lastName,
+      avatar: foundUser.avatar,
+      displayName: foundUser.displayName,
+      balance: foundUser.balance,
+      email: foundUser.email,
+      rating: foundUser.rating,
+    };
+
+    const accessToken = jwt.sign(user, ACCESS_TOKEN_SECRET, {
+      expiresIn: ACCESS_TOKEN_TIME,
+    });
+    const refreshToken = jwt.sign(user, REFRESH_TOKEN_SECRET, {
+      expiresIn: REFRESH_TOKEN_TIME,
+    });
+
+    const tokenData = await bd.Tokens.findOne({
+      where: { userId: foundUser.id },
+    });
+
+    if (tokenData) {
+      tokenData.refreshToken = refreshToken;
+      await tokenData.save();
+    }
+
+    const createTokens = await bd.Tokens.create({
+      userId: foundUser.id,
+      refreshToken,
+    });
+    if (!createTokens) {
+      return res.status(400).json('Token not create');
+    }
+    const updateUser = await userQueries.updateUser(
+      { accessToken },
+      foundUser.id
     );
-    await userQueries.updateUser({ accessToken }, foundUser.id);
+    if (!updateUser) {
+      return res.status(400).json('User not update');
+    }
+
+    res.cookie('refreshToken', refreshToken, {
+      maxAge: 30 * 24 * 60 * 60 * 1000,
+      httpOnly: true,
+    });
     res.send({ token: accessToken });
   } catch (err) {
     next(err);
@@ -81,11 +113,22 @@ module.exports.registration = async (req, res, next) => {
     if (tokenData) {
       tokenData.refreshToken = refreshToken;
       await tokenData.save();
-      return tokenData;
     }
 
-    await bd.Tokens.create({ userId: newUser.id, refreshToken });
-    await userQueries.updateUser({ accessToken }, newUser.id);
+    const createTokens = await bd.Tokens.create({
+      userId: newUser.id,
+      refreshToken,
+    });
+    if (!createTokens) {
+      return res.status(400).json('Token not create');
+    }
+    const updateUser = await userQueries.updateUser(
+      { accessToken },
+      newUser.id
+    );
+    if (!updateUser) {
+      return res.status(400).json('User not update');
+    }
 
     res.cookie('refreshToken', refreshToken, {
       maxAge: 30 * 24 * 60 * 60 * 1000,
@@ -98,6 +141,21 @@ module.exports.registration = async (req, res, next) => {
     } else {
       next(err);
     }
+  }
+};
+
+module.exports.logout = async (req, res, next) => {
+  const { id: userId } = req.body;
+  try {
+    const deleteToken = await bd.Tokens.destroy({ where: { userId } });
+
+    if (!deleteToken) {
+      return next(new ServerError());
+    }
+
+    res.status(200).end();
+  } catch (err) {
+    next(err);
   }
 };
 

@@ -7,8 +7,13 @@ import { TimerContext } from '../../Events/EventsList/TimerProvider';
 import CONSTANTS from './../../../constants';
 import userMenu from './../../../data/menus/userMenu.json';
 import styles from './UserMenu.module.sass';
+import { checkAuth } from '../../../store/slices/authSlice';
 
-const { MODERATOR, CUSTOMER } = CONSTANTS;
+const {
+  MODERATOR,
+  CUSTOMER,
+  AUTH_MODE: { LOGOUT },
+} = CONSTANTS;
 
 class UserMenu extends Component {
   static contextType = TimerContext;
@@ -17,9 +22,11 @@ class UserMenu extends Component {
     this.props.localStorage.clear();
     this.props.clearUserStore();
     clearAllData();
-    this.props.navigate('/login', { replace: true });
+    this.props.logoutRequest({
+      data: this.props.userStore.data,
+      navigate: this.props.navigate,
+    });
   };
-
   handleAction = action => {
     if (typeof this[action] === 'function') {
       this[action]();
@@ -77,5 +84,11 @@ const mapStateToProps = state => {
   const { userStore } = state;
   return { userStore };
 };
-
-export default connect(mapStateToProps)(withRouter(UserMenu));
+const mapDispatchToProps = dispatch => ({
+  logoutRequest: ({ data, navigate }) =>
+    dispatch(checkAuth({ data, navigate, authMode: LOGOUT })),
+});
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(UserMenu));
