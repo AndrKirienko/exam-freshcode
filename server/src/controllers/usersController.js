@@ -152,7 +152,7 @@ module.exports.logout = async (req, res, next) => {
     if (!deleteToken) {
       return next(new ServerError());
     }
-
+    res.clearCookie('refreshToken');
     res.status(200).end();
   } catch (err) {
     next(err);
