@@ -14,8 +14,9 @@ router.post(
   hashPass,
   usersController.registration
 );
-
 router.post('/login', validators.validateLogin, usersController.login);
+router.post('/logout', usersController.logout);
+router.get('/refresh', usersController.refreshToken);
 
 router.get('/getUser', checkToken.checkAuth);
 
