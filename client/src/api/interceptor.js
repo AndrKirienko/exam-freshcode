@@ -1,15 +1,17 @@
 import axios from 'axios';
 import history from '../browserHistory';
-import CONTANTS from '../constants';
+import CONSTANTS from '../constants';
+
+const { BASE_URL, ACCESS_TOKEN } = CONSTANTS;
 
 const instance = axios.create({
-  baseURL: CONTANTS.BASE_URL,
+  baseURL: BASE_URL,
   withCredentials: true,
 });
 
 instance.interceptors.request.use(
   config => {
-    const token = window.localStorage.getItem(CONTANTS.ACCESS_TOKEN);
+    const token = window.localStorage.getItem(ACCESS_TOKEN);
     if (token) {
       config.headers = { ...config.headers, Authorization: token };
     }
@@ -21,19 +23,32 @@ instance.interceptors.request.use(
 instance.interceptors.response.use(
   response => {
     if (response.data.token) {
-      window.localStorage.setItem(CONTANTS.ACCESS_TOKEN, response.data.token);
+      window.localStorage.setItem(ACCESS_TOKEN, response.data.token);
     }
     return response;
   },
-  err => {
+  async err => {
+    const originalRequest = err.config;
     if (
       err.response.status === 408 &&
+      err.config &&
+      !err.config._isRetry &&
       history.location.pathname !== '/login' &&
       history.location.pathname !== '/registration' &&
       history.location.pathname !== '/'
     ) {
-      history.replace('/login');
+      originalRequest._isRetry = true;
+      try {
+        const response = await axios.get(`${BASE_URL}refresh`, {
+          withCredentials: true,
+        });
+        window.localStorage.setItem('accessToken', response.data.accessToken);
+        return instance.request(originalRequest);
+      } catch (err) {
+        history.replace('/login');
+      }
     }
+
     return Promise.reject(err);
   }
 );

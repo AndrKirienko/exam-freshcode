@@ -8,7 +8,7 @@ const { STATIC_PATH } = require('./constants');
 
 const FRONT_PORT = process.env.FRONT_PORT || 5000;
 const HOST = process.env.HOST || 'localhost';
-console.log(process.env);
+
 const app = express();
 
 app.use(cookieParser());
