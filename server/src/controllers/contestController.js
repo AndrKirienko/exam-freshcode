@@ -1,4 +1,5 @@
 const { parse } = require('query-string');
+const path = require('path');
 const db = require('../models');
 const ServerError = require('../errors/ServerError');
 const contestQueries = require('./queries/contestQueries');
@@ -8,6 +9,7 @@ const CONSTANTS = require('../constants');
 const {
   ROLE: { CREATOR },
   OFFER_MODERATOR_STATUS: { RESOLVE },
+  STATIC_FOLDER: { CONTESTS },
 } = CONSTANTS;
 
 module.exports.dataForContest = async (req, res, next) => {
@@ -16,7 +18,6 @@ module.exports.dataForContest = async (req, res, next) => {
     const {
       body: { characteristic1, characteristic2 },
     } = req;
-    console.log(req.body, characteristic1, characteristic2);
     const types = [characteristic1, characteristic2, 'industry'].filter(
       Boolean
     );
@@ -112,7 +113,7 @@ module.exports.updateContest = async (req, res, next) => {
   } = req;
 
   if (file) {
-    body.fileName = file.filename;
+    body.fileName = path.join(CONTESTS, file.filename);
     body.originalFileName = file.originalname;
   }
   const contestId = id;

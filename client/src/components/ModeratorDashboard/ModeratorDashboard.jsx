@@ -16,7 +16,9 @@ import styles from './ModeratorDashboard.module.sass';
 const {
   PAGINATION_OFFERS: { DEFAULT_RESULTS, DEFAULT_PAGE },
   MODERATOR,
+  LOGO_CONTEST,
   OFFER_MODERATOR_STATUS: { REJECT, RESOLVE },
+  publicURL,
 } = CONSTANTS;
 
 class ModeratorDashboard extends Component {
@@ -117,8 +119,12 @@ class ModeratorDashboard extends Component {
                   const {
                     id,
                     text,
+                    fileName,
+                    originalFileName,
+                    'Contest.contestType': contestType,
                     'Contest.title': contestTitle,
-                    'Contest.originalFileName': originalFileName,
+                    'Contest.fileName': fileNameContest,
+                    'Contest.originalFileName': originalFileNameContest,
                     'Contest.User.firstName': firstName,
                     'Contest.User.lastName': lastName,
                   } = o;
@@ -126,7 +132,19 @@ class ModeratorDashboard extends Component {
                   return (
                     <li key={id} className={styles.offerItem}>
                       <div className={styles.offersItemDescriptions}>
-                        <h2 className={styles.offerText}>Offer text: {text}</h2>
+                        {contestType === LOGO_CONTEST ? (
+                          <a target='_blank' href={`${publicURL}${fileName}`}>
+                            <img
+                              src={`${publicURL}${fileName}`}
+                              alt={originalFileName}
+                              className={styles.responseLogo}
+                            />
+                          </a>
+                        ) : (
+                          <h2 className={styles.offerText}>
+                            Offer text: {text}
+                          </h2>
+                        )}
                         <p>
                           <span className={styles.offersDescriptionsItem}>
                             Full name customer:
@@ -141,7 +159,7 @@ class ModeratorDashboard extends Component {
                           {contestTitle}
                         </p>
 
-                        {originalFileName && (
+                        {fileNameContest && (
                           <div>
                             <span className={styles.offersDescriptionsItem}>
                               File:
@@ -149,11 +167,10 @@ class ModeratorDashboard extends Component {
                             <a
                               target='_blank'
                               className={styles.file}
-                              download={originalFileName}
-                              href={originalFileName}
+                              href={`${publicURL}${fileNameContest}`}
                               rel='noreferrer'
                             >
-                              {originalFileName}
+                              {originalFileNameContest}
                             </a>
                           </div>
                         )}

@@ -1,3 +1,4 @@
+const path = require('path');
 const bd = require('../models');
 const RightsError = require('../errors/RightsError');
 const ServerError = require('../errors/ServerError');
@@ -7,6 +8,7 @@ const {
   ROLE: { CUSTOMER, CREATOR, MODERATOR },
   CONTEST_STATUS_ACTIVE,
   CONTEST_STATUS_FINISHED,
+  STATIC_FOLDER: { CONTESTS },
 } = CONSTANTS;
 
 module.exports.parseBody = (req, res, next) => {
@@ -14,7 +16,7 @@ module.exports.parseBody = (req, res, next) => {
   for (let i = 0; i < req.body.contests.length; i++) {
     if (req.body.contests[i].haveFile) {
       const file = req.files.splice(0, 1);
-      req.body.contests[i].fileName = file[0].filename;
+      req.body.contests[i].fileName = path.join(CONTESTS, file[0].filename);
       req.body.contests[i].originalFileName = file[0].originalname;
     }
   }

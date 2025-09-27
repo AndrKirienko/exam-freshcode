@@ -8,6 +8,10 @@ import {
   rejectedReducer,
 } from '../../utils/store';
 
+const {
+  AUTH_MODE: { REGISTER, LOGIN, LOGOUT },
+} = CONSTANTS;
+
 const AUTH_SLICE_NAME = 'auth';
 
 const initialState = {
@@ -18,10 +22,22 @@ const initialState = {
 export const checkAuth = decorateAsyncThunk({
   key: `${AUTH_SLICE_NAME}/checkAuth`,
   thunk: async ({ data: authInfo, navigate, authMode }) => {
-    authMode === CONSTANTS.AUTH_MODE.LOGIN
-      ? await restController.loginRequest(authInfo)
-      : await restController.registerRequest(authInfo);
-    navigate('/', { replace: true });
+    switch (authMode) {
+      case REGISTER:
+        await restController.registerRequest(authInfo);
+        navigate('/', { replace: true });
+        break;
+      case LOGIN:
+        await restController.loginRequest(authInfo);
+        navigate('/', { replace: true });
+        break;
+      case LOGOUT:
+        await restController.logoutRequest(authInfo);
+        navigate('/login', { replace: true });
+        break;
+      default:
+        throw new Error(`Unknown authMode: ${authMode} `);
+    }
   },
 });
 

@@ -37,6 +37,7 @@ export default {
   AUTH_MODE: {
     REGISTER: 'REGISTER',
     LOGIN: 'LOGIN',
+    LOGOUT: 'LOGOUT',
   },
   HEADER_ANIMATION_TEXT: [
     'a Company',

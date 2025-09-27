@@ -29,12 +29,14 @@ All tasks should be checked in the main branch, except for the Db No-SQL task.
 ---
 </br>
 
-### User Authorization
-To authorize users, you need to set the file .env
+### JWT Configs
+You need to set the file .env
 |Variable|Value|
 |-----|:----:|
 |ACCESS_TOKEN_SECRET|asdasdasd4as5d4as8d7a8sd4as65d4a8sd7asd4as56d4|
+|REFRESH_TOKEN_SECRET|f7a4d9s2a8d5a7s4d6a9s8d4a7sd5a4a8sd7a5d4s6a9d3|
 
+### User Authorization
 
 |Role|Email Address|Password|
 |-----|:----:|:----:|

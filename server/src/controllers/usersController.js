@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 const moment = require('moment');
+const path = require('path');
 const { v4: uuid } = require('uuid');
 const bd = require('../models');
 const NotUniqueEmail = require('../errors/NotUniqueEmail');
@@ -8,32 +9,75 @@ const userQueries = require('./queries/userQueries');
 const bankQueries = require('./queries/bankQueries');
 const ratingQueries = require('./queries/ratingQueries');
 const CONSTANTS = require('../constants');
+const ServerError = require('../errors/ServerError');
 
-const { SQUADHELP_BANK_NUMBER, SQUADHELP_BANK_CVC, SQUADHELP_BANK_EXPIRY } =
-  CONSTANTS;
+const {
+  SQUADHELP_BANK_NUMBER,
+  SQUADHELP_BANK_CVC,
+  SQUADHELP_BANK_EXPIRY,
+  STATIC_FOLDER: { AVATARS },
+} = CONSTANTS;
 
-const { ACCESS_TOKEN_SECRET, ACCESS_TOKEN_TIME } = process.env;
+const {
+  ACCESS_TOKEN_SECRET,
+  ACCESS_TOKEN_TIME,
+  REFRESH_TOKEN_SECRET,
+  REFRESH_TOKEN_TIME,
+} = process.env;
 
 module.exports.login = async (req, res, next) => {
   try {
     const foundUser = await userQueries.findUser({ email: req.body.email });
     await userQueries.passwordCompare(req.body.password, foundUser.password);
-    const accessToken = jwt.sign(
-      {
-        firstName: foundUser.firstName,
-        userId: foundUser.id,
-        role: foundUser.role,
-        lastName: foundUser.lastName,
-        avatar: foundUser.avatar,
-        displayName: foundUser.displayName,
-        balance: foundUser.balance,
-        email: foundUser.email,
-        rating: foundUser.rating,
-      },
-      ACCESS_TOKEN_SECRET,
-      { expiresIn: ACCESS_TOKEN_TIME }
+    const user = {
+      firstName: foundUser.firstName,
+      userId: foundUser.id,
+      role: foundUser.role,
+      lastName: foundUser.lastName,
+      avatar: foundUser.avatar,
+      displayName: foundUser.displayName,
+      balance: foundUser.balance,
+      email: foundUser.email,
+      rating: foundUser.rating,
+    };
+
+    const accessToken = jwt.sign(user, ACCESS_TOKEN_SECRET, {
+      expiresIn: ACCESS_TOKEN_TIME,
+    });
+    const refreshToken = jwt.sign(user, REFRESH_TOKEN_SECRET, {
+      expiresIn: REFRESH_TOKEN_TIME,
+    });
+
+    const tokenData = await bd.Tokens.findOne({
+      where: { userId: foundUser.id },
+    });
+
+    if (tokenData) {
+      tokenData.refreshToken = refreshToken;
+      await tokenData.save();
+    }
+
+    const createTokens = await bd.Tokens.create({
+      userId: foundUser.id,
+      refreshToken,
+    });
+    if (!createTokens) {
+      return res.status(400).json('Token not create');
+    }
+    const updateUser = await userQueries.updateUser(
+      { accessToken },
+      foundUser.id
     );
-    await userQueries.updateUser({ accessToken }, foundUser.id);
+    if (!updateUser) {
+      return res.status(400).json('User not update');
+    }
+
+    res.cookie('refreshToken', refreshToken, {
+      maxAge: 30 * 24 * 60 * 60 * 1000,
+      httpOnly: true,
+      secure: true,
+      sameSite: 'None',
+    });
     res.send({ token: accessToken });
   } catch (err) {
     next(err);
@@ -45,22 +89,55 @@ module.exports.registration = async (req, res, next) => {
     const newUser = await userQueries.userCreation(
       Object.assign(req.body, { password: req.hashPass })
     );
-    const accessToken = jwt.sign(
-      {
-        firstName: newUser.firstName,
-        userId: newUser.id,
-        role: newUser.role,
-        lastName: newUser.lastName,
-        avatar: newUser.avatar,
-        displayName: newUser.displayName,
-        balance: newUser.balance,
-        email: newUser.email,
-        rating: newUser.rating,
-      },
-      ACCESS_TOKEN_SECRET,
-      { expiresIn: ACCESS_TOKEN_TIME }
+    const user = {
+      firstName: newUser.firstName,
+      userId: newUser.id,
+      role: newUser.role,
+      lastName: newUser.lastName,
+      avatar: newUser.avatar,
+      displayName: newUser.displayName,
+      balance: newUser.balance,
+      email: newUser.email,
+      rating: newUser.rating,
+    };
+
+    const accessToken = jwt.sign(user, ACCESS_TOKEN_SECRET, {
+      expiresIn: ACCESS_TOKEN_TIME,
+    });
+    const refreshToken = jwt.sign(user, REFRESH_TOKEN_SECRET, {
+      expiresIn: REFRESH_TOKEN_TIME,
+    });
+
+    const tokenData = await bd.Tokens.findOne({
+      where: { userId: newUser.id },
+    });
+
+    if (tokenData) {
+      tokenData.refreshToken = refreshToken;
+      await tokenData.save();
+    }
+
+    const createTokens = await bd.Tokens.create({
+      userId: newUser.id,
+      refreshToken,
+    });
+    if (!createTokens) {
+      return res.status(400).json('Token not create');
+    }
+    const updateUser = await userQueries.updateUser(
+      { accessToken },
+      newUser.id
     );
-    await userQueries.updateUser({ accessToken }, newUser.id);
+    if (!updateUser) {
+      return res.status(400).json('User not update');
+    }
+
+    res.cookie('refreshToken', refreshToken, {
+      maxAge: 30 * 24 * 60 * 60 * 1000,
+      httpOnly: true,
+      secure: true,
+      sameSite: 'None',
+    });
     res.send({ token: accessToken });
   } catch (err) {
     if (err.name === 'SequelizeUniqueConstraintError') {
@@ -68,6 +145,95 @@ module.exports.registration = async (req, res, next) => {
     } else {
       next(err);
     }
+  }
+};
+
+module.exports.logout = async (req, res, next) => {
+  const {
+    body: { id: userId },
+    cookies: { refreshToken },
+  } = req;
+  try {
+    const deleteToken = await bd.Tokens.destroy({
+      where: { userId, refreshToken },
+    });
+
+    if (!deleteToken) {
+      return next(new ServerError());
+    }
+    res.clearCookie('refreshToken');
+    res.status(200).end();
+  } catch (err) {
+    next(err);
+  }
+};
+
+module.exports.refreshToken = async (req, res, next) => {
+  const {
+    cookies: { refreshToken },
+  } = req;
+
+  try {
+    if (!refreshToken) {
+      return next(new ServerError());
+    }
+    const userData = jwt.verify(refreshToken, REFRESH_TOKEN_SECRET);
+    const tokenData = await bd.Tokens.findOne({ where: { refreshToken } });
+
+    if (!userData || !tokenData) {
+      return next(new ServerError());
+    }
+    const foundUser = await userQueries.findUser({ id: userData.userId });
+    const user = {
+      firstName: foundUser.firstName,
+      userId: foundUser.id,
+      role: foundUser.role,
+      lastName: foundUser.lastName,
+      avatar: foundUser.avatar,
+      displayName: foundUser.displayName,
+      balance: foundUser.balance,
+      email: foundUser.email,
+      rating: foundUser.rating,
+    };
+
+    const updateAccessToken = jwt.sign(user, ACCESS_TOKEN_SECRET, {
+      expiresIn: ACCESS_TOKEN_TIME,
+    });
+    const updateRefreshToken = jwt.sign(user, REFRESH_TOKEN_SECRET, {
+      expiresIn: REFRESH_TOKEN_TIME,
+    });
+
+    if (tokenData) {
+      tokenData.refreshToken = updateRefreshToken;
+      await tokenData.save();
+    }
+
+    const createTokens = await bd.Tokens.update(
+      { refreshToken: updateRefreshToken },
+      { where: { userId: foundUser.id } }
+    );
+    if (!createTokens) {
+      return res.status(400).json('Token not create');
+    }
+
+    const updateUser = await userQueries.updateUser(
+      { accessToken: updateAccessToken },
+      foundUser.id
+    );
+
+    if (!updateUser) {
+      return res.status(400).json('User not update');
+    }
+
+    res.cookie('refreshToken', updateRefreshToken, {
+      maxAge: 30 * 24 * 60 * 60 * 1000,
+      httpOnly: true,
+      secure: true,
+      sameSite: 'None',
+    });
+    return res.status(200).send({ accessToken: updateAccessToken });
+  } catch (err) {
+    next(err);
   }
 };
 
@@ -185,8 +351,9 @@ module.exports.payment = async (req, res, next) => {
 module.exports.updateUser = async (req, res, next) => {
   try {
     if (req.file) {
-      req.body.avatar = req.file.filename;
+      req.body.avatar = path.join(AVATARS, req.file.filename);
     }
+
     const updatedUser = await userQueries.updateUser(
       req.body,
       req.tokenData.userId
