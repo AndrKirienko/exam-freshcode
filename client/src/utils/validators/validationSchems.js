@@ -61,11 +61,18 @@ export default {
       .required('Must Accept Terms and Conditions'),
   }),
   ContestSchem: yup.object({
-    nameVenture: yup.string().min(1).required(),
     contestType: yup
       .string()
       .matches(/(name|tagline|logo)/)
       .required(),
+    nameVenture: yup.string().when('contestType', {
+      is: type => type === 'logo' || type === 'tagline',
+      then: schema =>
+        schema
+          .required('require')
+          .min(3, 'name of venture must be at least 3 characters'),
+      otherwise: schema => schema.notRequired(),
+    }),
     title: yup
       .string()
       .test(

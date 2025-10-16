@@ -35,7 +35,14 @@ module.exports.CONTEST_SCHEMA = yup.object().shape({
   focusOfWork: yup.string().required().min(1),
   targetCustomer: yup.string().required().min(1),
   styleName: yup.string().min(1).notRequired(),
-  nameVenture: yup.string().min(1).required(),
+  nameVenture: yup.string().when('contestType', {
+    is: type => type === 'logo' || type === 'tagline',
+    then: schema =>
+      schema
+        .required('require')
+        .min(3, 'name of venture must be at least 3 characters'),
+    otherwise: schema => schema.notRequired(),
+  }),
   typeOfTagline: yup.string().min(1).notRequired(),
   brandStyle: yup.string().min(1),
 });
