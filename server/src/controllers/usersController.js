@@ -48,22 +48,6 @@ module.exports.login = async (req, res, next) => {
       expiresIn: REFRESH_TOKEN_TIME,
     });
 
-    const tokenData = await bd.Tokens.findOne({
-      where: { userId: foundUser.id },
-    });
-
-    if (tokenData) {
-      tokenData.refreshToken = refreshToken;
-      await tokenData.save();
-    }
-
-    const createTokens = await bd.Tokens.create({
-      userId: foundUser.id,
-      refreshToken,
-    });
-    if (!createTokens) {
-      return res.status(400).json('Token not create');
-    }
     const updateUser = await userQueries.updateUser(
       { accessToken },
       foundUser.id
@@ -108,22 +92,6 @@ module.exports.registration = async (req, res, next) => {
       expiresIn: REFRESH_TOKEN_TIME,
     });
 
-    const tokenData = await bd.Tokens.findOne({
-      where: { userId: newUser.id },
-    });
-
-    if (tokenData) {
-      tokenData.refreshToken = refreshToken;
-      await tokenData.save();
-    }
-
-    const createTokens = await bd.Tokens.create({
-      userId: newUser.id,
-      refreshToken,
-    });
-    if (!createTokens) {
-      return res.status(400).json('Token not create');
-    }
     const updateUser = await userQueries.updateUser(
       { accessToken },
       newUser.id
@@ -149,18 +117,7 @@ module.exports.registration = async (req, res, next) => {
 };
 
 module.exports.logout = async (req, res, next) => {
-  const {
-    body: { id: userId },
-    cookies: { refreshToken },
-  } = req;
   try {
-    const deleteToken = await bd.Tokens.destroy({
-      where: { userId, refreshToken },
-    });
-
-    if (!deleteToken) {
-      return next(new ServerError());
-    }
     res.clearCookie('refreshToken');
     res.status(200).end();
   } catch (err) {
@@ -178,9 +135,8 @@ module.exports.refreshToken = async (req, res, next) => {
       return next(new ServerError());
     }
     const userData = jwt.verify(refreshToken, REFRESH_TOKEN_SECRET);
-    const tokenData = await bd.Tokens.findOne({ where: { refreshToken } });
 
-    if (!userData || !tokenData) {
+    if (!userData) {
       return next(new ServerError());
     }
     const foundUser = await userQueries.findUser({ id: userData.userId });
@@ -202,19 +158,6 @@ module.exports.refreshToken = async (req, res, next) => {
     const updateRefreshToken = jwt.sign(user, REFRESH_TOKEN_SECRET, {
       expiresIn: REFRESH_TOKEN_TIME,
     });
-
-    if (tokenData) {
-      tokenData.refreshToken = updateRefreshToken;
-      await tokenData.save();
-    }
-
-    const createTokens = await bd.Tokens.update(
-      { refreshToken: updateRefreshToken },
-      { where: { userId: foundUser.id } }
-    );
-    if (!createTokens) {
-      return res.status(400).json('Token not create');
-    }
 
     const updateUser = await userQueries.updateUser(
       { accessToken: updateAccessToken },
