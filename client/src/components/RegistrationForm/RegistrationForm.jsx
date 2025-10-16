@@ -69,42 +69,48 @@ class RegistrationForm extends Component {
           validationSchema={Schems.RegistrationSchem}
         >
           <Form className={styles.registrationForm}>
-            <FormInput
-              name='firstName'
-              classes={formInputClasses}
-              type='text'
-              label='First name'
-            />
-            <FormInput
-              name='lastName'
-              classes={formInputClasses}
-              type='text'
-              label='Last name'
-            />
-            <FormInput
-              name='displayName'
-              classes={formInputClasses}
-              type='text'
-              label='Display Name'
-            />
-            <FormInput
-              name='email'
-              classes={formInputClasses}
-              type='text'
-              label='Email Address'
-            />
-            <FormInput
-              name='password'
-              classes={formInputClasses}
-              type='password'
-              label='Password'
-            />
-            <FormInput
-              name='confirmPassword'
-              classes={formInputClasses}
-              type='password'
-              label='Password confirmation'
-            />
+            <div className={styles.row}>
+              <FormInput
+                name='firstName'
+                classes={formInputClasses}
+                type='text'
+                label='First name'
+              />
+              <FormInput
+                name='lastName'
+                classes={formInputClasses}
+                type='text'
+                label='Last name'
+              />
+            </div>
+            <div className={styles.row}>
+              <FormInput
+                name='displayName'
+                classes={formInputClasses}
+                type='text'
+                label='Display Name'
+              />
+              <FormInput
+                name='email'
+                classes={formInputClasses}
+                type='text'
+                label='Email Address'
+              />
+            </div>
+            <div className={styles.row}>
+              <FormInput
+                name='password'
+                classes={formInputClasses}
+                type='password'
+                label='Password'
+              />
+              <FormInput
+                name='confirmPassword'
+                classes={formInputClasses}
+                type='password'
+                label='Password confirmation'
+              />
+            </div>
             <div className={styles.choseRoleContainer}>
               <Field
                 name='role'
