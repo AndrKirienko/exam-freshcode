@@ -72,7 +72,6 @@ module.exports = (sequelize, DataTypes) => {
     User.hasMany(models.ConversationsParticipants, { foreignKey: 'userId' });
     User.hasMany(models.Messages, { foreignKey: 'sender' });
     User.hasMany(models.Catalogs, { foreignKey: 'userId' });
-    User.hasMany(models.Tokens, { foreignKey: 'userId' });
   };
 
   return User;
